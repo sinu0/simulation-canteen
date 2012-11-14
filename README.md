@@ -1,4 +1,4 @@
-process-simulation-canteen
+simulation-canteen
 ==========================
 
 Desmoj simulation
