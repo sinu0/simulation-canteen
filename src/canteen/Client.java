@@ -1,12 +1,19 @@
 package canteen;
 
+import java.util.LinkedList;
+
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 
 public class Client extends SimProcess {
 
-	public Client(Model arg0, String arg1, boolean arg2) {
-		super(arg0, arg1, arg2);
+	boolean isMemberOfGroup;
+	boolean isPrivileged;
+	int groupNumber;
+	LinkedList<String> selectedMenu;
+	
+	public Client(Model model, String name, boolean trace) {
+		super(model, name, trace);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -15,5 +22,9 @@ public class Client extends SimProcess {
 		// TODO Auto-generated method stub
 
 	}
+	public void selectMenu(){
+		
+	}
+	public 
 
 }

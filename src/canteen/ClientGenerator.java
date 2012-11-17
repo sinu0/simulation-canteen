@@ -5,14 +5,22 @@ import desmoj.core.simulator.SimProcess;
 
 public class ClientGenerator extends SimProcess{
 
-	public ClientGenerator(Model arg0, String arg1, boolean arg2) {
-		super(arg0, arg1, arg2);
+	static public int clientGenerate=0;
+	static public int groupClientGenerate=0;
+	static public int privilageClientGenerate=0;
+	private Canteen model;
+	public ClientGenerator(Model model, String name, boolean trace) {
+		super(model, name, trace);
+		
+		this.model = (Canteen)model;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void lifeCycle() {
-		// TODO Auto-generated method stub
+		while(true){
+			
+		}
 		
 	}
 	
