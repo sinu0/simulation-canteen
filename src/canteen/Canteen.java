@@ -55,7 +55,7 @@ public class Canteen extends Model {
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja super stołówki";
+		return "Symulacja super stołówki test dla Zbyszka:D";
 	}
 
 	@Override
