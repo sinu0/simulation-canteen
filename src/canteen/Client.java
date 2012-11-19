@@ -25,6 +25,5 @@ public class Client extends SimProcess {
 	public void selectMenu(){
 		
 	}
-	public 
 
 }
