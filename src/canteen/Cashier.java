@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
+import desmoj.core.simulator.TimeSpan;
 
 public class Cashier extends SimProcess {
 
@@ -23,7 +24,11 @@ public class Cashier extends SimProcess {
 			} else {
 				Client client=getFirstClient();
 				LinkedList<String> menu = client.getMenu();
-				
+				if(checkClinetList(menu)) //jezeli bedzie czegos brakowac to rowniez przesle ta informacej do kuchni	
+				{
+					client.setHasMeal(true);
+					client.activate(new TimeSpan(0));
+				}
 				
 			}
 
@@ -37,6 +42,8 @@ public class Cashier extends SimProcess {
 	private Client getFirstClient(){
 		return model.clientQueue.first();
 	}
-	private 
+	private boolean checkClinetList(LinkedList<String> list){
+		return false;
+	}
 
 }
