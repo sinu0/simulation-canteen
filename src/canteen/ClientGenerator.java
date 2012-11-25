@@ -13,7 +13,7 @@ public class ClientGenerator extends SimProcess{
 		super(model, name, trace);
 		
 		this.model = (Canteen)model;
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

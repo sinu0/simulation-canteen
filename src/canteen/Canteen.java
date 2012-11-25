@@ -1,10 +1,14 @@
 package canteen;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 import desmoj.core.dist.ContDistNormal;
 import desmoj.core.dist.ContDistUniform;
 import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ProcessQueue;
+import desmoj.core.simulator.TimeSpan;
 
 public class Canteen extends Model {
 
@@ -17,6 +21,8 @@ public class Canteen extends Model {
 	private int minMealCount;
 	private int workingCookCount;
 	private int eatingClientCount;
+	private int avaiableSeats;
+	private double averagePrice;
 
 	private ContDistNormal clientServiceTime;
 	private ContDistNormal mealPrepareTime; // in kitchen
@@ -28,18 +34,25 @@ public class Canteen extends Model {
 	private ContDistNormal groupArrivialProbability;
 	private ContDistNormal privilegedClientArrivialProbability;
 
-	private ProcessQueue<Client> clientQueue;
-	private ProcessQueue<Client> clientNoPleceQueue;
-	private ProcessQueue<Client> clinetDecisionQueue;
-	private ProcessQueue<Cook> cookIdleQueue;
-	private ProcessQueue<Cook> workingCookQueue;
-	
+	protected ProcessQueue<Client> clientQueue;
+	protected ProcessQueue<Client> clientNoPleceQueue;
+	protected ProcessQueue<Cashier> cashierIdelQueue;
+	protected ProcessQueue<Cook> cookIdleQueue;
+	protected ProcessQueue<Cook> workingCookQueue;
+
 	private Experiment exp;
-	
+
+	private Kitchen kitchen;
+	private ClientGenerator clientGenerator;
+	private Dishes dishes;
+	private Cashier cashier;
+
+	private boolean automaticMode = true;
+
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
-	
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,43 +61,78 @@ public class Canteen extends Model {
 	 */
 
 	public static void main(String[] args) {
-		
 
 	}
 
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja super stołówki test dla Zbyszka:D";
+		return "Symulacja super stołówki ";
 	}
 
 	@Override
 	public void doInitialSchedules() {
-		
+		kitchen = new Kitchen(this, "Kitchen", false);
+		clientGenerator = new ClientGenerator(this, "client generator", false);
+		dishes = new Dishes(averagePrice);
+		cashier = new Cashier(this, "cashier", false);
+
+		kitchen.activate(new TimeSpan(0));
+		cashier.activate(new TimeSpan(0));
+		clientGenerator.activate(new TimeSpan(0));
+
 	}
 
 	@Override
 	public void init() {
-
+		if (automaticMode) {
+			clientServiceTime = new ContDistNormal(this, "clibet service time",
+					10, 60, false, false);
+			mealPrepareTime = new ContDistNormal(this, "meal prepare time",
+					5 * 60, 10 * 60, false, false); // in kitchen
+			mealEatTime = new ContDistNormal(this, "meal eat time", 1 * 60,
+					5 * 60, false, false); // client:)
+			clientArrivialTime = new ContDistUniform(this,
+					"client arrivial time", 1 * 60, 10 * 60, false, false);
+			clientDecisionTime = new ContDistUniform(this,
+					"client decision time", 10, 45, false, false);
+			groupArrivialProbability = new ContDistNormal(this,
+					"group arriviall probability", 10 * 60, 30 * 60, false,
+					false);
+			privilegedClientArrivialProbability = new ContDistNormal(this,
+					"privileged cllient probablity", 60 * 60, 4 * 60 * 60,
+					false, false);
+			ContDistNormal price = new ContDistNormal(this, "price", 9, 25,
+					false, false);
+			averagePrice = price.sample();
+		}
 	}
-	public void start(){
+
+	public void start() {
+
 		Canteen model = new Canteen(null, "Biathlon simulation", true, true);
 		exp = new Experiment("Biatholon_simulation", "output");
 
-		model.connectToExperiment(exp);		
+		model.connectToExperiment(exp);
 
 		exp.start();
-	
 		exp.finish();
-		
+
 	}
-	public void Pause(){
+
+	// przerwa pomiedzy zadaniami
+	public void setDelay(long milis) {
+		exp.setDelayInMillis(milis);
+	}
+
+	public void Pause() {
 		exp.stop();
 	}
-	public void unPause(){
+
+	public void unPause() {
 		exp.proceed();
 	}
-	
+
 	public int getCashierCount() {
 		return cashierCount;
 	}
@@ -187,6 +235,29 @@ public class Canteen extends Model {
 	public void setClientDecisionTime(double range1, double range2) {
 		this.clientDecisionTime = new ContDistUniform(this,
 				"Client decision time", range1, range1, false, false);
+	}
+
+	public void setClientServiceTime(ContDistNormal clientServiceTime) {
+		this.clientServiceTime = clientServiceTime;
+	}
+
+	public int getAvailabaleSeats() {
+		return avaiableSeats;
+	}
+
+	public double getAveragePrice() {
+		return averagePrice;
+	}
+
+	public int getAvaiableSeats() {
+		return avaiableSeats;
+	}
+
+	public void setAvaiableSeats(int avaiableSeats) {
+		this.avaiableSeats = avaiableSeats;
+	}
+	public Dishes getDishes(){
+		return dishes;
 	}
 
 }
