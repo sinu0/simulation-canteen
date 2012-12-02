@@ -81,7 +81,7 @@ public class Client extends SimProcess {
 	
 	public void selectMenuOnceAgain(
 			HashMap<String, LinkedList<String>> avaliableDishes) {
-
+		
 		selectedMenu = new LinkedList<String>();
 		Random rand = new Random();
 

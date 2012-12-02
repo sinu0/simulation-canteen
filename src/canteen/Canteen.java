@@ -46,6 +46,7 @@ public class Canteen extends Model {
 	private ClientGenerator clientGenerator;
 	private Dishes dishes;
 	private Cashier cashier;
+	private DishesStorage storage;
 
 	private boolean automaticMode = true;
 
@@ -80,6 +81,7 @@ public class Canteen extends Model {
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
+		storage = new DishesStorage(averagePrice,5);
 
 	}
 
@@ -259,5 +261,9 @@ public class Canteen extends Model {
 	public Dishes getDishes(){
 		return dishes;
 	}
+	public DishesStorage getDishesStorage(){
+		return storage;
+	}
 
+	
 }

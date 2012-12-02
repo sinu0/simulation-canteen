@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 public class Dishes {
 	
-	private LinkedList<String> soup;
-	private LinkedList<String> dish;
-	private LinkedList<String> drink;
-	private double averagePrice; //średnia cena dan mowiaca o kosztach jedzenia w loklu
+	protected LinkedList<String> soup;
+	protected LinkedList<String> dish;
+	protected LinkedList<String> drink;
+	protected double averagePrice; //średnia cena dan mowiaca o kosztach jedzenia w loklu
 	public Dishes(double averagePrice){
 		
 		drink=new LinkedList<String>();

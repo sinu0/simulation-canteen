@@ -22,14 +22,22 @@ public class Cashier extends SimProcess {
 				insertMeToIdleQueue();
 				passivate();
 			} else {
-				Client client=getFirstClient();
+				Client client = getFirstClient();
 				LinkedList<String> menu = client.getMenu();
-				if(checkClinetList(menu)) //jezeli bedzie czegos brakowac to rowniez przesle ta informacej do kuchni	
+				if (checkClinetList(menu)) // jezeli bedzie czegos brakowac to
+											// rowniez przesle ta informacej do
+											// kuchni
 				{
 					client.setHasMeal(true);
 					client.activate(new TimeSpan(0));
+				} else {//klient wybiera nowe menu albo wychodzi z lokolu
+					client.selectMenuOnceAgain(model.getDishesStorage()
+							.getAvailableList());
+					client.setHasMeal(true);
+					client.activate(new TimeSpan(0));
+
 				}
-				
+
 			}
 
 		}
@@ -39,10 +47,12 @@ public class Cashier extends SimProcess {
 	private void insertMeToIdleQueue() {
 		model.cashierIdelQueue.insert(this);
 	}
-	private Client getFirstClient(){
+
+	private Client getFirstClient() {
 		return model.clientQueue.first();
 	}
-	private boolean checkClinetList(LinkedList<String> list){
+
+	private boolean checkClinetList(LinkedList<String> list) {
 		return false;
 	}
 
