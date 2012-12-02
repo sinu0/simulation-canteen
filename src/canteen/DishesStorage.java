@@ -10,8 +10,8 @@ public class DishesStorage extends Dishes {
 	private HashMap<String, LinkedList<String>> aviapleDishes;
 	private HashMap<String, Integer> storage;
 	private int startDishValue;
-
-	public DishesStorage(double averagePrice, int initValue) {
+	private Canteen model;
+	public DishesStorage(double averagePrice, int initValue,Canteen model) {
 		super(averagePrice);
 
 		this.startDishValue = initValue;
@@ -27,16 +27,22 @@ public class DishesStorage extends Dishes {
 			storage.put(dishs, initValue * 100); // z piciem nie
 													// powinnobyc problemu
 		}
+		
 
 	}
-
+	
 	public boolean setStorage(String name, int value) {
-		if (storage.put(name, value) == null) {
+		
+		int oldvalue=storage.get(name);
+		if (storage.put(name, value+oldvalue) == null) {
 			return false;
 		} else
+		{
+			model.change.firePropertyChange("Storage "+name,oldvalue,value+oldvalue);
 			return true;
+		}
 	}
-
+	
 	public int getValue(String name) {
 		return storage.get(name);
 	}
@@ -63,5 +69,8 @@ public class DishesStorage extends Dishes {
 		}
 		returnList.put("drink",tmpDrink);
 		return returnList;
+	}
+	public HashMap<String, Integer>  getStorage(){
+		return storage;
 	}
 }

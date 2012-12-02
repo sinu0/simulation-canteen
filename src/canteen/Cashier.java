@@ -1,5 +1,6 @@
 package canteen;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import desmoj.core.simulator.Model;
@@ -49,11 +50,17 @@ public class Cashier extends SimProcess {
 	}
 
 	private Client getFirstClient() {
+		model.change.firePropertyChange("clientQueue", model.clientQueue.size(), model.clientQueue.size()-1);
 		return model.clientQueue.first();
 	}
 
 	private boolean checkClinetList(LinkedList<String> list) {
-		return false;
+		HashMap<String,Integer> dishList = model.getDishesStorage().getStorage();
+		for (String string : list) {
+			if(dishList.get(string)<=0)
+				return false;
+		}
+		return true;
 	}
 
 }

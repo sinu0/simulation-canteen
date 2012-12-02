@@ -33,6 +33,8 @@ public class Client extends SimProcess {
 				if (model.getAvailabaleSeats() - model.clientQueue.size() > 0) {
 
 					selectMenu();// wybiera menu
+					if(isPrivileged)
+						
 					addMeToQueue();//
 					// model.cashier.activate();//aktywywuje kasjerke
 					passivate();// czeka az kasjerka bedzie dostepna kasjerka
@@ -98,12 +100,18 @@ public class Client extends SimProcess {
 	}
 
 	public void addMeToQueue() {
+		model.change.firePropertyChange("clientQueue", model.clientQueue.size(), model.clientQueue.size()+1);
 		model.clientQueue.insert(this);
 	}
 
 	public void addWaitingForTableQueue() {
+		model.change.firePropertyChange("clientNoPlaceQueue", model.clientNoPleceQueue.size(), model.clientNoPleceQueue.size()+1);
 		model.clientNoPleceQueue.insert(this);
 
+	}
+	public void addMeFirst(){
+		model.change.firePropertyChange("clientQueue", model.clientQueue.size(), model.clientQueue.size()+1);
+		model.clientQueue.insertAfter(model.clientQueue.first(), this);
 	}
 
 }

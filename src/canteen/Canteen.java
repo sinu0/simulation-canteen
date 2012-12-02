@@ -1,5 +1,6 @@
 package canteen;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -49,7 +50,7 @@ public class Canteen extends Model {
 	private DishesStorage storage;
 
 	private boolean automaticMode = true;
-
+	protected PropertyChangeSupport change=new PropertyChangeSupport(this);
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
@@ -81,7 +82,7 @@ public class Canteen extends Model {
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
-		storage = new DishesStorage(averagePrice,5);
+		storage = new DishesStorage(averagePrice,5,this);
 
 	}
 
@@ -148,6 +149,7 @@ public class Canteen extends Model {
 	}
 
 	public void setCookCount(int cookCount) {
+		change.firePropertyChange("cookCount",this.cookCount, cookCount);
 		this.cookCount = cookCount;
 	}
 
@@ -156,7 +158,9 @@ public class Canteen extends Model {
 	}
 
 	public void setTableTwoCount(int tableTwoCount) {
+		change.firePropertyChange("tableTwoCount", this.tableTwoCount, tableTwoCount);
 		this.tableTwoCount = tableTwoCount;
+		
 	}
 
 	public int getTableFourthCount() {
@@ -164,6 +168,7 @@ public class Canteen extends Model {
 	}
 
 	public void setTableFourthCount(int tableFourthCount) {
+		change.firePropertyChange("tableFourthCount", this.tableFourthCount, tableFourthCount);
 		this.tableFourthCount = tableFourthCount;
 	}
 
@@ -256,6 +261,7 @@ public class Canteen extends Model {
 	}
 
 	public void setAvaiableSeats(int avaiableSeats) {
+		change.firePropertyChange("tableTwoCount", this.tableTwoCount, tableTwoCount);
 		this.avaiableSeats = avaiableSeats;
 	}
 	public Dishes getDishes(){
@@ -264,6 +270,8 @@ public class Canteen extends Model {
 	public DishesStorage getDishesStorage(){
 		return storage;
 	}
+
+	
 
 	
 }
