@@ -46,6 +46,7 @@ public class Cashier extends SimProcess {
 	}
 
 	private void insertMeToIdleQueue() {
+		model.change.firePropertyChange("idleCashierQueue", model.cashierIdelQueue.size(), model.cashierIdelQueue.size()+1);
 		model.cashierIdelQueue.insert(this);
 	}
 
@@ -56,11 +57,17 @@ public class Cashier extends SimProcess {
 
 	private boolean checkClinetList(LinkedList<String> list) {
 		HashMap<String,Integer> dishList = model.getDishesStorage().getStorage();
+		boolean state=true;
 		for (String string : list) {
-			if(dishList.get(string)<=0)
-				return false;
+			if(dishList.get(string)<=0){
+				if(dishList.get(string)<=model.getMinMealCount()) {
+					model.getKitchen().addDishToPrepare(string);
+					model.getKitchen().activate();
+				}
+				state = false;
+			}
 		}
-		return true;
+		return state;
 	}
 
 }

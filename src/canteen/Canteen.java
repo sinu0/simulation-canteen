@@ -271,6 +271,14 @@ public class Canteen extends Model {
 		return storage;
 	}
 
+	public Cashier getCashier() {
+		return cashier;
+	}
+
+	public Kitchen getKitchen() {
+		return kitchen;
+	}
+	
 	
 
 	
