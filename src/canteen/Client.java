@@ -11,49 +11,67 @@ import desmoj.core.simulator.TimeSpan;
 
 public class Client extends SimProcess {
 
-	private boolean isMemberOfGroup;
-	private boolean isPrivileged;
-	private int groupNumber;
 	private LinkedList<String> selectedMenu;
 	private Canteen model;
-	private double averagePrice;
+	
+	private int groupNumber;
 	private int maxAceptableQueue;
-	private boolean hasMeal;
+	private double averagePrice;
+	private double probabilityOfQuit;
+	
+	private boolean isMemberOfGroup;
+	private boolean isPrivileged;
+	private boolean hasMeal;	
+	private boolean stayInCanteen=true;
 
-	// private int
 	public Client(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		this.model = (Canteen) model;
+		probabilityOfQuit = this.model.getProbabilityOfQuitOnNewMenu();
+		maxAceptableQueue = (int)this.model.getClientMaxAcceptableQueue();
 	}
 
 	@Override
 	public void lifeCycle() {
-		if (model.getAveragePrice() > averagePrice) {
-			if (maxAceptableQueue < model.clientQueue.size()) {
-				if (model.getAvailabaleSeats() - model.clientQueue.size() > 0) {
-
+		if(stayInCanteen){ //jezeli jest czlonkiem grupy to proces decyzji przeszedl
+		if (model.getAveragePrice() > averagePrice || isMemberOfGroup || isPrivileged) {
+			if (maxAceptableQueue < model.clientQueue.size() || isMemberOfGroup || isPrivileged) {
+				if (model.getAvailabaleSeats() - model.clientQueue.size() > 0 || isMemberOfGroup) {
 					selectMenu();// wybiera menu
 					if (isPrivileged)
-
-						addMeToQueue();//
-					getFirstCashier();
-					model.getCashier().activate();// aktywywuje kasjerke
-					passivate();// czeka az kasjerka bedzie dostepna kasjerka
+						addMeFirst();//jeżeli klient jest uprzywilejowany zostaje dodany na poczatek kolejki
+					else
+						addMeToQueue();
+					if (!model.cashierIdelQueue.isEmpty()) {
+						Cashier cashier = getFirstCashier();
+						cashier.activate();// aktywywuje kasjerke
+					}
+					passivate();// czeka az kasjerka bedzie dostepna, kasjerka
 								// sama wyciaga go z kolejki
+					
 					if (hasMeal) {// czy dosotal jedzenie
-						if (model.getAvailabaleSeats() > 0) {
-							model.setAvaiableSeats(model.getAvaiableSeats() - 1);// zajmuje
-																					// miejsce
-																					// przy
-																					// stoliku
-							hold(new TimeSpan(model.getMealEatTime(),
-									TimeUnit.SECONDS));// spozywa jedzenie
-							model.setAvaiableSeats(model.getAvaiableSeats() + 1);// odchodzi
-																					// od
-																					// stolika
-							// hold(new Span(random time to live ))//wychodzi z
-							// lokalu
+						
+						if (model.getAvailabaleSeats() < 0) {
+							addWaitingForTableQueue();
+							passivate(); //czeaka az zwolnia sie miejsca w stolowce
+					
 						}
+						// zajmuje miejsce przy stoliku
+						model.setAvaiableSeats(model.getAvaiableSeats() - 1);
+						hold(new TimeSpan(model.getMealEatTime(),
+								TimeUnit.SECONDS));// spozywa jedzenie
+						// odchodzi od stolika
+						model.setAvaiableSeats(model.getAvaiableSeats() + 1);
+						
+						if(!model.clientNoPleceQueue.isEmpty()){
+							//poczym aktywuje pierwszego z kolejki czekajacych
+							Client client = getFirstFromWaitingQueue();
+							client.activate();
+						}
+						
+						// hold(new Span(random time to live ))//wychodzi z lokalu - to raczej nie bedzie potrzebne		
+							
+							
 					} else
 						Canteen.clientLeftOnInitCount++;
 
@@ -63,16 +81,20 @@ public class Client extends SimProcess {
 				Canteen.clientLeftOnInitCount++;
 		} else
 			Canteen.clientLeftOnInitCount++;
+		}
 	}
 
 	public void selectMenu() {
 		Dishes dishes = model.getDishes();
 		selectedMenu = new LinkedList<String>();
 		Random rand = new Random();
+		
 		LinkedList<String> lD = dishes.getDish(); // dish
 		selectedMenu.add(lD.get(rand.nextInt(lD.size())));
+		
 		LinkedList<String> lS = dishes.getDish();// soup
 		selectedMenu.add(lS.get(rand.nextInt(lS.size())));
+		
 		LinkedList<String> lDr = dishes.getDish();// drink
 		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
 
@@ -90,8 +112,10 @@ public class Client extends SimProcess {
 
 		LinkedList<String> lD = avaliableDishes.get("dish"); // dish
 		selectedMenu.add(lD.get(rand.nextInt(lD.size())));
+		
 		LinkedList<String> lS = avaliableDishes.get("soup");// soup
 		selectedMenu.add(lS.get(rand.nextInt(lS.size())));
+		
 		LinkedList<String> lDr = avaliableDishes.get("drink");// drink
 		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
 	}
@@ -99,13 +123,16 @@ public class Client extends SimProcess {
 	public LinkedList<String> getMenu() {
 		return selectedMenu;
 	}
-
+	
 	public void addMeToQueue() {
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
 		model.clientQueue.insert(this);
 	}
-
+	public Client getFirstFromWaitingQueue(){
+		model.change.firePropertyChange("clientNoPlaceQueue",model.clientNoPleceQueue.size(),model.clientNoPleceQueue.size()-1);
+		return model.clientNoPleceQueue.first();
+	}
 	public void addWaitingForTableQueue() {
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
@@ -123,8 +150,35 @@ public class Client extends SimProcess {
 	public Cashier getFirstCashier() {
 		model.change.firePropertyChange("idelCashier",
 				model.cashierIdelQueue.size(),
-				model.cashierIdelQueue.size() + 1);
+				model.cashierIdelQueue.size() - 1);
 		return model.cashierIdelQueue.first();
+	}
+
+	public double getProbabilityOfQuit() {
+		return probabilityOfQuit;
+	}
+
+	public void setPrivileged(boolean set) {
+		isPrivileged = set;
+	}
+
+	public void setMemberOfGroup(boolean set, int number) {
+		isMemberOfGroup = set;
+		groupNumber = number;
+	}
+	public int decision(){
+		if(model.getAvailabaleSeats() - model.clientQueue.size() > 0){
+			int dec = (model.getAveragePrice() > averagePrice)? 1 : 0; //ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
+			 dec +=(maxAceptableQueue < model.clientQueue.size())? 1:0;
+			 return dec;
+		}
+		else
+			return 0;
+		
+				
+	}
+	public void setStayInCanteen(boolean set){
+		stayInCanteen=set;
 	}
 
 }

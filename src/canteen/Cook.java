@@ -1,6 +1,8 @@
 package canteen;
 
 
+import java.util.concurrent.TimeUnit;
+
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeSpan;
@@ -20,7 +22,7 @@ public class Cook extends SimProcess {
 			model.getKitchen().activate();
 			passivate();//zostanie zaktywownay przez kuchnie jezeli beda dostepne dania do przygotowania
 			if(taskToDo!=null){ //jezeli wszystko bedzie ok to ten warunek zawsze bedzi spelniony!
-				hold(new TimeSpan(model.getMealPrepareTime()));
+				hold(new TimeSpan(model.getMealPrepareTime(),TimeUnit.SECONDS));
 			}
 			else
 			{

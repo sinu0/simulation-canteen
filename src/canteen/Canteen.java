@@ -31,10 +31,14 @@ public class Canteen extends Model {
 
 	private ContDistUniform clientArrivialTime;
 	private ContDistUniform clientDecisionTime;
+	private ContDistUniform clientMaxAcceptableQueue;
+	private ContDistUniform clientAveragePrice;
+	private ContDistUniform probabilityOfQuitOnNewMenu;
+	
 
 	private ContDistNormal groupArrivialProbability;
 	private ContDistNormal privilegedClientArrivialProbability;
-
+	
 	protected ProcessQueue<Client> clientQueue;
 	protected ProcessQueue<Client> clientNoPleceQueue;
 	protected ProcessQueue<Cashier> cashierIdelQueue;
@@ -45,12 +49,16 @@ public class Canteen extends Model {
 
 	private Kitchen kitchen;
 	private ClientGenerator clientGenerator;
+	private GroupGenerator groupGenerator;
+	private PrivilegedClientGenerator privilegedClientGenerator;
 	private Dishes dishes;
 	private Cashier cashier;
 	private DishesStorage storage;
 
 	private boolean automaticMode = true;
 	protected PropertyChangeSupport change=new PropertyChangeSupport(this);
+	
+	
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
@@ -78,12 +86,16 @@ public class Canteen extends Model {
 		clientGenerator = new ClientGenerator(this, "client generator", false);
 		dishes = new Dishes(averagePrice);
 		cashier = new Cashier(this, "cashier", false);
-
+		storage = new DishesStorage(averagePrice,5,this);
+		groupGenerator = new GroupGenerator(this,"groupGenerator", false);
+		privilegedClientGenerator = new PrivilegedClientGenerator(this,"privilegedClientGenerator", false);
+		
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
-		storage = new DishesStorage(averagePrice,5,this);
-
+		groupGenerator.activate(new TimeSpan(0));
+		privilegedClientGenerator.activate(new TimeSpan(0));
+		
 	}
 
 	@Override
@@ -108,6 +120,7 @@ public class Canteen extends Model {
 			ContDistNormal price = new ContDistNormal(this, "price", 9, 25,
 					false, false);
 			averagePrice = price.sample();
+			setProbabilityOfQuitOnNewMenu(0, 1);
 		}
 	}
 
@@ -277,6 +290,30 @@ public class Canteen extends Model {
 
 	public Kitchen getKitchen() {
 		return kitchen;
+	}
+
+	public double getProbabilityOfQuitOnNewMenu() {
+		return probabilityOfQuitOnNewMenu.sample();
+	}
+
+	public void setProbabilityOfQuitOnNewMenu(double one, double two) {
+		this.probabilityOfQuitOnNewMenu = new ContDistUniform(this, "Probability of quit on new menu", one, two, false, false);
+	}
+
+	public double getClientMaxAcceptableQueue() {
+		return clientMaxAcceptableQueue.sample();
+	}
+
+	public void setClientMaxAcceptableQueue(ContDistUniform clientMaxAcceptableQueue) {
+		this.clientMaxAcceptableQueue = clientMaxAcceptableQueue;
+	}
+
+	public double getClientAveragePrice() {
+		return clientAveragePrice.sample();
+	}
+
+	public void setClientAveragePrice(ContDistUniform clientAveragePrice) {
+		this.clientAveragePrice = clientAveragePrice;
 	}
 	
 	
