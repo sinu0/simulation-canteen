@@ -13,6 +13,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import canteen.Canteen;
+import desmoj.core.dist.ContDistNormal;
 
 public class StartPanel extends JPanel 
 {
@@ -112,6 +113,7 @@ public class StartPanel extends JPanel
     add(table4Box);
     add(Box.createRigidArea(rigidOutBox));
     
+    
     //minimalny czas pojawiania sie nowego klienta badz grupy
     Box minTimeClientBox = Box.createHorizontalBox();
     JLabel minTimeClientLabel = new JLabel("Minimalny czas pojawiania sie nowych klientow");
@@ -124,7 +126,10 @@ public class StartPanel extends JPanel
     add(minTimeClientBox);
     add(Box.createRigidArea(rigidOutBox));
     
-    //minimalny czas pojawiania sie nowego klienta badz grupy
+    
+    
+    
+    //maksymalny czas pojawiania sie nowego klienta badz grupy
     Box maxTimeClientBox = Box.createHorizontalBox();
     JLabel maxTimeClientLabel = new JLabel("Maksymalny czas pojawiania sie nowych klientow");
     maxTimeClientBox.add(maxTimeClientLabel);
@@ -135,6 +140,7 @@ public class StartPanel extends JPanel
     maxTimeClientBox.add(maxTimeClientSpinner);
     add(maxTimeClientBox);
     add(Box.createRigidArea(rigidOutBox));
+    
     
     //czestosc pojawiania sie grupy
     Box groupFreqBox = Box.createHorizontalBox();
@@ -228,7 +234,7 @@ public class StartPanel extends JPanel
     minValueIngredientSpinner = new JSpinner(spinnerModel);
     minValueIngredientSpinner.setMaximumSize(spinnerSize);
     minValueIngredientBox.add(Box.createRigidArea(rigidInBox));
-    minValueIngredientBox.add(minTimeClientSpinner);
+    minValueIngredientBox.add(minValueIngredientSpinner);
     add(minValueIngredientBox);
     add(Box.createRigidArea(new Dimension(0, 50)));
     
@@ -245,8 +251,19 @@ public class StartPanel extends JPanel
           frame.getContentPane().removeAll();
           frame.add(frame.getAnimPanel());
           frame.revalidate();
-          frame.getCanteen().setParam();
-          //frame.getCanteen().start();
+          
+          //frame.set
+          System.out.println("Kasjerek " + (int)cookSpinner.getValue());
+          
+          frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
+          frame.getCanteen().setCookCount((int)cookSpinner.getValue());
+          frame.getCanteen().setTableTwoCount((int)table2Spinner.getValue());
+          frame.getCanteen().setTableFourthCount((int)table4Spinner.getValue());
+          frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
+          //frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
+          
+          
+          frame.getCanteen().start();
 		}
 	  }
     );

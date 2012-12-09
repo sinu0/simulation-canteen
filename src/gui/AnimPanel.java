@@ -1,11 +1,14 @@
 package gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import canteen.Canteen;
 
-public class AnimPanel extends JPanel
+public class AnimPanel extends JPanel implements PropertyChangeListener
 {
   private static final long serialVersionUID = 1L;
   
@@ -29,6 +32,7 @@ public class AnimPanel extends JPanel
   {
 	frame = _frame;
 	model = frame.getCanteen();
+	frame.getCanteen().setAnimPanel(this);
 	setLayout(null);
 	
     idleCook = new JLabel("Wolni kucharze ");
@@ -81,6 +85,13 @@ public class AnimPanel extends JPanel
     kompot.setBounds(560, 150, 100, 20);
     add(kompot);
     
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent event)
+  {
+    if (event.getPropertyName().equals("idleCashierQueue"))
+      System.out.println(event.getNewValue());
   }
 
 }

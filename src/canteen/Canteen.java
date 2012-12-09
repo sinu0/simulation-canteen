@@ -1,5 +1,7 @@
 package canteen;
 
+import gui.AnimPanel;
+
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.Random;
@@ -14,6 +16,8 @@ import desmoj.core.simulator.TimeSpan;
 public class Canteen extends Model {
 
 	static int clientLeftOnInitCount = 0;
+	
+	private AnimPanel animPanel;
 
 	private int cashierCount;
 	private int cookCount;
@@ -61,16 +65,18 @@ public class Canteen extends Model {
 	protected PropertyChangeSupport change=new PropertyChangeSupport(this);
 	
 	
+	
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
+		
 
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setParam()
+	public void setAnimPanel(AnimPanel anim)
 	{
-	  
+	  animPanel = anim;
 	}
 	
 
