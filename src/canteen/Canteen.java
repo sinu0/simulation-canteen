@@ -17,7 +17,7 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
 
-public class Canteen extends Model implements PropertyChangeListener{
+public class Canteen extends Model {
 
 	static int clientLeftOnInitCount = 0;
 	
@@ -361,15 +361,10 @@ public class Canteen extends Model implements PropertyChangeListener{
 	}
 
 	public LinkedList<Cook> getCooks() {
-		change.firePropertyChange("s",1,2);
 		return cooks;
 	}
 	
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println(evt.toString());
-		
-	}
+
 
 	
 
