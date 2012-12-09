@@ -33,6 +33,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	frame = _frame;
 	model = frame.getCanteen();
 	frame.getCanteen().addPropertyChangeListener(this);
+	frame.getCanteen().setAnimPanel(this);
 	setLayout(null);
 	
     idleCook = new JLabel("Wolni kucharze ");
@@ -91,7 +92,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   public void propertyChange(PropertyChangeEvent event)
   {
 	System.out.println("EVENT");
-	idleCook.setText(Integer.toString(model.getCookCount()));
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
     if (event.getPropertyName().equals("clientQueue"))
