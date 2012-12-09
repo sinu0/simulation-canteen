@@ -32,18 +32,29 @@ public class DishesStorage extends Dishes {
 
 	}
 	
-	public boolean setStorage(String name, int value) {
+	public boolean addStorage(String name,int howMany) {
 		
 		int oldvalue=storage.get(name);
-		if (storage.put(name, value+oldvalue) == null) {
-			return false;
+		if (storage.put(name, oldvalue+howMany) == oldvalue) {
+			model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue+howMany);
+			return true;
 		} else
 		{
-			model.change.firePropertyChange("Storage "+name,oldvalue,value+oldvalue);
-			return true;
+			return false;
 		}
 	}
-	
+	public boolean subStorage(String name) {
+		
+		int oldvalue=storage.get(name);
+		System.out.println(oldvalue);
+		if (storage.put(name, oldvalue-1) == null) {
+			model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue-1);
+			return true;
+		} else
+		{
+			return false;
+		}
+	}
 	public int getValue(String name) {
 		return storage.get(name);
 	}

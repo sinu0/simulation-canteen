@@ -10,11 +10,11 @@ import desmoj.core.simulator.TimeSpan;
 public class Cashier extends SimProcess {
 
 	private Canteen model;
-	
+
 	public Cashier(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		this.model = (Canteen) model;
-		
+
 	}
 
 	@Override
@@ -26,16 +26,24 @@ public class Cashier extends SimProcess {
 			} else {
 				Client client = getFirstClient();
 				LinkedList<String> menu = client.getMenu();
-				if (checkClinetList(menu)) // jezeli bedzie czegos brakowac to rowniez przesle ta informacej do kuchni
+				if (checkClinetList(menu)) // jezeli bedzie czegos brakowac to
+											// rowniez przesle ta informacej do
+											// kuchni
 				{
 					client.setHasMeal(true);
-					client.activate(new TimeSpan(0));
+					updateStorage(menu);
+					client.activate();
 				} else {
-					if (client.getProbabilityOfQuit() < 0.90) {// klient wybiera nowe menu albo wychodzi z lokolu
+					if (client.getProbabilityOfQuit() < 0.90) {// klient wybiera
+																// nowe menu
+																// albo wychodzi
+																// z lokolu
 						client.selectMenuOnceAgain(model.getDishesStorage()
 								.getAvailableList());
 						client.setHasMeal(true);
-						client.activate(new TimeSpan(0));
+						menu = client.getMenu();
+						updateStorage(menu);
+						client.activate();
 					}
 				}
 
@@ -45,17 +53,26 @@ public class Cashier extends SimProcess {
 
 	}
 
+	private void updateStorage(LinkedList<String> menu) {
+		for (String string : menu) {
+			model.getDishesStorage().subStorage(string);
+		}
+		
+	}
+
 	private void insertMeToIdleQueue() {
-		model.change.firePropertyChange("idleCashierQueue",
-				model.getCashierIdleQueue().size(),
+		model.change.firePropertyChange("idleCashierQueue", model
+				.getCashierIdleQueue().size(),
 				model.cashierIdleQueue.size() + 1);
 		model.cashierIdleQueue.insert(this);
 	}
 
 	private Client getFirstClient() {
-		model.change.firePropertyChange("clientQueue",
-				model.getClientQueue().size(), model.clientQueue.size() - 1);
-		return model.clientQueue.first();
+		model.change.firePropertyChange("clientQueue", model.getClientQueue()
+				.size(), model.clientQueue.size() - 1);
+		Client c = model.clientQueue.first();
+		model.clientQueue.remove(c);
+		return c;
 	}
 
 	private boolean checkClinetList(LinkedList<String> list) {
@@ -64,11 +81,14 @@ public class Cashier extends SimProcess {
 		boolean state = true;
 		for (String string : list) {
 			if (dishList.get(string) <= 0) {
-				if (dishList.get(string) <= model.getMinMealCount()) {
-					model.getKitchen().addDishToPrepare(string);
-					model.getKitchen().activate();
-				}
 				state = false;
+
+			}
+			if (dishList.get(string) <= model.getMinMealCount()) {
+				model.getKitchen().addDishToPrepare(string);
+				if (!model.getKitchen().isCurrent())
+					model.getKitchen().activate();
+
 			}
 		}
 		return state;

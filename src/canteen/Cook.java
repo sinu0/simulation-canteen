@@ -19,7 +19,8 @@ public class Cook extends SimProcess {
 	public void lifeCycle() {
 		while(true){
 			insertMeToIdleQueue();
-			model.getKitchen().activate();
+			if(!model.getKitchen().isCurrent())
+				model.getKitchen().activate();
 			passivate();//zostanie zaktywownay przez kuchnie jezeli beda dostepne dania do przygotowania
 			if(taskToDo!=null){ //jezeli wszystko bedzie ok to ten warunek zawsze bedzi spelniony!
 				hold(new TimeSpan(model.getMealPrepareTime(),TimeUnit.SECONDS));
@@ -37,6 +38,7 @@ public class Cook extends SimProcess {
 		
 	}
 	public void insertMeToIdleQueue(){
+		model.getDishesStorage().addStorage(taskToDo, 5);
 		taskToDo = null;
 		model.change.firePropertyChange("cookIdleQueue", model.cookIdleQueue.size(), model.cookIdleQueue.size()+1);
 		model.cookIdleQueue.insert(this);

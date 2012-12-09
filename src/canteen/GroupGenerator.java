@@ -46,7 +46,8 @@ public class GroupGenerator extends ClientGenerator{
 				}
 			}
 			for (Client client : groupOfClient) {
-				client.activate();
+				
+				//client.activateAfter(this);
 			}
 			model.change.firePropertyChange("group generate", groupClientGenerate-1, groupClientGenerate);
 			hold(new TimeSpan(model.getGroupArrivialTime(),TimeUnit.SECONDS));
