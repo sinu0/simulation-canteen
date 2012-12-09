@@ -26,7 +26,8 @@ public class Kitchen extends SimProcess {
 			} else {
 				if (!model.cookIdleQueue.isEmpty()) {
 					Cook cook = getFirstCook();
-					cook.activate();
+					if(!cook.isCurrent())
+						cook.activate();
 				} else {
 					passivate(); // jezeli kuchaz sie zwolini to aktywuje
 									// kuchnie
@@ -41,7 +42,8 @@ public class Kitchen extends SimProcess {
 			return false;
 		} else {
 			dishToPrepare.add(name);
-			activate(); // po dodaniu kunia zostaje aktywowana
+			if(!isCurrent())
+				activate(); // po dodaniu kunia zostaje aktywowana
 			return true;
 		}
 	}
@@ -54,7 +56,9 @@ public class Kitchen extends SimProcess {
 	public Cook getFirstCook() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() - 1);
-		return model.cookIdleQueue.first();
+		Cook c = model.cookIdleQueue.first();
+		model.cookIdleQueue.remove(c);
+		return c;
 
 	}
 

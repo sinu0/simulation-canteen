@@ -29,14 +29,18 @@ public class Client extends SimProcess {
 		this.model = (Canteen) model;
 		probabilityOfQuit = this.model.getProbabilityOfQuitOnNewMenu();
 		maxAceptableQueue = (int)this.model.getClientMaxAcceptableQueue();
+		averagePrice = this.model.getClientAveragePrice();
 	}
 
 	@Override
 	public void lifeCycle() {
 		if(stayInCanteen){ //jezeli jest czlonkiem grupy to proces decyzji przeszedl
-		if (model.getAveragePrice() > averagePrice || isMemberOfGroup || isPrivileged) {
-			if (maxAceptableQueue < model.clientQueue.size() || isMemberOfGroup || isPrivileged) {
+		if (model.getDishes().averagePrice > averagePrice || isMemberOfGroup || isPrivileged) {
+			
+			if (maxAceptableQueue > model.clientQueue.size() || isMemberOfGroup || isPrivileged) {
+				
 				if (model.getAvailabaleSeats() - model.clientQueue.size() > 0 || isMemberOfGroup) {
+					
 					selectMenu();// wybiera menu
 					if (isPrivileged)
 						addMeFirst();//jeżeli klient jest uprzywilejowany zostaje dodany na poczatek kolejki
@@ -50,7 +54,7 @@ public class Client extends SimProcess {
 								// sama wyciaga go z kolejki
 					
 					if (hasMeal) {// czy dosotal jedzenie
-						
+						System.out.println("mam jedzenie!");		
 						if (model.getAvailabaleSeats() < 0) {
 							addWaitingForTableQueue();
 							passivate(); //czeaka az zwolnia sie miejsca w stolowce
@@ -74,7 +78,7 @@ public class Client extends SimProcess {
 							
 					} else
 						Canteen.clientLeftOnInitCount++;
-
+							
 				} else
 					Canteen.clientLeftOnInitCount++;
 			} else
@@ -82,6 +86,7 @@ public class Client extends SimProcess {
 		} else
 			Canteen.clientLeftOnInitCount++;
 		}
+		
 	}
 
 	public void selectMenu() {
@@ -92,10 +97,10 @@ public class Client extends SimProcess {
 		LinkedList<String> lD = dishes.getDish(); // dish
 		selectedMenu.add(lD.get(rand.nextInt(lD.size())));
 		
-		LinkedList<String> lS = dishes.getDish();// soup
+		LinkedList<String> lS = dishes.getSoup();// soup
 		selectedMenu.add(lS.get(rand.nextInt(lS.size())));
 		
-		LinkedList<String> lDr = dishes.getDish();// drink
+		LinkedList<String> lDr = dishes.getDrink();// drink
 		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
 
 	}
@@ -121,19 +126,24 @@ public class Client extends SimProcess {
 	}
 
 	public LinkedList<String> getMenu() {
+		System.out.println(this.selectedMenu.toString());
 		return selectedMenu;
 	}
 	
 	public void addMeToQueue() {
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
+		System.out.println(model.clientQueue.size());
 		model.clientQueue.insert(this);
 	}
 	public Client getFirstFromWaitingQueue(){
 		model.change.firePropertyChange("clientNoPlaceQueue",model.clientNoPleceQueue.size(),model.clientNoPleceQueue.size()-1);
-		return model.clientNoPleceQueue.first();
+		Client c = model.clientNoPleceQueue.first();
+		model.clientNoPleceQueue.remove(c);
+		return c;
 	}
 	public void addWaitingForTableQueue() {
+		System.out.println(model.clientQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() + 1);
@@ -142,16 +152,22 @@ public class Client extends SimProcess {
 	}
 
 	public void addMeFirst() {
+		System.out.println(model.clientQueue.size());
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
-		model.clientQueue.insertAfter(model.clientQueue.first(), this);
+		if(model.clientQueue.isEmpty())
+			model.clientQueue.insert(this);
+		else
+			model.clientQueue.insertAfter(model.clientQueue.first(), this);
 	}
 
 	public Cashier getFirstCashier() {
 		model.change.firePropertyChange("idelCashier",
 				model.cashierIdleQueue.size(),
 				model.cashierIdleQueue.size() - 1);
-		return model.cashierIdleQueue.first();
+		Cashier c =model.cashierIdleQueue.first();
+		model.cashierIdleQueue.remove(c);
+		return  c;
 	}
 
 	public double getProbabilityOfQuit() {
@@ -168,7 +184,7 @@ public class Client extends SimProcess {
 	}
 	public int decision(){
 		if(model.getAvailabaleSeats() - model.clientQueue.size() > 0){
-			int dec = (model.getAveragePrice() > averagePrice)? 1 : 0; //ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
+			int dec = (model.getDishes().averagePrice> averagePrice)? 1 : 0; //ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
 			 dec +=(maxAceptableQueue < model.clientQueue.size())? 1:0;
 			 return dec;
 		}
