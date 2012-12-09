@@ -13,14 +13,14 @@ public class Cashier extends SimProcess {
 	
 	public Cashier(Model model, String name, boolean trace) {
 		super(model, name, trace);
-		model = (Canteen) model;
+		this.model = (Canteen) model;
 		
 	}
 
 	@Override
 	public void lifeCycle() {
 		while (true) {
-			if (model.clientQueue.isEmpty()) {
+			if (model.getClientQueue().isEmpty()) {
 				insertMeToIdleQueue();
 				passivate();
 			} else {
@@ -47,14 +47,14 @@ public class Cashier extends SimProcess {
 
 	private void insertMeToIdleQueue() {
 		model.change.firePropertyChange("idleCashierQueue",
-				model.cashierIdelQueue.size(),
-				model.cashierIdelQueue.size() + 1);
-		model.cashierIdelQueue.insert(this);
+				model.getCashierIdleQueue().size(),
+				model.cashierIdleQueue.size() + 1);
+		model.cashierIdleQueue.insert(this);
 	}
 
 	private Client getFirstClient() {
 		model.change.firePropertyChange("clientQueue",
-				model.clientQueue.size(), model.clientQueue.size() - 1);
+				model.getClientQueue().size(), model.clientQueue.size() - 1);
 		return model.clientQueue.first();
 	}
 

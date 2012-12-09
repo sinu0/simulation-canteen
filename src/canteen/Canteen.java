@@ -31,6 +31,8 @@ public class Canteen extends Model {
 
 	private ContDistUniform clientArrivialTime;
 	private ContDistUniform clientDecisionTime;
+	
+
 	private ContDistUniform clientMaxAcceptableQueue;
 	private ContDistUniform clientAveragePrice;
 	private ContDistUniform probabilityOfQuitOnNewMenu;
@@ -41,7 +43,7 @@ public class Canteen extends Model {
 	
 	protected ProcessQueue<Client> clientQueue;
 	protected ProcessQueue<Client> clientNoPleceQueue;
-	protected ProcessQueue<Cashier> cashierIdelQueue;
+	protected ProcessQueue<Cashier> cashierIdleQueue;
 	protected ProcessQueue<Cook> cookIdleQueue;
 	protected ProcessQueue<Cook> workingCookQueue;
 
@@ -65,14 +67,12 @@ public class Canteen extends Model {
 
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @param args
-	 */
-
-	public static void main(String[] args) {
-
+	
+	public void setParam()
+	{
+	  
 	}
+	
 
 	@Override
 	public String description() {
@@ -82,13 +82,20 @@ public class Canteen extends Model {
 
 	@Override
 	public void doInitialSchedules() {
+		System.out.println("InitialSchedules");
+		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false, false);
 		kitchen = new Kitchen(this, "Kitchen", false);
 		clientGenerator = new ClientGenerator(this, "client generator", false);
 		dishes = new Dishes(averagePrice);
+		
+		cashierIdleQueue = new ProcessQueue<Cashier>(this, "Kolejka wolnych kasjerów", false, false);
 		cashier = new Cashier(this, "cashier", false);
+		
+		
 		storage = new DishesStorage(averagePrice,5,this);
 		groupGenerator = new GroupGenerator(this,"groupGenerator", false);
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,"privilegedClientGenerator", false);
+		
 		
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
@@ -96,10 +103,12 @@ public class Canteen extends Model {
 		groupGenerator.activate(new TimeSpan(0));
 		privilegedClientGenerator.activate(new TimeSpan(0));
 		
+		
 	}
 
 	@Override
 	public void init() {
+		System.out.println("INIT");
 		if (automaticMode) {
 			clientServiceTime = new ContDistNormal(this, "clibet service time",
 					10, 60, false, false);
@@ -119,6 +128,8 @@ public class Canteen extends Model {
 					false, false);
 			ContDistNormal price = new ContDistNormal(this, "price", 9, 25,
 					false, false);
+			
+			clientMaxAcceptableQueue = new ContDistUniform(this, "Maksymalna akceptowalna kojelka", 5, 10, false, false);
 			averagePrice = price.sample();
 			setProbabilityOfQuitOnNewMenu(0, 1);
 		}
@@ -126,13 +137,13 @@ public class Canteen extends Model {
 
 	public void start() {
 
-		Canteen model = new Canteen(null, "Biathlon simulation", true, true);
-		exp = new Experiment("Biatholon_simulation", "output");
+		//Canteen model = new Canteen(null, "Biathlon simulation", true, true);
+		//exp = new Experiment("Biatholon_simulation", "output");
+		exp = new Experiment("Symulacja stolowki");
+		connectToExperiment(exp);
 
-		model.connectToExperiment(exp);
-
-		exp.start();
-		exp.finish();
+		//exp.start();
+		//exp.finish();
 
 	}
 
@@ -277,6 +288,19 @@ public class Canteen extends Model {
 		change.firePropertyChange("tableTwoCount", this.tableTwoCount, tableTwoCount);
 		this.avaiableSeats = avaiableSeats;
 	}
+	
+	public ProcessQueue<Cashier> getCashierIdleQueue() {
+		return cashierIdleQueue;
+	}
+
+	public void setCashierIdleQueue(ProcessQueue<Cashier> cashierIdelQueue) {
+		this.cashierIdleQueue = cashierIdelQueue;
+	}
+	
+	public ProcessQueue<Client> getClientQueue() {
+		return clientQueue;
+	}
+	
 	public Dishes getDishes(){
 		return dishes;
 	}
