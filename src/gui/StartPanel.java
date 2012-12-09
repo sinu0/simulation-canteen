@@ -259,7 +259,6 @@ public class StartPanel extends JPanel
     
     
     
-    
   }
 
 }
