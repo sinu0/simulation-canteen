@@ -13,6 +13,7 @@ public class DishesStorage extends Dishes {
 	private Canteen model;
 	public DishesStorage(double averagePrice, int initValue,Canteen model) {
 		super(averagePrice);
+		this.model = model;
 		storage = new HashMap<String, Integer>();
 		
 		this.startDishValue = initValue;

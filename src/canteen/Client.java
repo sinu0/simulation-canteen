@@ -123,7 +123,7 @@ public class Client extends SimProcess {
 		
 		LinkedList<String> lDr = avaliableDishes.get("drink");// drink
 		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
-		
+
 	}
 
 	public LinkedList<String> getMenu() {

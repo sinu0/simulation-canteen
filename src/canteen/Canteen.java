@@ -1,5 +1,8 @@
 package canteen;
 
+
+import gui.AnimPanel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -17,6 +20,8 @@ import desmoj.core.simulator.TimeSpan;
 public class Canteen extends Model implements PropertyChangeListener{
 
 	static int clientLeftOnInitCount = 0;
+	
+	private AnimPanel animPanel;
 
 	private int cashierCount;
 	private int cookCount;
@@ -58,17 +63,21 @@ public class Canteen extends Model implements PropertyChangeListener{
 	private DishesStorage storage;
 	private LinkedList<Cook> cooks;
 	private boolean automaticMode = true;
+	
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
 	
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
-		
+		change.addPropertyChangeListener(animPanel);
+		change.addPropertyChangeListener("cookCount", animPanel);
+		change.addPropertyChangeListener("tableTwoCount", animPanel);
 		// TODO Auto-generated constructor stub
 	}
-
-	public void setParam() {
-
+	
+	public void setAnimPanel(AnimPanel anim)
+	{
+	  animPanel = anim;
 	}
 	 public void addPropertyChangeListener(PropertyChangeListener listener) {
          this.change.addPropertyChangeListener(listener);
