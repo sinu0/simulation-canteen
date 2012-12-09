@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import canteen.Canteen;
+
 public class StartPanel extends JPanel 
 {
   private static final long serialVersionUID = 1L;
   
   private MyFrame frame;
-  private StartPanel startPanel;
   
   private SpinnerNumberModel spinnerModel;
   private JSpinner maxSimTimeSpinner;
@@ -42,7 +42,6 @@ public class StartPanel extends JPanel
   StartPanel(MyFrame _frame)
   {
 	frame = _frame;
-	startPanel = this;
 	
     add(new JLabel("Parametry symulacji"));
     add(Box.createRigidArea(new Dimension(0, 20)));
@@ -236,7 +235,6 @@ public class StartPanel extends JPanel
     
     
     
-    
     startButton = new JButton("START KURWA!!!!!");
     startButton.setMaximumSize(new Dimension(200, 100));
     this.add(startButton);
@@ -247,6 +245,8 @@ public class StartPanel extends JPanel
           frame.getContentPane().removeAll();
           frame.add(frame.getAnimPanel());
           frame.revalidate();
+          frame.getCanteen().setParam();
+          //frame.getCanteen().start();
 		}
 	  }
     );

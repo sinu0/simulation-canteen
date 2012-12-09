@@ -13,7 +13,7 @@ public class Kitchen extends SimProcess {
 	public Kitchen(Model arg0, String arg1, boolean arg2) {
 		super(arg0, arg1, arg2);
 		model = (Canteen) arg0;
-		dishIsPreparing = new LinkedList<String>();
+		dishToPrepare = new LinkedList<String>();
 		dishIsPreparing = new LinkedList<String>();
 
 	}

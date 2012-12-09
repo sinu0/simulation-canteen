@@ -13,6 +13,7 @@ public class GroupGenerator extends ClientGenerator{
 	public GroupGenerator(Model arg0, String arg1, boolean arg2) {
 		super(arg0, arg1, arg2);
 		groupOfClient = new LinkedList<Client>();
+		rand = new Random();
 	}
 
 	@Override

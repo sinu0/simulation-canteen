@@ -42,7 +42,7 @@ public class Client extends SimProcess {
 						addMeFirst();//jeżeli klient jest uprzywilejowany zostaje dodany na poczatek kolejki
 					else
 						addMeToQueue();
-					if (!model.cashierIdelQueue.isEmpty()) {
+					if (!model.cashierIdleQueue.isEmpty()) {
 						Cashier cashier = getFirstCashier();
 						cashier.activate();// aktywywuje kasjerke
 					}
@@ -149,9 +149,9 @@ public class Client extends SimProcess {
 
 	public Cashier getFirstCashier() {
 		model.change.firePropertyChange("idelCashier",
-				model.cashierIdelQueue.size(),
-				model.cashierIdelQueue.size() - 1);
-		return model.cashierIdelQueue.first();
+				model.cashierIdleQueue.size(),
+				model.cashierIdleQueue.size() - 1);
+		return model.cashierIdleQueue.first();
 	}
 
 	public double getProbabilityOfQuit() {
