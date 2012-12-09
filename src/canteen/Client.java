@@ -116,13 +116,14 @@ public class Client extends SimProcess {
 		Random rand = new Random();
 
 		LinkedList<String> lD = avaliableDishes.get("dish"); // dish
-		selectedMenu.add(lD.get(rand.nextInt(lD.size())-1));
+		selectedMenu.add(lD.get(rand.nextInt(lD.size())));
 		
 		LinkedList<String> lS = avaliableDishes.get("soup");// soup
-		selectedMenu.add(lS.get(rand.nextInt(lS.size())-1));
+		selectedMenu.add(lS.get(rand.nextInt(lS.size())));
 		
 		LinkedList<String> lDr = avaliableDishes.get("drink");// drink
-		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())-1));
+		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
+		
 	}
 
 	public LinkedList<String> getMenu() {

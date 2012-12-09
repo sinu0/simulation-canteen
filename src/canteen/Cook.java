@@ -20,9 +20,10 @@ public class Cook extends SimProcess {
 		while(true){
 			insertMeToIdleQueue();
 			if(!model.getKitchen().isCurrent())
-				model.getKitchen().activate();
+				model.getKitchen().activateAfter(this);
 			passivate();//zostanie zaktywownay przez kuchnie jezeli beda dostepne dania do przygotowania
 			if(taskToDo!=null){ //jezeli wszystko bedzie ok to ten warunek zawsze bedzi spelniony!
+				System.out.println("robie jedzenie!! " +taskToDo);
 				hold(new TimeSpan(model.getMealPrepareTime(),TimeUnit.SECONDS));
 			}
 			else

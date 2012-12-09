@@ -85,6 +85,7 @@ public class Cashier extends SimProcess {
 
 			}
 			if (dishList.get(string) <= model.getMinMealCount()) {
+				System.out.println("rob " + string);
 				model.getKitchen().addDishToPrepare(string);
 				if (!model.getKitchen().isCurrent())
 					model.getKitchen().activate();

@@ -3,6 +3,7 @@ package canteen;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 import desmoj.core.dist.ContDistNormal;
@@ -13,7 +14,7 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
 
-public class Canteen extends Model {
+public class Canteen extends Model implements PropertyChangeListener{
 
 	static int clientLeftOnInitCount = 0;
 
@@ -21,7 +22,7 @@ public class Canteen extends Model {
 	private int cookCount;
 	private int tableTwoCount;
 	private int tableFourthCount;
-	private int minMealCount;
+	private int minMealCount=3;
 	private int workingCookCount;
 	private int eatingClientCount;
 	private int avaiableSeats = 20;
@@ -55,10 +56,10 @@ public class Canteen extends Model {
 	private Dishes dishes;
 	private Cashier cashier;
 	private DishesStorage storage;
-
+	private LinkedList<Cook> cooks;
 	private boolean automaticMode = true;
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
-
+	
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
@@ -69,7 +70,9 @@ public class Canteen extends Model {
 	public void setParam() {
 
 	}
-
+	 public void addPropertyChangeListener(PropertyChangeListener listener) {
+         this.change.addPropertyChangeListener(listener);
+     }
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
@@ -79,9 +82,10 @@ public class Canteen extends Model {
 	@Override
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
+		cooks=new LinkedList<Cook>();
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
 				false);
-		kitchen = new Kitchen(this, "Kitchen", false);
+		kitchen = new Kitchen(this, "Kitchen", false,10);
 		clientGenerator = new ClientGenerator(this, "client generator", false);
 		dishes = new Dishes(getClientAveragePrice());
 		clientNoPleceQueue = new ProcessQueue<Client>(this, "Kolejka klientow czekajacych na siedzenie", false,
@@ -96,7 +100,7 @@ public class Canteen extends Model {
 		groupGenerator = new GroupGenerator(this, "groupGenerator", false);
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
-
+		
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
@@ -347,6 +351,17 @@ public class Canteen extends Model {
 		this.clientAveragePrice = clientAveragePrice;
 	}
 
+	public LinkedList<Cook> getCooks() {
+		change.firePropertyChange("s",1,2);
+		return cooks;
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println(evt.toString());
+		
+	}
 
+	
 
 }

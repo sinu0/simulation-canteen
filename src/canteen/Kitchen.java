@@ -10,11 +10,15 @@ public class Kitchen extends SimProcess {
 	private LinkedList<String> dishIsPreparing;
 	private Canteen model;
 
-	public Kitchen(Model arg0, String arg1, boolean arg2) {
+	public Kitchen(Model arg0, String arg1, boolean arg2,int cookNuber) {
 		super(arg0, arg1, arg2);
 		model = (Canteen) arg0;
 		dishToPrepare = new LinkedList<String>();
 		dishIsPreparing = new LinkedList<String>();
+		for(int i = 0;i<cookNuber;i++){
+			Cook cook=new Cook(model, "Kucharz", false);
+			model.getCooks().add(cook);
+		}
 
 	}
 
