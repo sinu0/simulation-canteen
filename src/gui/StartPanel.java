@@ -246,11 +246,11 @@ public class StartPanel extends JPanel
           frame.add(frame.getAnimPanel());
           frame.revalidate();
           frame.getCanteen().setParam();
-          //frame.getCanteen().start();
+          frame.getCanteen().start();
 		}
 	  }
     );
-    
+    	
         
     
     
