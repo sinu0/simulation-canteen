@@ -1,6 +1,5 @@
 package canteen;
 
-
 import gui.AnimPanel;
 
 import java.beans.PropertyChangeEvent;
@@ -20,14 +19,14 @@ import desmoj.core.simulator.TimeSpan;
 public class Canteen extends Model {
 
 	static int clientLeftOnInitCount = 0;
-	
+
 	private AnimPanel animPanel;
 
 	private int cashierCount;
 	private int cookCount;
 	private int tableTwoCount;
 	private int tableFourthCount;
-	private int minMealCount=3;
+	private int minMealCount = 3;
 	private int workingCookCount;
 	private int eatingClientCount;
 	private int avaiableSeats = 20;
@@ -63,9 +62,9 @@ public class Canteen extends Model {
 	private DishesStorage storage;
 	private LinkedList<Cook> cooks;
 	private boolean automaticMode = true;
-	
+
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
-	
+
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
@@ -74,14 +73,15 @@ public class Canteen extends Model {
 		change.addPropertyChangeListener("tableTwoCount", animPanel);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void setAnimPanel(AnimPanel anim)
-	{
-	  animPanel = anim;
+
+	public void setAnimPanel(AnimPanel anim) {
+		animPanel = anim;
 	}
-	 public void addPropertyChangeListener(PropertyChangeListener listener) {
-         this.change.addPropertyChangeListener(listener);
-     }
+
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		this.change.addPropertyChangeListener(listener);
+	}
+
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
@@ -91,25 +91,26 @@ public class Canteen extends Model {
 	@Override
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
-		cooks=new LinkedList<Cook>();
+		cooks = new LinkedList<Cook>();
+		cookIdleQueue = new ProcessQueue<Cook>(this,
+				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
 				false);
-		kitchen = new Kitchen(this, "Kitchen", false,10);
+		kitchen = new Kitchen(this, "Kitchen", false, 3);
 		clientGenerator = new ClientGenerator(this, "client generator", false);
 		dishes = new Dishes(getClientAveragePrice());
-		clientNoPleceQueue = new ProcessQueue<Client>(this, "Kolejka klientow czekajacych na siedzenie", false,
-				false);
+		clientNoPleceQueue = new ProcessQueue<Client>(this,
+				"Kolejka klientow czekajacych na siedzenie", false, false);
 		cashierIdleQueue = new ProcessQueue<Cashier>(this,
-				"Kolejka wolnych kasjer�w", false, false);
-		cookIdleQueue = new ProcessQueue<Cook>(this, "Kolejka nudzacych sie kucharzy", false,
-				false);
+				"Kolejka wolnych kasjerow", false, false);
+
 		cashier = new Cashier(this, "cashier", false);
 
 		storage = new DishesStorage(dishes.averagePrice, 5, this);
 		groupGenerator = new GroupGenerator(this, "groupGenerator", false);
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
-		
+
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
@@ -122,21 +123,21 @@ public class Canteen extends Model {
 	public void init() {
 		System.out.println("INIT");
 		if (automaticMode) {
-			clientServiceTime = new ContDistUniform(this, "clibet service time",
-					10, 60, false, false);
+			clientServiceTime = new ContDistUniform(this,
+					"client service time", 60, 120, false, false);
 			mealPrepareTime = new ContDistUniform(this, "meal prepare time",
-					5 * 60, 10 * 60, false, false); // in kitchen
-			mealEatTime = new ContDistUniform(this, "meal eat time", 1 * 60,
-					5 * 60, false, false); // client:)
+					60 * 1, 60 * 10, false, false); // in kitchen
+			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
+					10 * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", 1 * 60, 10 * 60, false, false);
+					"client arrivial time", 1, 2 * 20, false, false);
 			clientDecisionTime = new ContDistUniform(this,
-					"client decision time", 10, 45, false, false);
+					"client decision time", 60, 2 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
-					"group arriviall probability", 10 * 60, 30 * 60, false,
+					"group arriviall probability", 5 * 60, 10 * 60, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
-					"privileged cllient probablity", 60 * 60, 4 * 60 * 60,
+					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
 					"privileged cllient probablity", 7, 20, false, false);
@@ -155,12 +156,11 @@ public class Canteen extends Model {
 		// exp = new Experiment("Biatholon_simulation", "output");
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
-		//exp.stop(new TimeInstant(10000, TimeUnit.SECONDS));
-		//setDelay(100);
-		
+		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
+		setDelay(50);
+
 		exp.start();
-		
-		
+
 		exp.finish();
 
 	}
@@ -363,9 +363,5 @@ public class Canteen extends Model {
 	public LinkedList<Cook> getCooks() {
 		return cooks;
 	}
-	
-
-
-	
 
 }

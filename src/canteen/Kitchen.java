@@ -15,9 +15,10 @@ public class Kitchen extends SimProcess {
 		model = (Canteen) arg0;
 		dishToPrepare = new LinkedList<String>();
 		dishIsPreparing = new LinkedList<String>();
-		for(int i = 0;i<cookNuber;i++){
+		for(int i = 0;i<cookNuber+1;i++){
 			Cook cook=new Cook(model, "Kucharz", false);
 			model.getCooks().add(cook);
+			model.cookIdleQueue.insert(cook);
 		}
 
 	}
@@ -25,13 +26,14 @@ public class Kitchen extends SimProcess {
 	@Override
 	public void lifeCycle() {
 		while (true) {
-			if (dishToPrepare.isEmpty()) { // niema co przygotowac
+			if (dishToPrepare.isEmpty()) { 
 				passivate();
 			} else {
 				if (!model.cookIdleQueue.isEmpty()) {
 					Cook cook = getFirstCook();
-					if(!cook.isCurrent())
-						cook.activate();
+					cook.giveMeTask(dishToPrepare.getFirst());
+					addDishIsPreparing(dishToPrepare.getFirst());
+					cook.activate();
 				} else {
 					passivate(); // jezeli kuchaz sie zwolini to aktywuje
 									// kuchnie
@@ -46,7 +48,6 @@ public class Kitchen extends SimProcess {
 			return false;
 		} else {
 			dishToPrepare.add(name);
-			if(!isCurrent())
 				activate(); // po dodaniu kunia zostaje aktywowana
 			return true;
 		}
@@ -56,11 +57,15 @@ public class Kitchen extends SimProcess {
 		dishToPrepare.remove(name);
 		dishIsPreparing.add(name);
 	}
+	public void dishDone(String name){
+		dishIsPreparing.remove(name);
+	}
 
 	public Cook getFirstCook() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() - 1);
 		Cook c = model.cookIdleQueue.first();
+		System.out.println("Cooks" + String.valueOf(model.cookIdleQueue.size()) + " " + String.valueOf(model.cookIdleQueue.size()-1));
 		model.cookIdleQueue.remove(c);
 		return c;
 

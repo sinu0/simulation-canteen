@@ -23,7 +23,7 @@ public class Client extends SimProcess {
 	private boolean isPrivileged;
 	private boolean hasMeal;	
 	private boolean stayInCanteen=true;
-
+	private long client=0;
 	public Client(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		this.model = (Canteen) model;
@@ -50,12 +50,13 @@ public class Client extends SimProcess {
 						Cashier cashier = getFirstCashier();
 						cashier.activate();// aktywywuje kasjerke
 					}
+					
 					passivate();// czeka az kasjerka bedzie dostepna, kasjerka
 								// sama wyciaga go z kolejki
 					
 					if (hasMeal) {// czy dosotal jedzenie
-						System.out.println("mam jedzenie!");		
-						if (model.getAvailabaleSeats() < 0) {
+						if (model.getAvailabaleSeats() <= 0) {
+							
 							addWaitingForTableQueue();
 							passivate(); //czeaka az zwolnia sie miejsca w stolowce
 					
@@ -109,32 +110,34 @@ public class Client extends SimProcess {
 		hasMeal = meal;
 	}
 
-	public void selectMenuOnceAgain(
-			HashMap<String, LinkedList<String>> avaliableDishes) {
+	public boolean selectMenuOnceAgain(
+		HashMap<String, LinkedList<String>> avaliableDishes) {
+		try{
+			selectedMenu = new LinkedList<String>();
+			Random rand = new Random();
 
-		selectedMenu = new LinkedList<String>();
-		Random rand = new Random();
-
-		LinkedList<String> lD = avaliableDishes.get("dish"); // dish
-		selectedMenu.add(lD.get(rand.nextInt(lD.size())));
+			LinkedList<String> lD = avaliableDishes.get("dish"); // dish
+			selectedMenu.add(lD.get(rand.nextInt(lD.size())));
 		
-		LinkedList<String> lS = avaliableDishes.get("soup");// soup
-		selectedMenu.add(lS.get(rand.nextInt(lS.size())));
+			LinkedList<String> lS = avaliableDishes.get("soup");// soup
+			selectedMenu.add(lS.get(rand.nextInt(lS.size())));
 		
-		LinkedList<String> lDr = avaliableDishes.get("drink");// drink
-		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
-
+			LinkedList<String> lDr = avaliableDishes.get("drink");// drink
+			selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 
 	public LinkedList<String> getMenu() {
-		System.out.println(this.selectedMenu.toString());
 		return selectedMenu;
 	}
 	
 	public void addMeToQueue() {
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
-		System.out.println(model.clientQueue.size());
 		model.clientQueue.insert(this);
 	}
 	public Client getFirstFromWaitingQueue(){
@@ -144,7 +147,6 @@ public class Client extends SimProcess {
 		return c;
 	}
 	public void addWaitingForTableQueue() {
-		System.out.println(model.clientQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() + 1);
@@ -153,7 +155,6 @@ public class Client extends SimProcess {
 	}
 
 	public void addMeFirst() {
-		System.out.println(model.clientQueue.size());
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
 		if(model.clientQueue.isEmpty())

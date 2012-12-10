@@ -2,6 +2,7 @@ package canteen;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
@@ -30,23 +31,28 @@ public class Cashier extends SimProcess {
 											// rowniez przesle ta informacej do
 											// kuchni
 				{
+					hold(new TimeSpan(model.getClientServiceTime(),TimeUnit.SECONDS));
 					client.setHasMeal(true);
 					updateStorage(menu);
-					client.activate();
 				} else {
 					if (client.getProbabilityOfQuit() < 0.90) {// klient wybiera
 																// nowe menu
 																// albo wychodzi
 																// z lokolu
-						client.selectMenuOnceAgain(model.getDishesStorage()
-								.getAvailableList());
-						client.setHasMeal(true);
-						menu = client.getMenu();
-						updateStorage(menu);
-						client.activate();
+						System.out.println(client.getProbabilityOfQuit());
+						hold(new TimeSpan(model.getClientDecitionTime(),TimeUnit.SECONDS));
+						if(client.selectMenuOnceAgain(model.getDishesStorage()
+								.getAvailableList())==true) //jezeli brakowala czegos dla niego to wychodzi
+						{ 
+							hold(new TimeSpan(model.getClientServiceTime(),TimeUnit.SECONDS));
+							client.setHasMeal(true);
+							menu = client.getMenu();
+							updateStorage(menu);
+							
+						}
 					}
 				}
-
+				client.activate();
 			}
 
 		}
@@ -85,9 +91,7 @@ public class Cashier extends SimProcess {
 
 			}
 			if (dishList.get(string) <= model.getMinMealCount()) {
-				System.out.println("rob " + string);
 				model.getKitchen().addDishToPrepare(string);
-				if (!model.getKitchen().isCurrent())
 					model.getKitchen().activate();
 
 			}
