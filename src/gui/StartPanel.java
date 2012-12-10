@@ -12,9 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import canteen.Canteen;
-import desmoj.core.dist.ContDistNormal;
-
 public class StartPanel extends JPanel 
 {
   private static final long serialVersionUID = 1L;
@@ -262,8 +259,8 @@ public class StartPanel extends JPanel
           
           frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
           frame.getCanteen().setCookCount((int)cookSpinner.getValue());
-          frame.getCanteen().setTableTwoCount((int)table2Spinner.getValue());
-          frame.getCanteen().setTableFourthCount((int)table4Spinner.getValue());
+         // frame.getCanteen().setTableTwoCount((int)table2Spinner.getValue());
+         // frame.getCanteen().setTableFourthCount((int)table4Spinner.getValue());
           frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
           //frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
           

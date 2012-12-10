@@ -23,13 +23,9 @@ public class Canteen extends Model implements Runnable
 
 	private AnimPanel animPanel;
 
-	private int cashierCount;
-	private int cookCount;
-	private int tableTwoCount;
-	private int tableFourthCount;
+	private int cashierCount=0;
+	private int cookCount=0;
 	private int minMealCount = 3;
-	private int workingCookCount;
-	private int eatingClientCount;
 	private int avaiableSeats = 20;
 
 	private ContDistUniform clientServiceTime;
@@ -59,9 +55,9 @@ public class Canteen extends Model implements Runnable
 	private GroupGenerator groupGenerator;
 	private PrivilegedClientGenerator privilegedClientGenerator;
 	private Dishes dishes;
-	private Cashier cashier;
 	private DishesStorage storage;
 	private LinkedList<Cook> cooks;
+	private LinkedList<Cashier> cashiers;
 	private boolean automaticMode = true;
 
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
@@ -72,6 +68,8 @@ public class Canteen extends Model implements Runnable
 		change.addPropertyChangeListener(animPanel);
 		change.addPropertyChangeListener("cookCount", animPanel);
 		change.addPropertyChangeListener("tableTwoCount", animPanel);
+		cooks = new LinkedList<Cook>();
+		cashiers = new LinkedList<Cashier>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -92,32 +90,41 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
-		cooks = new LinkedList<Cook>();
+		this.addCashier();
+		this.addCashier();
+		this.addCook();
+		this.addCook();
+		this.addCook();
+		this.addCook();
 		cookIdleQueue = new ProcessQueue<Cook>(this,
 				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
 				false);
-		kitchen = new Kitchen(this, "Kitchen", false, 3);
-		clientGenerator = new ClientGenerator(this, "client generator", false);
-		dishes = new Dishes(getClientAveragePrice());
 		clientNoPleceQueue = new ProcessQueue<Client>(this,
 				"Kolejka klientow czekajacych na siedzenie", false, false);
 		cashierIdleQueue = new ProcessQueue<Cashier>(this,
 				"Kolejka wolnych kasjerow", false, false);
-
-		cashier = new Cashier(this, "cashier", false);
-
-		storage = new DishesStorage(dishes.averagePrice, 5, this);
+		
+		clientGenerator = new ClientGenerator(this, "client generator", false);
 		groupGenerator = new GroupGenerator(this, "groupGenerator", false);
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
+		
+		dishes = new Dishes(getClientAveragePrice());
+		kitchen = new Kitchen(this, "Kitchen", false);
+		storage = new DishesStorage(dishes.averagePrice, 5, this);
 
 		kitchen.activate(new TimeSpan(0));
-		cashier.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
 		groupGenerator.activate(new TimeSpan(0));
 		privilegedClientGenerator.activate(new TimeSpan(0));
-
+		
+		for (Cook cook : cooks) {
+			cook.activate(new TimeSpan(0));
+		}
+		for (Cashier cashier : cashiers) {
+			cashier.activate(new TimeSpan(0));
+		}
 	}
 
 	@Override
@@ -165,7 +172,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		//setDelay(1);
+		setDelay(1);
 
 		exp.start();
 
@@ -201,27 +208,6 @@ public class Canteen extends Model implements Runnable
 	public void setCookCount(int cookCount) {
 		change.firePropertyChange("cookCount", this.cookCount, cookCount);
 		this.cookCount = cookCount;
-	}
-
-	public int getTableTwoCount() {
-		return tableTwoCount;
-	}
-
-	public void setTableTwoCount(int tableTwoCount) {
-		change.firePropertyChange("tableTwoCount", this.tableTwoCount,
-				tableTwoCount);
-		this.tableTwoCount = tableTwoCount;
-
-	}
-
-	public int getTableFourthCount() {
-		return tableFourthCount;
-	}
-
-	public void setTableFourthCount(int tableFourthCount) {
-		change.firePropertyChange("tableFourthCount", this.tableFourthCount,
-				tableFourthCount);
-		this.tableFourthCount = tableFourthCount;
 	}
 
 	public int getMinMealCount() {
@@ -309,8 +295,6 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setAvaiableSeats(int avaiableSeats) {
-		change.firePropertyChange("tableTwoCount", this.tableTwoCount,
-				tableTwoCount);
 		this.avaiableSeats = avaiableSeats;
 	}
 
@@ -334,9 +318,6 @@ public class Canteen extends Model implements Runnable
 		return storage;
 	}
 
-	public Cashier getCashier() {
-		return cashier;
-	}
 
 	public Kitchen getKitchen() {
 		return kitchen;
@@ -371,7 +352,21 @@ public class Canteen extends Model implements Runnable
 	public LinkedList<Cook> getCooks() {
 		return cooks;
 	}
-
+	public void addCashier(){
+		Cashier cashier = new Cashier(this,"Cashier",false);
+		cashierCount++;
+		cashiers.add(cashier);
+		
+	}
+	public void addCook(){
+		Cook cook = new Cook(this,"Cashier",false);
+		cookCount++;
+		cooks.add(cook);
+		
+	}
+	public LinkedList<Cashier> getCashiers() {
+		return cashiers;
+	}
 	
 
 }
