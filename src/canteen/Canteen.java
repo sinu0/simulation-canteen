@@ -192,6 +192,11 @@ public class Canteen extends Model implements Runnable
 	public void unPause() {
 		exp.proceed();
 	}
+	
+	public ProcessQueue<Cook> getCookIdleQueue()
+	{
+	  return cookIdleQueue;
+	}
 
 	public int getCashierCount() {
 		return cashierCount;
