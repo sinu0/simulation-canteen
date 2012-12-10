@@ -21,6 +21,8 @@ public class StartPanel extends JPanel
   
   private MyFrame frame;
   
+  private Thread canteenThread;
+  
   private SpinnerNumberModel spinnerModel;
   private JSpinner maxSimTimeSpinner;
   private JSpinner cashierSpinner;
@@ -43,6 +45,7 @@ public class StartPanel extends JPanel
   StartPanel(MyFrame _frame)
   {
 	frame = _frame;
+	canteenThread = new Thread(frame.getCanteen());
 	
     add(new JLabel("Parametry symulacji"));
     add(Box.createRigidArea(new Dimension(0, 20)));
@@ -251,6 +254,7 @@ public class StartPanel extends JPanel
           frame.getContentPane().removeAll();
           frame.add(frame.getAnimPanel());
           frame.revalidate();
+          frame.repaint();
 
           
           //frame.set
@@ -265,7 +269,7 @@ public class StartPanel extends JPanel
           
           
 
-          frame.getCanteen().start();
+          canteenThread.start();
 		}
 	  }
     );

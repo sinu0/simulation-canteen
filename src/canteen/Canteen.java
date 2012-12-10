@@ -16,7 +16,8 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
 
-public class Canteen extends Model {
+public class Canteen extends Model implements Runnable 
+{
 
 	static int clientLeftOnInitCount = 0;
 
@@ -150,10 +151,17 @@ public class Canteen extends Model {
 		}
 	}
 
-	public void start() {
+	//public void start() {
 
 		// Canteen model = new Canteen(null, "Biathlon simulation", true, true);
 		// exp = new Experiment("Biatholon_simulation", "output");
+		
+
+	//}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
@@ -162,7 +170,7 @@ public class Canteen extends Model {
 		exp.start();
 
 		exp.finish();
-
+		
 	}
 
 	// przerwa pomiedzy zadaniami
@@ -363,5 +371,7 @@ public class Canteen extends Model {
 	public LinkedList<Cook> getCooks() {
 		return cooks;
 	}
+
+	
 
 }

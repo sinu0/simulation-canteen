@@ -91,11 +91,10 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   @Override
   public void propertyChange(PropertyChangeEvent event)
   {
-	System.out.println("EVENT");
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
     if (event.getPropertyName().equals("clientQueue"))
-        System.out.println("CLIENT QUEUE" + event.getNewValue());
+        clientQueue.setText("Kolejka klientów: " + model.getClientQueue().size());
     
     if (event.getPropertyName().equals("Storage kompot"))
         System.out.println("KUMPOT" + event.getNewValue());
