@@ -99,17 +99,19 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     if (event.getPropertyName().equals("cashiers"))
       cashier.setText("Kasjerzy: " + model.getCashiers().size());
     if (event.getPropertyName().equals("Storage kotlet"))
-    {
       kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
+    if (event.getPropertyName().equals("Storage wolownia"))
       wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
+    if (event.getPropertyName().equals("Storage ziemniaki"))
       ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
+    if (event.getPropertyName().equals("Storage ryz"))
       ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
+    if (event.getPropertyName().equals("Storage rosoł"))
       rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoł"));
+    if (event.getPropertyName().equals("Storage pomidorowa"))
       pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
+    if (event.getPropertyName().equals("Storage kompot"))
       kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
-    }
-    
-    
     
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
