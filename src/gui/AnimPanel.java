@@ -37,7 +37,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	setLayout(null);
 	
     idleCook = new JLabel("Wolni kucharze ");
-    idleCook.setBounds(100, 50, 100, 20);
+    idleCook.setBounds(100, 50, 140, 20);
     add(idleCook);
     
     workingCook = new JLabel("Pracujï¿½cy kucharze");
@@ -48,8 +48,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     cashier.setBounds(350, 150, 120, 20);
     add(cashier);
     
-    if (model.getClientQueue()==null)
-      System.out.println("NULL");
     clientQueue = new JLabel("Kolejka klientï¿½w: ");
     clientQueue.setBounds(310, 180, 200, 20);
     add(clientQueue);
@@ -91,11 +89,32 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   @Override
   public void propertyChange(PropertyChangeEvent event)
   {
+    if (event.getPropertyName().equals("clientQueue"))
+	  clientQueue.setText("Kolejka klientów: " + model.getClientQueue().size());
+    if (event.getPropertyName().equals("cookIdleQueue"))
+    {
+	  idleCook.setText("Wolni kucharze: " + model.getCookIdleQueue().size());
+      workingCook.setText("Pracujacy kucharze: " + (model.getCookCount()-model.getCookIdleQueue().size()));
+    }
+    if (event.getPropertyName().equals("cashiers"))
+      cashier.setText("Kasjerzy: " + model.getCashiers().size());
+    if (event.getPropertyName().equals("Storage kotlet"))
+      kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
+    if (event.getPropertyName().equals("Storage wolownia"))
+      wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
+    if (event.getPropertyName().equals("Storage ziemniaki"))
+      ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
+    if (event.getPropertyName().equals("Storage ryz"))
+      ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
+    if (event.getPropertyName().equals("Storage rosoÅ‚"))
+      rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoÅ‚"));
+    if (event.getPropertyName().equals("Storage pomidorowa"))
+      pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
+    if (event.getPropertyName().equals("Storage kompot"))
+      kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
+    
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
-    if (event.getPropertyName().equals("clientQueue"))
-        clientQueue.setText("Kolejka klientów: " + model.getClientQueue().size());
-    
     if (event.getPropertyName().equals("Storage kompot"))
         System.out.println("KUMPOT" + event.getNewValue());
   }

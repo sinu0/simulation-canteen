@@ -3,6 +3,7 @@ package canteen;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 public class DishesStorage extends Dishes {
@@ -11,11 +12,12 @@ public class DishesStorage extends Dishes {
 	private HashMap<String, Integer> storage;
 	private int startDishValue;
 	private Canteen model;
+	private Random rand;
+	
 	public DishesStorage(double averagePrice, int initValue,Canteen model) {
 		super(averagePrice);
 		this.model = model;
 		storage = new HashMap<String, Integer>();
-		
 		this.startDishValue = initValue;
 
 		for (String dishs : soup) {
