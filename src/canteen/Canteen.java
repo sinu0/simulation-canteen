@@ -25,8 +25,8 @@ public class Canteen extends Model implements Runnable
 
 	private int cashierCount=0;
 	private int cookCount=0;
-	private int minMealCount = 3;
-	private int avaiableSeats = 20;
+	private int minMealCount=3;
+	private int avaiableSeats=20;
 
 	private ContDistUniform clientServiceTime;
 	private ContDistUniform mealPrepareTime; // in kitchen
@@ -96,6 +96,7 @@ public class Canteen extends Model implements Runnable
 		this.addCook();
 		this.addCook();
 		this.addCook();
+		
 		cookIdleQueue = new ProcessQueue<Cook>(this,
 				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
@@ -172,7 +173,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		setDelay(1);
+		setDelay(20);
 
 		exp.start();
 
@@ -203,7 +204,9 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setCashierCount(int cashierCount) {
+		change.firePropertyChange("cashierCount", this.cashierCount, cashierCount);
 		this.cashierCount = cashierCount;
+		
 	}
 
 	public int getCookCount() {
@@ -361,6 +364,7 @@ public class Canteen extends Model implements Runnable
 		Cashier cashier = new Cashier(this,"Cashier",false);
 		cashierCount++;
 		cashiers.add(cashier);
+		change.firePropertyChange("cashiers", cashiers.size()-1, cashiers.size());
 		
 	}
 	public void addCook(){

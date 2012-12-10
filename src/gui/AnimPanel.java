@@ -96,7 +96,18 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	  idleCook.setText("Wolni kucharze: " + model.getCookIdleQueue().size());
       workingCook.setText("Pracujacy kucharze: " + (model.getCookCount()-model.getCookIdleQueue().size()));
     }
-    
+    if (event.getPropertyName().equals("cashiers"))
+      cashier.setText("Kasjerzy: " + model.getCashiers().size());
+    if (event.getPropertyName().equals("Storage kotlet"))
+    {
+      kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
+      wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
+      ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
+      ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
+      rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoł"));
+      pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
+      kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
+    }
     
     
     
