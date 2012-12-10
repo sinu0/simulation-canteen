@@ -27,6 +27,7 @@ public class Canteen extends Model implements Runnable
 	private int cookCount=0;
 	private int minMealCount = 3;
 	private int avaiableSeats = 20;
+	
 
 	private ContDistUniform clientServiceTime;
 	private ContDistUniform mealPrepareTime; // in kitchen
@@ -58,6 +59,7 @@ public class Canteen extends Model implements Runnable
 	private DishesStorage storage;
 	private LinkedList<Cook> cooks;
 	private LinkedList<Cashier> cashiers;
+	private LinkedList<Table> tables;
 	private boolean automaticMode = true;
 
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
@@ -366,6 +368,29 @@ public class Canteen extends Model implements Runnable
 	}
 	public LinkedList<Cashier> getCashiers() {
 		return cashiers;
+	}
+	
+	public LinkedList<Table> getTables(){
+		return tables;
+	}
+	
+	public int getSeatsCount(){
+		int count=0;
+		for (Table table : tables) {
+			count+=table.getSeatCunt();
+		}
+		return count;
+	}
+	
+	public int getAvailableSeats(){
+		int count=0;
+		for (Table table : tables) {
+			count+=table.getClientCount();
+		}
+		return count;
+	}
+	public void addTable2(){
+		tables.add(new Table2Seats(this, "table2", true));
 	}
 	
 
