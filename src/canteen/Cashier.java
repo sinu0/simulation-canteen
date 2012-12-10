@@ -39,7 +39,6 @@ public class Cashier extends SimProcess {
 																// nowe menu
 																// albo wychodzi
 																// z lokolu
-						System.out.println(client.getProbabilityOfQuit());
 						hold(new TimeSpan(model.getClientDecitionTime(),TimeUnit.SECONDS));
 						if(client.selectMenuOnceAgain(model.getDishesStorage()
 								.getAvailableList())==true) //jezeli brakowala czegos dla niego to wychodzi

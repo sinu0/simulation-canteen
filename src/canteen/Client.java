@@ -34,7 +34,6 @@ public class Client extends SimProcess {
 
 	@Override
 	public void lifeCycle() {
-		System.out.println("Jestm czlonkiem gropy i mam wyjebane!");
 		if(stayInCanteen){ //jezeli jest czlonkiem grupy to proces decyzji przeszedl
 		if (model.getDishes().averagePrice < averagePrice || isMemberOfGroup || isPrivileged) {
 			
@@ -75,7 +74,6 @@ public class Client extends SimProcess {
 							client.activate();
 						}
 						
-						// hold(new Span(random time to live ))//wychodzi z lokalu - to raczej nie bedzie potrzebne		
 							
 							
 					} else
@@ -156,7 +154,6 @@ public class Client extends SimProcess {
 	}
 
 	public void addMeFirst() {
-		System.out.println("ha jestem pierwszy!");
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
 		if(model.clientQueue.isEmpty())

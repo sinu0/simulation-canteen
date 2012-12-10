@@ -47,6 +47,7 @@ public class Kitchen extends SimProcess {
 		if (dishToPrepare.contains(name) || dishIsPreparing.contains(name)) {
 			return false;
 		} else {
+			model.change.firePropertyChange("AddToPrepare", name, name);
 			dishToPrepare.add(name);
 				activate(); // po dodaniu kunia zostaje aktywowana
 			return true;
@@ -65,7 +66,6 @@ public class Kitchen extends SimProcess {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() - 1);
 		Cook c = model.cookIdleQueue.first();
-		System.out.println("Cooks" + String.valueOf(model.cookIdleQueue.size()) + " " + String.valueOf(model.cookIdleQueue.size()-1));
 		model.cookIdleQueue.remove(c);
 		return c;
 

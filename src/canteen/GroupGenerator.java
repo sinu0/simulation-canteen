@@ -22,11 +22,11 @@ public class GroupGenerator extends ClientGenerator{
 			
 			groupClientGenerate++;
 			double numberOfClient = (1+rand.nextGaussian())*100;//guassian zwraca rozkład normalny w zakresie 0 - 100 gdzie wartosc oczekiwana to 50
-			System.out.println("clients "+numberOfClient);
 			if(numberOfClient>40 && numberOfClient<60) numberOfClient=2;
 			else
 			if(numberOfClient<40 && numberOfClient>0) numberOfClient=3;
 			else
+			if(numberOfClient>100 || numberOfClient<0) numberOfClient=0;
 				numberOfClient=4;
 			double decisionPoints=0;
 			
@@ -37,7 +37,6 @@ public class GroupGenerator extends ClientGenerator{
 				
 				decisionPoints+=client.decision()/numberOfClient;
 			}
-			System.out.println(decisionPoints/2);
 			if(decisionPoints/2>0.5){
 				
 				for (Client client : groupOfClient) {

@@ -114,9 +114,9 @@ public class Canteen extends Model implements Runnable
 
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
-		//clientGenerator.activate(new TimeSpan(0));
+		clientGenerator.activate(new TimeSpan(0));
 		groupGenerator.activate(new TimeSpan(0));
-		//privilegedClientGenerator.activate(new TimeSpan(0));
+		privilegedClientGenerator.activate(new TimeSpan(0));
 
 	}
 
@@ -131,7 +131,7 @@ public class Canteen extends Model implements Runnable
 			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
 					10 * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", 1, 2 * 20, false, false);
+					"client arrivial time", 10, 60, false, false);
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 60, 2 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
@@ -165,7 +165,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		setDelay(50);
+		//setDelay(50);
 
 		exp.start();
 

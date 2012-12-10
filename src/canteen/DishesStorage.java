@@ -34,7 +34,6 @@ public class DishesStorage extends Dishes {
 	}
 	
 	public boolean addStorage(String name,int howMany) {
-		System.out.println(name +" "+howMany);
 		int oldvalue=storage.get(name);
 		if (storage.put(name, oldvalue+howMany) == oldvalue) {
 			model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue+howMany);
