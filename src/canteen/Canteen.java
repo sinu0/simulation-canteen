@@ -131,11 +131,11 @@ public class Canteen extends Model implements Runnable
 			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
 					10 * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", 10, 60, false, false);
+					"client arrivial time", 1*60, 5*60, false, false);
 			clientDecisionTime = new ContDistUniform(this,
-					"client decision time", 60, 2 * 60, false, false);
+					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
-					"group arriviall probability", 5 * 60, 10 * 60, false,
+					"group arriviall probability", 10 * 60, 15 * 60, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
 					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
@@ -165,7 +165,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		//setDelay(50);
+		//setDelay(1);
 
 		exp.start();
 

@@ -32,6 +32,7 @@ public class GroupGenerator extends ClientGenerator{
 			
 			for(int i=0;i<numberOfClient;i++){
 				Client client = new Client(model, "Client", false);
+				groupOfClient=new LinkedList<Client>();
 				client.setMemberOfGroup(true, groupClientGenerate);
 				groupOfClient.add(client);
 				
@@ -47,8 +48,9 @@ public class GroupGenerator extends ClientGenerator{
 			else{
 				for (Client client : groupOfClient) {
 					client.setStayInCanteen(false);
-				}
+					client.activateAfter(this);}
 			}
+			
 			model.change.firePropertyChange("group generate", groupClientGenerate-1, groupClientGenerate);
 			hold(new TimeSpan(model.getGroupArrivialTime(),TimeUnit.SECONDS));
 			
