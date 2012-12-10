@@ -40,7 +40,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     idleCook.setBounds(100, 50, 100, 20);
     add(idleCook);
     
-    workingCook = new JLabel("Pracuj¹cy kucharze");
+    workingCook = new JLabel("Pracujï¿½cy kucharze");
     workingCook.setBounds(100, 80, 150, 20);
     add(workingCook);
     
@@ -50,7 +50,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     
     if (model.getClientQueue()==null)
       System.out.println("NULL");
-    clientQueue = new JLabel("Kolejka klientów: ");
+    clientQueue = new JLabel("Kolejka klientï¿½w: ");
     clientQueue.setBounds(310, 180, 200, 20);
     add(clientQueue);
     

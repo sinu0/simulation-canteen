@@ -74,6 +74,7 @@ public class Cashier extends SimProcess {
 	}
 
 	private Client getFirstClient() {
+		
 		model.change.firePropertyChange("clientQueue", model.getClientQueue()
 				.size(), model.clientQueue.size() - 1);
 		Client c = model.clientQueue.first();

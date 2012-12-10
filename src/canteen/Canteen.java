@@ -113,9 +113,9 @@ public class Canteen extends Model {
 
 		kitchen.activate(new TimeSpan(0));
 		cashier.activate(new TimeSpan(0));
-		clientGenerator.activate(new TimeSpan(0));
+		//clientGenerator.activate(new TimeSpan(0));
 		groupGenerator.activate(new TimeSpan(0));
-		privilegedClientGenerator.activate(new TimeSpan(0));
+		//privilegedClientGenerator.activate(new TimeSpan(0));
 
 	}
 

@@ -34,8 +34,9 @@ public class Client extends SimProcess {
 
 	@Override
 	public void lifeCycle() {
+		System.out.println("Jestm czlonkiem gropy i mam wyjebane!");
 		if(stayInCanteen){ //jezeli jest czlonkiem grupy to proces decyzji przeszedl
-		if (model.getDishes().averagePrice > averagePrice || isMemberOfGroup || isPrivileged) {
+		if (model.getDishes().averagePrice < averagePrice || isMemberOfGroup || isPrivileged) {
 			
 			if (maxAceptableQueue > model.clientQueue.size() || isMemberOfGroup || isPrivileged) {
 				
@@ -155,6 +156,7 @@ public class Client extends SimProcess {
 	}
 
 	public void addMeFirst() {
+		System.out.println("ha jestem pierwszy!");
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
 		if(model.clientQueue.isEmpty())
@@ -185,9 +187,10 @@ public class Client extends SimProcess {
 		groupNumber = number;
 	}
 	public int decision(){
-		if(model.getAvailabaleSeats() - model.clientQueue.size() > 0){
-			int dec = (model.getDishes().averagePrice> averagePrice)? 1 : 0; //ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
-			 dec +=(maxAceptableQueue < model.clientQueue.size())? 1:0;
+
+		if(model.getAvailabaleSeats() - model.clientQueue.size() >=0 ){
+			int dec = (model.getDishes().averagePrice<averagePrice)? 1 : 0; //ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
+			 dec +=(maxAceptableQueue >model.clientQueue.size())? 1:0;
 			 return dec;
 		}
 		else
