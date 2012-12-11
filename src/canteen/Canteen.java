@@ -26,13 +26,13 @@ public class Canteen extends Model implements Runnable
 	private int cookCount=0;
 	
 	private int minMealCount = 3;
-	private int avaiableSeats = 20;
+	
 
 
 	private ContDistUniform clientServiceTime;
 	private ContDistUniform mealPrepareTime; // in kitchen
 	private ContDistUniform mealEatTime; // client:)
-
+	private ContDistUniform clientTableDecision; //ta zmienna mowi czy klient woli stolik 2 czy 4;
 	private ContDistUniform clientArrivialTime;
 	private ContDistUniform clientDecisionTime;
 	private ContDistUniform clientAveragePrice;
@@ -51,15 +51,19 @@ public class Canteen extends Model implements Runnable
 
 	private Experiment exp;
 
+	
+	//**** obiekty symulacji ****//
+	
 	private Kitchen kitchen;
 	private ClientGenerator clientGenerator;
 	private GroupGenerator groupGenerator;
 	private PrivilegedClientGenerator privilegedClientGenerator;
-	private Dishes dishes;
-	private DishesStorage storage;
-	private LinkedList<Cook> cooks;
-	private LinkedList<Cashier> cashiers;
-	private LinkedList<Table> tables;
+	private Dishes dishes;	// zmienna odpowiedzalna z trzymanie menu
+	private DishesStorage storage; // tu znajduja sie składiki
+	
+	private LinkedList<Cook> cooks; //lista kucharzy
+	private LinkedList<Cashier> cashiers; //lista kasjerek
+	private LinkedList<Table> tables; //lista stolikow
 	private boolean automaticMode = true;
 
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
@@ -72,6 +76,7 @@ public class Canteen extends Model implements Runnable
 		change.addPropertyChangeListener("tableTwoCount", animPanel);
 		cooks = new LinkedList<Cook>();
 		cashiers = new LinkedList<Cashier>();
+		tables=new LinkedList<Table>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -92,13 +97,20 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
+		//te zmienne pasowaloby tworzyc w gui
 		this.addCashier();
 		this.addCashier();
 		this.addCook();
 		this.addCook();
 		this.addCook();
 		this.addCook();
-		
+		this.addTable2();
+		this.addTable2();
+		this.addTable2();
+		this.addTable2();
+		this.addTable4();
+		this.addTable4();
+		this.addTable4();
 		cookIdleQueue = new ProcessQueue<Cook>(this,
 				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
@@ -158,6 +170,7 @@ public class Canteen extends Model implements Runnable
 			clientMaxAcceptableQueue = new ContDistUniform(this,
 					"Maksymalna akceptowalna kojelka", 5, 15, false, false);
 			setProbabilityOfQuitOnNewMenu(0, 1);
+			clientTableDecision = new ContDistUniform(this,"Preferowany stalik przez klienta",0,2,false,false);
 		}
 	}
 
@@ -296,18 +309,6 @@ public class Canteen extends Model implements Runnable
 		this.clientServiceTime = clientServiceTime;
 	}
 
-	public int getAvailabaleSeats() {
-		return avaiableSeats;
-	}
-
-	public int getAvaiableSeats() {
-		return avaiableSeats;
-	}
-
-	public void setAvaiableSeats(int avaiableSeats) {
-		this.avaiableSeats = avaiableSeats;
-	}
-
 	public ProcessQueue<Cashier> getCashierIdleQueue() {
 		return cashierIdleQueue;
 	}
@@ -404,5 +405,8 @@ public class Canteen extends Model implements Runnable
 	
 	public void addTable4(){
 		tables.add(new Table4Seats(this, "table2", true));
+	}
+	public double getClientTableDecision(){
+		return clientTableDecision.sample();
 	}
 }
