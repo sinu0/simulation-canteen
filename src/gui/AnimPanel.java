@@ -143,8 +143,15 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
+    /*
     if (event.getPropertyName().equals("Storage kompot"))
         System.out.println("KUMPOT" + event.getNewValue());
+        */
+    if (event.getPropertyName().equals("table"))
+    {
+      for (int i=0;i<tables.size();i++)
+        tables.get(i).setText(model.getTables().get(i).getClientCount() + "/" + model.getTables().get(i).getSeatCunt());
+    }
   }
 
 }
