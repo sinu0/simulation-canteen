@@ -399,7 +399,7 @@ public class Canteen extends Model implements Runnable
 	public int getAvailableSeats(){
 		int count=0;
 		for (Table table : tables) {
-			count+=table.getClientCount();
+			count+=table.getEmpySeatCount();
 		}
 		return count;
 	}

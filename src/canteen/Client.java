@@ -68,12 +68,12 @@ public class Client extends SimProcess {
 
 						if (hasMeal) {// czy dosotal jedzenie
 							if (model.getAvailableSeats() <= 0) {
-
 								addWaitingForTableQueue();
 								passivate(); // czeaka az zwolnia sie miejsca w
 												// stolowce
 
 							}
+							
 							// zajmuje miejsce przy stoliku
 							for (Table table : model.getTables()) {
 								
