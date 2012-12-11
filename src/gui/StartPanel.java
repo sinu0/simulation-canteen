@@ -259,14 +259,20 @@ public class StartPanel extends JPanel
           
           frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
           frame.getCanteen().setCookCount((int)cookSpinner.getValue());
-         // frame.getCanteen().setTableTwoCount((int)table2Spinner.getValue());
-         // frame.getCanteen().setTableFourthCount((int)table4Spinner.getValue());
+          frame.getCanteen().setTable2Count((int)table2Spinner.getValue());
+          for (int i=0;i<(int)table2Spinner.getValue();i++)
+            frame.getCanteen().addTable2();
+          frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
+          for (int i=0;i<(int)table4Spinner.getValue();i++)
+              frame.getCanteen().addTable4();
           frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
           //frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
           
           
 
           canteenThread.start();
+          System.out.println("Watek wystartowany");
+          frame.getAnimPanel().drawPanel();
 		}
 	  }
     );

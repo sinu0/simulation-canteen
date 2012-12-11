@@ -2,6 +2,7 @@ package gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   private JLabel rosol;
   private JLabel pomidorowa;
   private JLabel kompot;
+  private LinkedList<JLabel> tables;
 
   AnimPanel(MyFrame _frame)
   {
@@ -34,56 +36,76 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	model = frame.getCanteen();
 	frame.getCanteen().addPropertyChangeListener(this);
 	frame.getCanteen().setAnimPanel(this);
-	setLayout(null);
-	
+	setLayout(null);  
+	tables = new LinkedList<JLabel>();
+  }
+  
+  public void drawPanel()
+  {
     idleCook = new JLabel("Wolni kucharze: " + model.getCookCount());
-    idleCook.setBounds(100, 50, 140, 20);
-    add(idleCook);
-    
-    workingCook = new JLabel("Pracuj�cy kucharze: 0");
-    workingCook.setBounds(100, 80, 150, 20);
-    add(workingCook);
-    
-    cashier = new JLabel("Kasjerzy: " + model.getCashierCount());
-    cashier.setBounds(350, 150, 120, 20);
-    add(cashier);
-    
-    clientQueue = new JLabel("Kolejka klient�w: 0");
-    clientQueue.setBounds(310, 180, 200, 20);
-    add(clientQueue);
-    
-    ingredients = new JLabel("Skladniki:");
-    ingredients.setBounds(550, 10, 100, 20);
-    add(ingredients);
-    
-    kotlet = new JLabel("Kotlety: 5");
-    kotlet.setBounds(560, 30, 100, 20);
-    add(kotlet);
-    
-    wolowina = new JLabel("Wolowina: 5");
-    wolowina.setBounds(560, 50, 100, 20);
-    add(wolowina);    
-    
-    ziemniaki = new JLabel("Ziemniaki: 5");
-    ziemniaki.setBounds(560, 70, 100, 20);
-    add(ziemniaki);    
-    
-    ryz = new JLabel("Ryz: 5");
-    ryz.setBounds(560, 90, 100, 20);
-    add(ryz);    
-    
-    rosol = new JLabel("Rosol: 5");
-    rosol.setBounds(560, 110, 100, 20);
-    add(rosol);    
-    
-    pomidorowa = new JLabel("Pomidorowa: 5");
-    pomidorowa.setBounds(560, 130, 100, 20);
-    add(pomidorowa);
-    
-    kompot = new JLabel("Kompot: 500");
-    kompot.setBounds(560, 150, 100, 20);
-    add(kompot);
-    
+	idleCook.setBounds(100, 50, 140, 20);
+	add(idleCook);
+	    
+	workingCook = new JLabel("Pracuj�cy kucharze: 0");
+	workingCook.setBounds(100, 80, 150, 20);
+	add(workingCook);
+	    
+	cashier = new JLabel("Kasjerzy: " + model.getCashierCount());
+	cashier.setBounds(350, 150, 120, 20);
+	add(cashier);
+	    
+	clientQueue = new JLabel("Kolejka klient�w: 0");
+	clientQueue.setBounds(310, 180, 200, 20);
+	add(clientQueue);
+	    
+	ingredients = new JLabel("Skladniki:");
+	ingredients.setBounds(550, 10, 100, 20);
+	add(ingredients);
+	   
+	kotlet = new JLabel("Kotlety: 5");
+	kotlet.setBounds(560, 30, 100, 20);
+	add(kotlet);
+	    
+	wolowina = new JLabel("Wolowina: 5");
+	wolowina.setBounds(560, 50, 100, 20);
+	add(wolowina);    
+	    
+	ziemniaki = new JLabel("Ziemniaki: 5");
+	ziemniaki.setBounds(560, 70, 100, 20);
+	add(ziemniaki);    
+	    
+	ryz = new JLabel("Ryz: 5");
+	ryz.setBounds(560, 90, 100, 20);
+	add(ryz);    
+	    
+	rosol = new JLabel("Rosol: 5");
+	rosol.setBounds(560, 110, 100, 20);
+	add(rosol);    
+	    
+	pomidorowa = new JLabel("Pomidorowa: 5");
+	pomidorowa.setBounds(560, 130, 100, 20);
+	add(pomidorowa);
+	    
+	kompot = new JLabel("Kompot: 500");
+	kompot.setBounds(560, 150, 100, 20);
+	add(kompot);
+	    
+	System.out.println("Model tables " + (model.getTable4Count()+model.getTable4Count()));
+	    
+	for (int i=0;i<model.getTable2Count();i++)
+	{
+	  JLabel label = new JLabel("0/2");
+	  tables.add(label);
+	  label.setBounds(100+i*30, 400, 100, 25);
+	  add(label);
+	}
+	for (int i=0;i<model.getTable4Count();i++)
+	{
+	  JLabel label = new JLabel("0/4");
+	  tables.add(label);
+	  label.setBounds(100+i*30, 400, 100, 25);
+	  add(label);
+	}
   }
 
   @Override

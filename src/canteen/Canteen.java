@@ -27,8 +27,12 @@ public class Canteen extends Model implements Runnable
 	
 	private int minMealCount = 3;
 	
+	private int table2Count;
+	private int table4Count;
+	
 
 
+	
 	private ContDistUniform clientServiceTime;
 	private ContDistUniform mealPrepareTime; // in kitchen
 	private ContDistUniform mealEatTime; // client:)
@@ -104,13 +108,15 @@ public class Canteen extends Model implements Runnable
 		this.addCook();
 		this.addCook();
 		this.addCook();
-		this.addTable2();
+		/*
+	    this.addTable2();
 		this.addTable2();
 		this.addTable2();
 		this.addTable2();
 		this.addTable4();
 		this.addTable4();
 		this.addTable4();
+		*/
 		cookIdleQueue = new ProcessQueue<Cook>(this,
 				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
@@ -408,5 +414,21 @@ public class Canteen extends Model implements Runnable
 	}
 	public double getClientTableDecision(){
 		return clientTableDecision.sample();
+	}
+	
+	public int getTable2Count() {
+		return table2Count;
+	}
+
+	public void setTable2Count(int table2Count) {
+		this.table2Count = table2Count;
+	}
+
+	public int getTable4Count() {
+		return table4Count;
+	}
+
+	public void setTable4Count(int table4Count) {
+		this.table4Count = table4Count;
 	}
 }

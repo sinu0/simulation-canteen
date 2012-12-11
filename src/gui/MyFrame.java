@@ -23,6 +23,7 @@ public class MyFrame extends JFrame
   {
 	canteen = new Canteen(null, "Stolowka", false, false);
 	
+	
 	//inicjalizacja paneli
     startPanel = new StartPanel(this);
     animPanel = new AnimPanel(this);
