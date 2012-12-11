@@ -36,19 +36,19 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	frame.getCanteen().setAnimPanel(this);
 	setLayout(null);
 	
-    idleCook = new JLabel("Wolni kucharze ");
+    idleCook = new JLabel("Wolni kucharze: " + model.getCookCount());
     idleCook.setBounds(100, 50, 140, 20);
     add(idleCook);
     
-    workingCook = new JLabel("Pracuj�cy kucharze");
+    workingCook = new JLabel("Pracuj�cy kucharze: 0");
     workingCook.setBounds(100, 80, 150, 20);
     add(workingCook);
     
-    cashier = new JLabel("Kasjerzy: ");
+    cashier = new JLabel("Kasjerzy: " + model.getCashierCount());
     cashier.setBounds(350, 150, 120, 20);
     add(cashier);
     
-    clientQueue = new JLabel("Kolejka klient�w: ");
+    clientQueue = new JLabel("Kolejka klient�w: 0");
     clientQueue.setBounds(310, 180, 200, 20);
     add(clientQueue);
     
@@ -56,31 +56,31 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     ingredients.setBounds(550, 10, 100, 20);
     add(ingredients);
     
-    kotlet = new JLabel("Kotlety");
+    kotlet = new JLabel("Kotlety: 5");
     kotlet.setBounds(560, 30, 100, 20);
     add(kotlet);
     
-    wolowina = new JLabel("Wolowina");
+    wolowina = new JLabel("Wolowina: 5");
     wolowina.setBounds(560, 50, 100, 20);
     add(wolowina);    
     
-    ziemniaki = new JLabel("Ziemniaki");
+    ziemniaki = new JLabel("Ziemniaki: 5");
     ziemniaki.setBounds(560, 70, 100, 20);
     add(ziemniaki);    
     
-    ryz = new JLabel("Ryz");
+    ryz = new JLabel("Ryz: 5");
     ryz.setBounds(560, 90, 100, 20);
     add(ryz);    
     
-    rosol = new JLabel("Rosol");
+    rosol = new JLabel("Rosol: 5");
     rosol.setBounds(560, 110, 100, 20);
     add(rosol);    
     
-    pomidorowa = new JLabel("Pomidorowa");
+    pomidorowa = new JLabel("Pomidorowa: 5");
     pomidorowa.setBounds(560, 130, 100, 20);
     add(pomidorowa);
     
-    kompot = new JLabel("Kompot");
+    kompot = new JLabel("Kompot: 500");
     kompot.setBounds(560, 150, 100, 20);
     add(kompot);
     
@@ -109,22 +109,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     
     if (event.getPropertyName().equals("cashiers"))
       cashier.setText("Kasjerzy: " + model.getCashiers().size());
-    /*
-    if (event.getPropertyName().equals("Storage kotlet"))
-      kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
-    if (event.getPropertyName().equals("Storage wolownia"))
-      wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
-    if (event.getPropertyName().equals("Storage ziemniaki"))
-      ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
-    if (event.getPropertyName().equals("Storage ryz"))
-      ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
-    if (event.getPropertyName().equals("Storage rosoł"))
-      rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoł"));
-    if (event.getPropertyName().equals("Storage pomidorowa"))
-      pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
-    if (event.getPropertyName().equals("Storage kompot"))
-      kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
-      */
     
     if (event.getPropertyName().equals("cookCount"))
       System.out.println("COOK COUNT" + event.getNewValue());
