@@ -92,6 +92,14 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	    
 	System.out.println("Model tables " + (model.getTable4Count()+model.getTable4Count()));
 	    
+	for (int i=0;i<model.getTables().size();i++)
+	{
+	  JLabel label = new JLabel("0/" + model.getTables().get(i).getSeatCunt());
+	  tables.add(label);
+	  label.setBounds(100+i*30, 400+20*(i/10), 100, 25);
+	  add(label);
+	}
+	/*
 	for (int i=0;i<model.getTable2Count();i++)
 	{
 	  JLabel label = new JLabel("0/2");
@@ -106,6 +114,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	  label.setBounds(100+i*30, 400, 100, 25);
 	  add(label);
 	}
+	*/
   }
 
   @Override

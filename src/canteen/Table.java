@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import desmoj.core.simulator.Entity;
 import desmoj.core.simulator.Model;
 
-public class Table extends Entity {
+public class Table {
 
 	protected ArrayList<Client> clientsAtTheTable;
 	int hasSeats;
 
 	public Table(Model arg0, String arg1, boolean arg2) {
-		super(arg0, arg1, arg2);
 		// TODO Auto-generated constructor stub
 	}
 
