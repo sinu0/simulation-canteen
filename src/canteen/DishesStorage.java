@@ -48,8 +48,11 @@ public class DishesStorage extends Dishes {
 	public boolean subStorage(String name) {
 		
 		int oldvalue=storage.get(name);
-		if (storage.put(name, oldvalue-1) == null) {
-			model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue-1);
+		//System.out.println("Odejmij");
+		if (storage.put(name, oldvalue-1) != null) {
+			//model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue-1);
+			//System.out.println("W warunku");
+			model.change.firePropertyChange("storage",(int)storage.get(name),storage.get(name)-1);
 			return true;
 		} else
 		{

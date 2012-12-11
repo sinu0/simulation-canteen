@@ -175,7 +175,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		setDelay(20);
+		setDelay(50);
 
 		exp.start();
 
