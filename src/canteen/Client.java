@@ -76,9 +76,11 @@ public class Client extends SimProcess {
 							}
 							// zajmuje miejsce przy stoliku
 							for (Table table : model.getTables()) {
-								if (table.getClientCount() < table.hasSeats) {
+								
+								if (table.getEmpySeatCount()>0) {
 									table.addClient(this);
 									this.table = table;
+									model.change.firePropertyChange("table", model.getSeatsCount(), model.getSeatsCount()-1);
 									break;
 								}
 
@@ -87,7 +89,7 @@ public class Client extends SimProcess {
 									TimeUnit.SECONDS));// spozywa jedzenie
 							// odchodzi od stolika
 							table.removeClient(this);
-
+							model.change.firePropertyChange("table", model.getSeatsCount()-1, model.getSeatsCount());
 							if (!model.clientNoPleceQueue.isEmpty()) {
 								// poczym aktywuje pierwszego z kolejki
 								// czekajacych

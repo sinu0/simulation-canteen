@@ -9,9 +9,9 @@ public class Table {
 
 	protected ArrayList<Client> clientsAtTheTable;
 	int hasSeats;
-
+	Canteen model;
 	public Table(Model arg0, String arg1, boolean arg2) {
-		// TODO Auto-generated constructor stub
+		this.model=(Canteen)arg0;
 	}
 
 	public boolean addClient(Client client) {
@@ -23,6 +23,8 @@ public class Table {
 	}
 
 	public void removeClient(Client client) {
+		if(this instanceof Table2Seats)
+		
 		clientsAtTheTable.remove(client);
 	}
 

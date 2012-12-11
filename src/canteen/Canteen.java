@@ -65,9 +65,9 @@ public class Canteen extends Model implements Runnable
 	private Dishes dishes;	// zmienna odpowiedzalna z trzymanie menu
 	private DishesStorage storage; // tu znajduja sie składiki
 	
-	private LinkedList<Cook> cooks; //lista kucharzy
-	private LinkedList<Cashier> cashiers; //lista kasjerek
-	private LinkedList<Table> tables; //lista stolikow
+	private LinkedList<Cook> cooks = new LinkedList<Cook>(); //lista kucharzy
+	private LinkedList<Cashier> cashiers=new LinkedList<Cashier>(); //lista kasjerek
+	private LinkedList<Table> tables = new LinkedList<Table>(); //lista stolikow
 	private boolean automaticMode = true;
 
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
@@ -78,9 +78,7 @@ public class Canteen extends Model implements Runnable
 		change.addPropertyChangeListener(animPanel);
 		change.addPropertyChangeListener("cookCount", animPanel);
 		change.addPropertyChangeListener("tableTwoCount", animPanel);
-		cooks = new LinkedList<Cook>();
-		cashiers = new LinkedList<Cashier>();
-		tables=new LinkedList<Table>();
+		
 		// TODO Auto-generated constructor stub
 	}
 
