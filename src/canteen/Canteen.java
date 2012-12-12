@@ -1,6 +1,7 @@
 package canteen;
 
 import gui.AnimPanel;
+import gui.MyFrame;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -17,21 +18,21 @@ import desmoj.core.simulator.TimeSpan;
 
 public class Canteen extends Model implements Runnable 
 {
-
 	static int clientLeftOnInitCount = 0;
 
 	private AnimPanel animPanel;
+	private MyFrame myFrame;
 
-	private int cashierCount=0;
-	private int cookCount=0;
-	
-	private int minMealCount = 3;
-	
+	private int simTime;
+	private int cashierCount;
+	private int cookCount;
 	private int table2Count;
 	private int table4Count;
 	
-
-
+	
+	private int minMealCount = 3;
+	
+	
 	
 	private ContDistUniform clientServiceTime;
 	private ContDistUniform mealPrepareTime; // in kitchen
@@ -71,6 +72,8 @@ public class Canteen extends Model implements Runnable
 	private boolean automaticMode = true;
 
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
+	private double minClientArrivalTime;
+	private double maxClientArrivalTime;
 
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
@@ -84,6 +87,11 @@ public class Canteen extends Model implements Runnable
 
 	public void setAnimPanel(AnimPanel anim) {
 		animPanel = anim;
+	}
+	
+	public void setMyFrame(MyFrame frame)
+	{
+	  myFrame = frame;
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -100,12 +108,18 @@ public class Canteen extends Model implements Runnable
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
 		//te zmienne pasowaloby tworzyc w gui
-		this.addCashier();
-		this.addCashier();
-		this.addCook();
-		this.addCook();
-		this.addCook();
-		this.addCook();
+		System.out.println("Kasjerek - " + cashierCount);
+		
+		for (int i=0;i<cashierCount;i++)
+		{
+		  this.addCashier();
+		}
+		
+		for (int i=0;i<cookCount;i++)
+		{
+		  this.addCook();
+		}
+		
 		/*
 	    this.addTable2();
 		this.addTable2();
@@ -149,6 +163,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public void init() {
 		System.out.println("INIT");
+		System.out.println("Ilosc kucharzy " + cookCount);
 		if (automaticMode) {
 			clientServiceTime = new ContDistUniform(this,
 					"client service time", 60, 120, false, false);
@@ -157,7 +172,7 @@ public class Canteen extends Model implements Runnable
 			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
 					10 * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", 1*60, 5*60, false, false);
+					"client arrivial time", minClientArrivalTime*60, minClientArrivalTime*60, false, false);
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
@@ -187,16 +202,21 @@ public class Canteen extends Model implements Runnable
 	//}
 	
 	@Override
-	public void run() {
+	public void run()
+	{
 		// TODO Auto-generated method stub
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
-		 exp.stop(new TimeInstant(3600*8, TimeUnit.SECONDS));
-		setDelay(50);
+		exp.stop(new TimeInstant(3600*simTime, TimeUnit.SECONDS));
+		setDelay(3);
 
 		exp.start();
 
 		exp.finish();
+		
+		myFrame.getContentPane().removeAll();
+		myFrame.add(myFrame.getStatPanel());
+		myFrame.revalidate();
 		
 	}
 
@@ -244,6 +264,14 @@ public class Canteen extends Model implements Runnable
 	public void setMinMealCount(int minMealCount) {
 		this.minMealCount = minMealCount;
 	}
+	
+	public int getSimTime() {
+		return simTime;
+	}
+
+	public void setSimTime(int simTime) {
+		this.simTime = simTime;
+	}
 
 	public double getClientServiceTime() {
 		return clientServiceTime.sample();
@@ -278,8 +306,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setClientArrivialTime(double range1, double range2) {
-		this.clientArrivialTime = new ContDistUniform(this,
-				"Clinet arrivial time", range1, range2, false, false);
+		minClientArrivalTime = range1;
+		maxClientArrivalTime = range2;
 	}
 
 	public double getGroupArrivialTime() {
@@ -369,14 +397,14 @@ public class Canteen extends Model implements Runnable
 	}
 	public void addCashier(){
 		Cashier cashier = new Cashier(this,"Cashier",false);
-		cashierCount++;
+		//cashierCount++;
 		cashiers.add(cashier);
 		change.firePropertyChange("cashiers", cashiers.size()-1, cashiers.size());
 		
 	}
 	public void addCook(){
 		Cook cook = new Cook(this,"Cashier",false);
-		cookCount++;
+		//cookCount++;
 		cooks.add(cook);
 		
 	}

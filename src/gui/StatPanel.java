@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class StatPanel extends JPanel
@@ -11,5 +12,6 @@ public class StatPanel extends JPanel
   StatPanel(MyFrame _frame)
   {
     frame = _frame;
+    add(new JLabel("Statystyki animacji"));
   }
 }

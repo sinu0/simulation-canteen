@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class StartPanel extends JPanel 
 {
@@ -39,6 +41,10 @@ public class StartPanel extends JPanel
   
   private JButton startButton;
   
+  
+  private int minTimeClientValue;
+  private int maxTimeClientValue;
+  
   StartPanel(MyFrame _frame)
   {
 	frame = _frame;
@@ -55,9 +61,9 @@ public class StartPanel extends JPanel
     
     //max czas symulacji
     Box timeBox = Box.createHorizontalBox();
-    JLabel maxTimeLabel = new JLabel("Maksymalny czas symulacji");
+    JLabel maxTimeLabel = new JLabel("Maksymalny czas symulacji [h]");
     timeBox.add(maxTimeLabel);
-    spinnerModel = new SpinnerNumberModel(1000, 500, 5000, 40);
+    spinnerModel = new SpinnerNumberModel(8, 1, 10, 1);
     maxSimTimeSpinner = new JSpinner(spinnerModel);
     maxSimTimeSpinner.setMaximumSize(new Dimension(80, 20));
     timeBox.add(Box.createRigidArea(rigidInBox));
@@ -115,12 +121,25 @@ public class StartPanel extends JPanel
     
     
     //minimalny czas pojawiania sie nowego klienta badz grupy
-    Box minTimeClientBox = Box.createHorizontalBox();
+    Box minTimeClientBox = Box.createHorizontalBox();    
     JLabel minTimeClientLabel = new JLabel("Minimalny czas pojawiania sie nowych klientow");
     minTimeClientBox.add(minTimeClientLabel);
-    spinnerModel = new SpinnerNumberModel(20, 1, 60, 1);
+    spinnerModel = new SpinnerNumberModel(5, 1, 30, 1);
+    maxTimeClientSpinner = new JSpinner(spinnerModel);
+    maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
     minTimeClientSpinner = new JSpinner(spinnerModel);
+    minTimeClientValue = (int)minTimeClientSpinner.getValue();
     minTimeClientSpinner.setMaximumSize(spinnerSize);
+    minTimeClientSpinner.addChangeListener(new ChangeListener()
+      {
+        @Override
+		public void stateChanged(ChangeEvent e)
+		{
+		  maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, (int)minTimeClientSpinner.getValue(), 30, 1));
+		  minTimeClientValue = (int)minTimeClientSpinner.getValue();	
+		}
+	  }
+    );
     minTimeClientBox.add(Box.createRigidArea(rigidInBox));
     minTimeClientBox.add(minTimeClientSpinner);
     add(minTimeClientBox);
@@ -133,9 +152,18 @@ public class StartPanel extends JPanel
     Box maxTimeClientBox = Box.createHorizontalBox();
     JLabel maxTimeClientLabel = new JLabel("Maksymalny czas pojawiania sie nowych klientow");
     maxTimeClientBox.add(maxTimeClientLabel);
-    spinnerModel = new SpinnerNumberModel(20, 1, 60, 1);
-    maxTimeClientSpinner = new JSpinner(spinnerModel);
+    spinnerModel = new SpinnerNumberModel(5, 1, 30, 1);
+    
     maxTimeClientSpinner.setMaximumSize(spinnerSize);
+    maxTimeClientSpinner.addChangeListener(new ChangeListener()
+      {
+        public void stateChanged(ChangeEvent arg0)
+        {
+          minTimeClientSpinner.setModel(new SpinnerNumberModel(minTimeClientValue, 1, (int)maxTimeClientSpinner.getValue(), 1));
+          maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
+		}
+	  }
+    );
     maxTimeClientBox.add(Box.createRigidArea(rigidInBox));
     maxTimeClientBox.add(maxTimeClientSpinner);
     add(maxTimeClientBox);
@@ -255,18 +283,19 @@ public class StartPanel extends JPanel
 
           
           //frame.set
-          System.out.println("Kasjerek " + (int)cookSpinner.getValue());
-          
+          frame.getCanteen().setSimTime((int)maxSimTimeSpinner.getValue());
           frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
           frame.getCanteen().setCookCount((int)cookSpinner.getValue());
           frame.getCanteen().setTable2Count((int)table2Spinner.getValue());
-          
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
           
+          
+          
           frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
-          //frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
+          frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
           
           //if (frame.getCanteen()!=null) System.out.println("NIE NULL");
+          frame.getCanteen().setMyFrame(frame);
           canteenThread.start();
           for (int i=0;i<(int)table2Spinner.getValue();i++)
               frame.getCanteen().addTable2();
