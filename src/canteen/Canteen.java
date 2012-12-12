@@ -183,16 +183,27 @@ public class Canteen extends Model implements Runnable
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
 					"privileged cllient probablity", 7, 20, false, false);
-			ContDistNormal price = new ContDistNormal(this, "price", 9, 25,
-					false, false);
-
 			clientMaxAcceptableQueue = new ContDistUniform(this,
 					"Maksymalna akceptowalna kojelka", 5, 15, false, false);
 			setProbabilityOfQuitOnNewMenu(0, 1);
 			clientTableDecision = new ContDistUniform(this,"Preferowany stalik przez klienta",0,2,false,false);
+			setSeed();
 		}
 	}
-
+	//metoda ta powoduje ze symulacja za kazdym razem jest inna
+	public void setSeed(){
+		clientServiceTime.setSeed((long)Math.random()*100);
+		mealPrepareTime.setSeed((long)Math.random()*100);
+		clientTableDecision.setSeed((long)Math.random()*100);
+		probabilityOfQuitOnNewMenu.setSeed((long)Math.random()*100);
+		clientMaxAcceptableQueue.setSeed((long)Math.random()*100);
+		clientAveragePrice.setSeed((long)Math.random()*100);
+		privilegedClientArrivialProbability.setSeed((long)Math.random()*100);
+		groupArrivialProbability.setSeed((long)Math.random()*100);
+		clientDecisionTime.setSeed((long)Math.random()*100);
+		clientArrivialTime.setSeed((long)Math.random()*100);
+		mealEatTime.setSeed((long)Math.random()*100);
+	}
 	//public void start() {
 
 		// Canteen model = new Canteen(null, "Biathlon simulation", true, true);
@@ -208,7 +219,7 @@ public class Canteen extends Model implements Runnable
 		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		exp.stop(new TimeInstant(3600*simTime, TimeUnit.SECONDS));
-		setDelay(3);
+		setDelay(10);
 
 		exp.start();
 
@@ -456,5 +467,12 @@ public class Canteen extends Model implements Runnable
 
 	public void setTable4Count(int table4Count) {
 		this.table4Count = table4Count;
+	}
+	public int ClientsInCanteen(){
+		int count=0;
+		for (Table table : tables) {
+			count+=table.getClientCount();
+		}
+		return clientQueue.size()+clientNoPleceQueue.size()+count;
 	}
 }

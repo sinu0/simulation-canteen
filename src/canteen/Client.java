@@ -10,7 +10,8 @@ import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeSpan;
 
 public class Client extends SimProcess {
-
+	static int whodze=0;
+	static int wychodze=0;
 	private LinkedList<String> selectedMenu;
 	private Canteen model;
 
@@ -24,7 +25,7 @@ public class Client extends SimProcess {
 	private boolean hasMeal;
 	private boolean stayInCanteen = true;
 	private long client = 0;
-	private double clientCharakter;
+	private double clientCharacter;
 	private Table table; // referencja na zajete miejsce w stolowce
 
 	public Client(Model model, String name, boolean trace) {
@@ -33,7 +34,7 @@ public class Client extends SimProcess {
 		probabilityOfQuit = this.model.getProbabilityOfQuitOnNewMenu();
 		maxAceptableQueue = (int) this.model.getClientMaxAcceptableQueue();
 		averagePrice = this.model.getClientAveragePrice();
-		clientCharakter = this.model.getClientTableDecision();
+		clientCharacter = this.model.getClientTableDecision();
 
 	}
 
@@ -49,7 +50,8 @@ public class Client extends SimProcess {
 
 					if (model.getAvailableSeats() - model.clientQueue.size() > 0
 							|| isMemberOfGroup) {
-
+						whodze++;
+						System.out.println("whodze "+whodze);
 						selectMenu();// wybiera menu
 						if (isPrivileged)
 							addMeFirst();// jeżeli klient jest uprzywilejowany
@@ -76,15 +78,26 @@ public class Client extends SimProcess {
 							
 							// zajmuje miejsce przy stoliku
 							for (Table table : model.getTables()) {
-								
 								if (table.getEmpySeatCount()>0) {
-									table.addClient(this);
-									this.table = table;
-									model.change.firePropertyChange("table", model.getSeatsCount(), model.getSeatsCount()-1);
-									break;
+									this.table=table;
+									if(clientCharacter>=1.5){
+										if(table.getClientCount()>0)
+										{
+											this.table = table;
+											break;
+										}
+										
+									}else
+										if(table.getClientCount()==0){ //klient nieśmialy
+											this.table = table;
+											break;
+										}
+									
 								}
 
 							}
+							table.addClient(this);
+							model.change.firePropertyChange("table", model.getSeatsCount(), model.getSeatsCount()-1);
 							hold(new TimeSpan(model.getMealEatTime(),
 									TimeUnit.SECONDS));// spozywa jedzenie
 							// odchodzi od stolika
@@ -96,6 +109,8 @@ public class Client extends SimProcess {
 								Client client = getFirstFromWaitingQueue();
 								client.activate();
 							}
+							wychodze++;
+							System.out.println("wyhodze "+wychodze);
 
 						} else
 							Canteen.clientLeftOnInitCount++;
@@ -211,17 +226,7 @@ public class Client extends SimProcess {
 	public int decision() {
 
 		if (model.getAvailableSeats() - model.clientQueue.size() >= 0) {
-			int dec = (model.getDishes().averagePrice < averagePrice) ? 1 : 0; // ilosc
-																				// punktow
-																				// symuluje
-																				// decyzje
-																				// w
-																				// grupie,
-																				// jezeli
-																				// true
-																				// dec:=1
-																				// else
-																				// dec:=0
+			int dec = (model.getDishes().averagePrice < averagePrice) ? 1 : 0; // ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
 			dec += (maxAceptableQueue > model.clientQueue.size()) ? 1 : 0;
 			return dec;
 		} else
