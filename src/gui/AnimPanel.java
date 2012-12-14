@@ -121,14 +121,15 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   public void propertyChange(PropertyChangeEvent event)
   {
     if (event.getPropertyName().equals("clientQueue"))
-	  clientQueue.setText("Kolejka klientów: " + model.getClientQueue().size());
+	  clientQueue.setText("Kolejka klientï¿½w: " + model.getClientQueue().size());
     if (event.getPropertyName().equals("cookIdleQueue"))
     {
 	  idleCook.setText("Wolni kucharze: " + model.getCookIdleQueue().size());
       workingCook.setText("Pracujacy kucharze: " + (model.getCookCount()-model.getCookIdleQueue().size()));
     }
     if (event.getPropertyName().equals("storage"))
-    {
+    {	
+    	
     	kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
     	wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
     	ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));

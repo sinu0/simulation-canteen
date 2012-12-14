@@ -16,6 +16,11 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
 
+/**
+ * @author mar
+ * Jest to główna klasa odpowiadająca za całą symulacje 
+ * Uruchamiana jest w oddzielnym watku
+ */
 public class Canteen extends Model implements Runnable 
 {
 	static int clientLeftOnInitCount = 0;
@@ -75,6 +80,13 @@ public class Canteen extends Model implements Runnable
 	private double minClientArrivalTime;
 	private double maxClientArrivalTime;
 
+	/**
+	 * Konstruktor symulacji 
+	 * @param model przujmuje null pniewaz ta klasa reprezentuje symulacje
+	 * @param name
+	 * @param showInRaport
+	 * @param showInTrace
+	 */
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
 		super(model, name, showInRaport, showInRaport);
@@ -84,16 +96,28 @@ public class Canteen extends Model implements Runnable
 		
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * Ustawia panel z animacja
+	 * @param anim 
+	 */
 	public void setAnimPanel(AnimPanel anim) {
 		animPanel = anim;
 	}
 	
+	/**
+	 * Usawia glowne okno
+	 * @param frame
+	 */
 	public void setMyFrame(MyFrame frame)
 	{
 	  myFrame = frame;
 	}
 
+	/**
+	 * Dodaje 
+	 * @param listener
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		this.change.addPropertyChangeListener(listener);
 	}
@@ -104,6 +128,9 @@ public class Canteen extends Model implements Runnable
 		return "Symulacja super stołówki ";
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.Model#doInitialSchedules()
+	 */
 	@Override
 	public void doInitialSchedules() {
 		System.out.println("InitialSchedules");
@@ -160,6 +187,9 @@ public class Canteen extends Model implements Runnable
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.Model#init()
+	 */
 	@Override
 	public void init() {
 		System.out.println("INIT");
@@ -190,7 +220,10 @@ public class Canteen extends Model implements Runnable
 			setSeed();
 		}
 	}
-	//metoda ta powoduje ze symulacja za kazdym razem jest inna
+	
+	/**
+	 * metoda ta powoduje ze symulacja za kazdym razem jest inna
+	 */
 	public void setSeed(){
 		clientServiceTime.setSeed((long)Math.random()*100);
 		mealPrepareTime.setSeed((long)Math.random()*100);
@@ -204,14 +237,11 @@ public class Canteen extends Model implements Runnable
 		clientArrivialTime.setSeed((long)Math.random()*100);
 		mealEatTime.setSeed((long)Math.random()*100);
 	}
-	//public void start() {
 
-		// Canteen model = new Canteen(null, "Biathlon simulation", true, true);
-		// exp = new Experiment("Biatholon_simulation", "output");
-		
-
-	//}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run()
 	{
@@ -231,59 +261,104 @@ public class Canteen extends Model implements Runnable
 		
 	}
 
-	// przerwa pomiedzy zadaniami
+	/**
+	 * Ustawia przerwe pomiedzy zadaniami
+	 * @param milis czas w milisekundach
+	 */
 	public void setDelay(long milis) {
 		exp.setDelayInMillis(milis);
 	}
 
+	/**
+	 * Zatrzymuje symulacje
+	 */
 	public void Pause() {
 		exp.stop();
 	}
 
+	/**
+	 * W znawia symulacje
+	 */
 	public void unPause() {
 		exp.proceed();
 	}
 	
+	/**
+	 * 
+	 * @return kolejke kucharzy kórzy sa w daniej chwili wolni
+	 */
 	public ProcessQueue<Cook> getCookIdleQueue()
 	{
 	  return cookIdleQueue;
 	}
 
+	/**
+	 * 
+	 * @return ilosc kasjerek w symulacji
+	 */
 	public int getCashierCount() {
 		return cashierCount;
 	}
 
+	/**
+	 * Ustawia ilosc kasjerek w symulacji
+	 * @param cashierCount liczba kasjerek w symulacji
+	 */
 	public void setCashierCount(int cashierCount) {
 		change.firePropertyChange("cashierCount", this.cashierCount, cashierCount);
 		this.cashierCount = cashierCount;
 		
 	}
 
+	/**
+	 * @return liczbe kucharzy w sumulacji
+	 */
 	public int getCookCount() {
 		return cookCount;
 	}
 
+	/**
+	 * Ustaiwa ilosc kucharzy w symualcji
+	 * @param cookCount ilosc kucharzy w symulacji
+	 */
 	public void setCookCount(int cookCount) {
 		change.firePropertyChange("cookCount", this.cookCount, cookCount);
 		this.cookCount = cookCount;
 	}
 
+	/**
+	 * @return	minimalna ilosc skladnikow ktora powinna sie znajdowac w magazynie
+	 */
 	public int getMinMealCount() {
 		return minMealCount;
 	}
 
+	/**
+	 * Ustawia minimalna ilosc skladnikow w magazynie
+	 * @param minMealCount minimalna liczba sklasnikow przy ktorej kucharze musza robic danie
+	 */
 	public void setMinMealCount(int minMealCount) {
 		this.minMealCount = minMealCount;
 	}
 	
+	/**
+	 * @return czas symulacji
+	 */
 	public int getSimTime() {
 		return simTime;
 	}
 
+	/**
+	 * Ustawia czas symulacji
+	 * @param simTime czas w sekundach
+	 */
 	public void setSimTime(int simTime) {
 		this.simTime = simTime;
 	}
-
+	
+	/**
+	 * @return losowa wartosc z zadanego przedzialu gdzie
+	 */
 	public double getClientServiceTime() {
 		return clientServiceTime.sample();
 

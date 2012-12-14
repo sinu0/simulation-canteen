@@ -10,8 +10,6 @@ import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeSpan;
 
 public class Client extends SimProcess {
-	static int whodze=0;
-	static int wychodze=0;
 	private LinkedList<String> selectedMenu;
 	private Canteen model;
 
@@ -38,10 +36,14 @@ public class Client extends SimProcess {
 
 	}
 
+	/* 
+	 * cykl zycia klienta. Klient przechodzi przez kilka procesow decyzujnech.
+	 *  W symulacji wyrózniamy 3 klientow: klient zwykly, grupa klientow 
+	 *  oraz klient uprzywilejowany.  
+	 */
 	@Override
 	public void lifeCycle() {
-		if (stayInCanteen) { // jezeli jest czlonkiem grupy to proces decyzji
-								// przeszedl
+		if (stayInCanteen) { // jezeli jest czlonkiem grupy to proces decyzji juz przeszedl
 			if (model.getDishes().averagePrice < averagePrice
 					|| isMemberOfGroup || isPrivileged) {
 
@@ -50,8 +52,6 @@ public class Client extends SimProcess {
 
 					if (model.getAvailableSeats() - model.clientQueue.size() > 0
 							|| isMemberOfGroup) {
-						whodze++;
-						System.out.println("whodze "+whodze);
 						selectMenu();// wybiera menu
 						if (isPrivileged)
 							addMeFirst();// jeżeli klient jest uprzywilejowany
@@ -69,7 +69,7 @@ public class Client extends SimProcess {
 									// sama wyciaga go z kolejki
 
 						if (hasMeal) {// czy dosotal jedzenie
-							if (model.getAvailableSeats() <= 0) {
+							if (model.getAvailableSeats() <= 0) { //jezeli jest brak siedzen klient oczekuje w kolejce na wolne siedzenie
 								addWaitingForTableQueue();
 								passivate(); // czeaka az zwolnia sie miejsca w
 												// stolowce
@@ -80,7 +80,7 @@ public class Client extends SimProcess {
 							for (Table table : model.getTables()) {
 								if (table.getEmpySeatCount()>0) {
 									this.table=table;
-									if(clientCharacter>=1.5){
+									if(clientCharacter>=1.5){//jezeli klient jest śmialy/pewny siebie szuka takiego stoloki do ktorego moze sie przysisc
 										if(table.getClientCount()>0)
 										{
 											this.table = table;
@@ -88,7 +88,7 @@ public class Client extends SimProcess {
 										}
 										
 									}else
-										if(table.getClientCount()==0){ //klient nieśmialy
+										if(table.getClientCount()==0){ //klient nieśmialy wybiera jezeli to mozliwe pusty stolik
 											this.table = table;
 											break;
 										}
@@ -96,7 +96,7 @@ public class Client extends SimProcess {
 								}
 
 							}
-							table.addClient(this);
+							table.addClient(this);//klient sieada
 							model.change.firePropertyChange("table", model.getSeatsCount(), model.getSeatsCount()-1);
 							hold(new TimeSpan(model.getMealEatTime(),
 									TimeUnit.SECONDS));// spozywa jedzenie
@@ -104,13 +104,10 @@ public class Client extends SimProcess {
 							table.removeClient(this);
 							model.change.firePropertyChange("table", model.getSeatsCount()-1, model.getSeatsCount());
 							if (!model.clientNoPleceQueue.isEmpty()) {
-								// poczym aktywuje pierwszego z kolejki
-								// czekajacych
+								//kiedy klient konczy jedzenie i ktos czeka na wolne miejsce przy stoliku aktywuje pierwszego z koljeki
 								Client client = getFirstFromWaitingQueue();
 								client.activate();
 							}
-							wychodze++;
-							System.out.println("wyhodze "+wychodze);
 
 						} else
 							Canteen.clientLeftOnInitCount++;
@@ -125,6 +122,9 @@ public class Client extends SimProcess {
 
 	}
 
+	/**
+	 * Klient wybiera menu
+	 */
 	public void selectMenu() {
 		Dishes dishes = model.getDishes();
 		selectedMenu = new LinkedList<String>();
@@ -140,11 +140,23 @@ public class Client extends SimProcess {
 		selectedMenu.add(lDr.get(rand.nextInt(lDr.size())));
 
 	}
-
+	
+	/**
+	 * Metoda ktora ustawia czy klient posiada jedzenie aktywowana zostaje przez kasjerke
+	 * @param meal true or false (klient ma danie albo nie)
+	 */
 	public void setHasMeal(boolean meal) {
 		hasMeal = meal;
 	}
-
+	
+	/**
+	 * Zwaraca true wprzypdku wybrania nowego menu przeciwnym przypdku 
+	 * metoda zwraca false co znaczy ze klient nie wybral nowego menu 
+	 * oraz wychodzi z lokalu
+	 * 
+	 * @param avaliableDishes jest to lista dostepnych w danej chwili składikow 
+	 * @return true or false
+	 */
 	public boolean selectMenuOnceAgain(
 			HashMap<String, LinkedList<String>> avaliableDishes) {
 		try {

@@ -5,6 +5,13 @@ import java.util.concurrent.TimeUnit;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 
+/**
+ * @author mar
+ *
+ *	Klasa tworzaca uprzywilejownych klientow, taki klient wchodzi pierwszy 
+ *	do kolejki nie zwarzajac na nic oraz tworzony jest z zadana czestoscia
+ * 	z przedzialu losowanego ze zmiennej privilegedClientArrivialTime
+ */	
 public class PrivilegedClientGenerator extends ClientGenerator{
 
 	public PrivilegedClientGenerator(Model arg0, String arg1, boolean arg2) {
@@ -12,6 +19,9 @@ public class PrivilegedClientGenerator extends ClientGenerator{
 		// TODO Auto-generated constructor stub
 	}
 
+	/* 
+	 * opisuje cykl zycia tego procesu. Tworzy nowych uprzewilejowanych klientow
+	 */
 	@Override
 	public void lifeCycle() {
 		while(true){
