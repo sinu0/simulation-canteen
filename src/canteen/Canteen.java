@@ -81,6 +81,11 @@ public class Canteen extends Model implements Runnable
 	private double maxClientArrivalTime;
 	private double minClientServiceTime;
 	private double maxClientServiceTime;
+	private double minMealEatTime;
+	private double maxMealEatTime;
+	private double minMealPrepareTime;
+	private double maxMealPrepareTime;
+	
 
 	/**
 	 * Konstruktor symulacji 
@@ -200,11 +205,11 @@ public class Canteen extends Model implements Runnable
 			clientServiceTime = new ContDistUniform(this,
 					"client service time", minClientServiceTime*60, maxClientServiceTime*60, false, false);
 			mealPrepareTime = new ContDistUniform(this, "meal prepare time",
-					60 * 1, 60 * 10, false, false); // in kitchen
-			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
-					10 * 60, false, false); // client:)
+					60 * minMealPrepareTime, 60 * maxMealPrepareTime, false, false); // in kitchen
+			mealEatTime = new ContDistUniform(this, "meal eat time", minMealEatTime * 60,
+					maxMealEatTime * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", minClientArrivalTime*60, minClientArrivalTime*60, false, false);
+					"client arrivial time", minClientArrivalTime*60, maxClientArrivalTime*60, false, false);
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
@@ -369,17 +374,16 @@ public class Canteen extends Model implements Runnable
 	public void setClientServiceTime(double range1, double range2) {
 		minClientServiceTime = range1;
 		maxClientServiceTime = range2;
-		//this.clientServiceTime = new ContDistUniform(this,
-		//		"Client service time", range1, range2, false, false);
 	}
 
 	public double getMealPrepareTime() {
 		return mealPrepareTime.sample();
 	}
+	
 
 	public void setMealPrepareTime(double range1, double range2) {
-		this.mealPrepareTime = new ContDistUniform(this, "Meal prepare time",
-				range1, range2, false, false);
+		minMealPrepareTime = range1;
+		maxMealPrepareTime = range2;
 	}
 
 	public double getMealEatTime() {
@@ -387,8 +391,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setMealEatTime(double range1, double range2) {
-		this.mealEatTime = new ContDistUniform(this, "Eat tieme", range1,
-				range2, false, false);
+		minMealEatTime = range1;
+		maxMealEatTime = range2;
 	}
 
 	public double getClientArrivialTime() {

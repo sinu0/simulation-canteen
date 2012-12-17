@@ -401,21 +401,20 @@ public class StartPanel extends JPanel
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
           
           
-          
-          frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
           frame.getCanteen().setClientServiceTime(Double.parseDouble(Integer.toString((int)minServiceTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxServiceTimeSpinner.getValue())));
-          
-          //if (frame.getCanteen()!=null) System.out.println("NIE NULL");
-          frame.getCanteen().setMyFrame(frame);
-          canteenThread.start();
+          frame.getCanteen().setMealEatTime(Double.parseDouble(Integer.toString((int)minEatTimeSpinner.getValue())),Double.parseDouble(Integer.toString((int)maxEatTimeSpinner.getValue())));
+
           for (int i=0;i<(int)table2Spinner.getValue();i++)
               frame.getCanteen().addTable2();
           for (int i=0;i<(int)table4Spinner.getValue();i++)
               frame.getCanteen().addTable4();
+          frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
           
           
           System.out.println("Watek wystartowany");
+          frame.getCanteen().setMyFrame(frame);
+          canteenThread.start();
           frame.getAnimPanel().drawPanel();
 		}
 	  }
