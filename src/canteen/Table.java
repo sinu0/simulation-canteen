@@ -34,7 +34,6 @@ public class Table  {
 	 * @param client kroty ma zamiar odejsc z stolika
 	 */
 	public void removeClient(Client client) {
-		if(this instanceof Table2Seats)
 		
 		clientsAtTheTable.remove(client);
 	}

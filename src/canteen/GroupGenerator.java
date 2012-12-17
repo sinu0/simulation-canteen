@@ -47,6 +47,7 @@ public class GroupGenerator extends ClientGenerator{
 				for (Client client : groupOfClient) {
 					client.setStayInCanteen(true);
 					client.activateAfter(this);
+					
 				}
 			}
 			else{

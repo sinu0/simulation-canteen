@@ -67,10 +67,10 @@ public class Client extends SimProcess {
 						passivate();// czeka az kasjerka bedzie dostepna,
 									// kasjerka
 									// sama wyciaga go z kolejki
-
 						if (hasMeal) {// czy dosotal jedzenie
 							if (model.getAvailableSeats() <= 0) { //jezeli jest brak siedzen klient oczekuje w kolejce na wolne siedzenie
 								addWaitingForTableQueue();
+								System.out.println("gdfg");
 								passivate(); // czeaka az zwolnia sie miejsca w
 												// stolowce
 
@@ -78,20 +78,13 @@ public class Client extends SimProcess {
 							
 							// zajmuje miejsce przy stoliku
 							for (Table table : model.getTables()) {
-								if (table.getEmpySeatCount()>0) {
+								if(this.table==null)
 									this.table=table;
-									if(clientCharacter>=1.5){//jezeli klient jest śmialy/pewny siebie szuka takiego stoloki do ktorego moze sie przysisc
-										if(table.getClientCount()>0)
-										{
-											this.table = table;
-											break;
-										}
-										
-									}else
-										if(table.getClientCount()==0){ //klient nieśmialy wybiera jezeli to mozliwe pusty stolik
-											this.table = table;
-											break;
-										}
+								else
+								if (table.getEmpySeatCount()>0) {
+									if(this.table.getClientCount()>table.getClientCount())
+										this.table=table;
+									
 									
 								}
 
@@ -109,16 +102,20 @@ public class Client extends SimProcess {
 								client.activate();
 							}
 
-						} else
+						} else{
 							Canteen.clientLeftOnInitCount++;
-
-					} else
+							System.out.println("Nie ma dla mnie jedzenia");
+						}
+					} else{
 						Canteen.clientLeftOnInitCount++;
-				} else
+					System.out.println("Brak miejsca");}
+				} else{
 					Canteen.clientLeftOnInitCount++;
-			} else
+				System.out.println("Za dluga kolejka ");}
+			} else{
 				Canteen.clientLeftOnInitCount++;
-		}
+				System.out.println("Grupa sie rozmysla");
+		}}
 
 	}
 
