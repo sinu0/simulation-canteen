@@ -465,17 +465,18 @@ public class Canteen extends Model implements Runnable
 		return clientMaxAcceptableQueue.sample();
 	}
 
-	public void setClientMaxAcceptableQueue(
-			ContDistUniform clientMaxAcceptableQueue) {
-		this.clientMaxAcceptableQueue = clientMaxAcceptableQueue;
+	public void setClientMaxAcceptableQueue(double one, double two) {
+		this.clientMaxAcceptableQueue =new ContDistUniform(this,
+				"Client max acceptable queue", one, two, false, false);
 	}
 
 	public double getClientAveragePrice() {
 		return clientAveragePrice.sample();
 	}
 
-	public void setClientAveragePrice(ContDistUniform clientAveragePrice) {
-		this.clientAveragePrice = clientAveragePrice;
+	public void setClientAveragePrice(double one, double two) {
+		this.clientAveragePrice = new ContDistUniform(this,
+				"Client max acceptable queue", one, two, false, false);
 	}
 
 	public LinkedList<Cook> getCooks() {
