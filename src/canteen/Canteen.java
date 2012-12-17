@@ -46,6 +46,7 @@ public class Canteen extends Model implements Runnable
 	private ContDistUniform clientArrivialTime;
 	private ContDistUniform clientDecisionTime;
 	private ContDistUniform clientAveragePrice;
+	private ContDistUniform canteenAveragePrice;
 
 	private ContDistUniform clientMaxAcceptableQueue;
 	private ContDistUniform probabilityOfQuitOnNewMenu;
@@ -177,7 +178,7 @@ public class Canteen extends Model implements Runnable
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
 		
-		dishes = new Dishes(getClientAveragePrice());
+		dishes = new Dishes(getCanteenAveragePrice());
 		kitchen = new Kitchen(this, "Kitchen", false);
 		storage = new DishesStorage(dishes.averagePrice, 5, this);
 
@@ -219,7 +220,8 @@ public class Canteen extends Model implements Runnable
 					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
-					"privileged cllient probablity", 7, 20, false, false);
+					"privileged cllient probablity", 9, 15, false, false);
+			canteenAveragePrice = new ContDistUniform(this,"Canteen average price",10,15,false,false);
 			clientMaxAcceptableQueue = new ContDistUniform(this,
 					"Maksymalna akceptowalna kojelka", 5, 15, false, false);
 			setProbabilityOfQuitOnNewMenu(0, 1);
@@ -232,18 +234,20 @@ public class Canteen extends Model implements Runnable
 	 * metoda ta powoduje ze symulacja za kazdym razem jest inna
 	 */
 	public void setSeed(){
-		clientServiceTime.setSeed((long)Math.random()*100);
-		mealPrepareTime.setSeed((long)Math.random()*100);
-		clientTableDecision.setSeed((long)Math.random()*100);
-		probabilityOfQuitOnNewMenu.setSeed((long)Math.random()*100);
-		clientMaxAcceptableQueue.setSeed((long)Math.random()*100);
-		clientAveragePrice.setSeed((long)Math.random()*100);
-		privilegedClientArrivialProbability.setSeed((long)Math.random()*100);
-		groupArrivialProbability.setSeed((long)Math.random()*100);
-		clientDecisionTime.setSeed((long)Math.random()*100);
-		clientArrivialTime.setSeed((long)Math.random()*100);
-		mealEatTime.setSeed((long)Math.random()*100);
-	}
+		System.out.println((long)(Math.random()*100000));
+		clientServiceTime.setSeed((long)(Math.random()*100000));
+		mealPrepareTime.setSeed((long)(Math.random()*100000));
+		clientTableDecision.setSeed((long)(Math.random()*100000));
+		probabilityOfQuitOnNewMenu.setSeed((long)(Math.random()*100000));
+		clientMaxAcceptableQueue.setSeed((long)(Math.random()*100000));
+		clientAveragePrice.setSeed((long)(Math.random()*100000));
+		privilegedClientArrivialProbability.setSeed((long)(Math.random()*100000));
+		groupArrivialProbability.setSeed((long)(Math.random()*100000));
+		clientDecisionTime.setSeed((long)(Math.random()*100000));
+		clientArrivialTime.setSeed((long)(Math.random()*100000));
+		mealEatTime.setSeed((long)(Math.random()*100000));
+		canteenAveragePrice.setSeed((long)(Math.random()*100000));
+		}
 
 	
 	/* (non-Javadoc)
@@ -559,4 +563,13 @@ public class Canteen extends Model implements Runnable
 		}
 		return clientQueue.size()+clientNoPleceQueue.size()+count;
 	}
+
+	public double getCanteenAveragePrice() {
+		return canteenAveragePrice.sample();
+	}
+
+	public void setCanteenAveragePrice(double one, double two) {
+		this.canteenAveragePrice = new ContDistUniform(this,"Canteen average price",one,two,false,false);
+	}
+	
 }
