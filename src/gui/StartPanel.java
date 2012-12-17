@@ -122,7 +122,7 @@ public class StartPanel extends JPanel
     
     //minimalny czas pojawiania sie nowego klienta badz grupy
     Box minTimeClientBox = Box.createHorizontalBox();    
-    JLabel minTimeClientLabel = new JLabel("Minimalny czas pojawiania sie nowych klientow");
+    JLabel minTimeClientLabel = new JLabel("Min i max czas pojawiania sie nowych klientow");
     minTimeClientBox.add(minTimeClientLabel);
     spinnerModel = new SpinnerNumberModel(5, 1, 30, 1);
     maxTimeClientSpinner = new JSpinner(spinnerModel);
@@ -150,8 +150,8 @@ public class StartPanel extends JPanel
     
     //maksymalny czas pojawiania sie nowego klienta badz grupy
     Box maxTimeClientBox = Box.createHorizontalBox();
-    JLabel maxTimeClientLabel = new JLabel("Maksymalny czas pojawiania sie nowych klientow");
-    maxTimeClientBox.add(maxTimeClientLabel);
+    //JLabel maxTimeClientLabel = new JLabel("Maksymalny czas pojawiania sie nowych klientow");
+    //maxTimeClientBox.add(maxTimeClientLabel);
     spinnerModel = new SpinnerNumberModel(5, 1, 30, 1);
     
     maxTimeClientSpinner.setMaximumSize(spinnerSize);
@@ -164,8 +164,8 @@ public class StartPanel extends JPanel
 		}
 	  }
     );
-    maxTimeClientBox.add(Box.createRigidArea(rigidInBox));
-    maxTimeClientBox.add(maxTimeClientSpinner);
+    minTimeClientBox.add(Box.createRigidArea(rigidInBox));
+    minTimeClientBox.add(maxTimeClientSpinner);
     add(maxTimeClientBox);
     add(Box.createRigidArea(rigidOutBox));
     
