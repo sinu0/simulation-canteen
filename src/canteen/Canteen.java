@@ -79,6 +79,8 @@ public class Canteen extends Model implements Runnable
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
 	private double minClientArrivalTime;
 	private double maxClientArrivalTime;
+	private double minClientServiceTime;
+	private double maxClientServiceTime;
 
 	/**
 	 * Konstruktor symulacji 
@@ -196,7 +198,7 @@ public class Canteen extends Model implements Runnable
 		System.out.println("Ilosc kucharzy " + cookCount);
 		if (automaticMode) {
 			clientServiceTime = new ContDistUniform(this,
-					"client service time", 60, 120, false, false);
+					"client service time", minClientServiceTime*60, maxClientServiceTime*60, false, false);
 			mealPrepareTime = new ContDistUniform(this, "meal prepare time",
 					60 * 1, 60 * 10, false, false); // in kitchen
 			mealEatTime = new ContDistUniform(this, "meal eat time", 5 * 60,
@@ -365,8 +367,10 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setClientServiceTime(double range1, double range2) {
-		this.clientServiceTime = new ContDistUniform(this,
-				"Client service time", range1, range2, false, false);
+		minClientServiceTime = range1;
+		maxClientServiceTime = range2;
+		//this.clientServiceTime = new ContDistUniform(this,
+		//		"Client service time", range1, range2, false, false);
 	}
 
 	public double getMealPrepareTime() {

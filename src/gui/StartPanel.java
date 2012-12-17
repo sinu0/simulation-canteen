@@ -34,7 +34,8 @@ public class StartPanel extends JPanel
   private JSpinner groupSizeSpinner;
   private JSpinner highPriceSpinner;
   private JSpinner longQueueSpinner;
-  private JSpinner serviceTimeSpinner;
+  private JSpinner minServiceTimeSpinner;
+  private JSpinner maxServiceTimeSpinner;
   private JSpinner eatTimeSpinner;
   private JSpinner foodPrepareTimeSpinner;
   private JSpinner minValueIngredientSpinner;
@@ -44,6 +45,9 @@ public class StartPanel extends JPanel
   
   private int minTimeClientValue;
   private int maxTimeClientValue;
+  
+  private int minClientServiceTime;
+  private int maxClientServiceTime;
   
   StartPanel(MyFrame _frame)
   {
@@ -220,13 +224,39 @@ public class StartPanel extends JPanel
     
     //czas obslugi klienta
     Box serviceTimeBox = Box.createHorizontalBox();
-    JLabel serviceTimeLabel = new JLabel("Czas obslugi klienta");
+    JLabel serviceTimeLabel = new JLabel("Min i max czas obslugi klienta");
     serviceTimeBox.add(serviceTimeLabel);
+    
     spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
-    serviceTimeSpinner = new JSpinner(spinnerModel);
-    serviceTimeSpinner.setMaximumSize(spinnerSize);
+    maxServiceTimeSpinner = new JSpinner(spinnerModel);
+    maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
+    minServiceTimeSpinner = new JSpinner(spinnerModel);
+    minClientServiceTime = (int)minServiceTimeSpinner.getValue();
+    minServiceTimeSpinner.setMaximumSize(spinnerSize);
+    maxServiceTimeSpinner.setMaximumSize(spinnerSize);
+    minServiceTimeSpinner.addChangeListener(new ChangeListener() {
+		
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			// TODO Auto-generated method stub
+			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, (int)minServiceTimeSpinner.getValue(), 100, 1));
+			minClientServiceTime = (int)minServiceTimeSpinner.getValue();
+		}
+	});
+    maxServiceTimeSpinner.addChangeListener(new ChangeListener() {
+		
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+			minServiceTimeSpinner.setModel(new SpinnerNumberModel(minClientServiceTime, 1, (int)maxServiceTimeSpinner.getValue(), 1));
+			maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
+			
+		}
+	});
     serviceTimeBox.add(Box.createRigidArea(rigidInBox));
-    serviceTimeBox.add(serviceTimeSpinner);
+    serviceTimeBox.add(minServiceTimeSpinner);
+    serviceTimeBox.add(Box.createRigidArea(rigidInBox));
+    serviceTimeBox.add(maxServiceTimeSpinner);
     add(serviceTimeBox);
     add(Box.createRigidArea(rigidOutBox));
     
@@ -293,6 +323,7 @@ public class StartPanel extends JPanel
           
           frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
+          frame.getCanteen().setClientServiceTime(Double.parseDouble(Integer.toString((int)minServiceTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxServiceTimeSpinner.getValue())));
           
           //if (frame.getCanteen()!=null) System.out.println("NIE NULL");
           frame.getCanteen().setMyFrame(frame);
