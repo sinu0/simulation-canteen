@@ -114,8 +114,9 @@ public class Client extends SimProcess {
 				System.out.println("Za dluga kolejka ");}
 			} else{
 				Canteen.clientLeftOnInitCount++;
-				
-				System.out.println("cena jest za wysoka");
+			
+			System.out.println("cena jest za wysoka");
+
 		}}
 
 	}
