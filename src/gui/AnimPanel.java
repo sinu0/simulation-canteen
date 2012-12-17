@@ -6,6 +6,9 @@ import java.util.LinkedList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import canteen.Canteen;
 
@@ -29,6 +32,9 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   private JLabel pomidorowa;
   private JLabel kompot;
   private LinkedList<JLabel> tables;
+  
+  private JLabel speedLabel;
+  private JSlider speedSlider;
 
   AnimPanel(MyFrame _frame)
   {
@@ -38,10 +44,31 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	frame.getCanteen().setAnimPanel(this);
 	setLayout(null);  
 	tables = new LinkedList<JLabel>();
+	
   }
   
   public void drawPanel()
   {
+	speedLabel = new JLabel();
+	speedLabel.setBounds(300, 0, 100, 20);
+	add(speedLabel);
+	
+	speedSlider = new JSlider(1, 100, 50);
+	speedSlider.setBounds(300, 20, 200, 30);
+	add(speedSlider);
+	speedSlider.addChangeListener(new ChangeListener() {
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			// TODO Auto-generated method stub
+			System.out.println("ZMIENILEM WARTOSC");
+			speedLabel.setText("Predkosc - " + speedSlider.getValue());
+			model.setDelay(speedSlider.getValue());
+		}
+	});
+	speedLabel.setText("Predkosc - " + speedSlider.getValue());
+	
+	
+	
     idleCook = new JLabel("Wolni kucharze: " + model.getCookCount());
 	idleCook.setBounds(100, 50, 140, 20);
 	add(idleCook);
