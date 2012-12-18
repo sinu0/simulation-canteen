@@ -12,7 +12,7 @@ public class GroupGenerator extends ClientGenerator{
 	private LinkedList<Client> groupOfClient;
 	private int groupMax;
 	private int groupMin;
-	public GroupGenerator(Model arg0, String arg1, boolean arg2) {
+	public GroupGenerator(Model arg0, String arg1, boolean arg2, int max) {
 		super(arg0, arg1, arg2);
 		groupOfClient = new LinkedList<Client>();
 		rand = new Random();

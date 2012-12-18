@@ -34,6 +34,7 @@ public class Canteen extends Model implements Runnable
 	private int table2Count;
 	private int table4Count;
 	private int minMealCount;
+	private int maxGroupSize;
 	
 	
 	
@@ -89,6 +90,7 @@ public class Canteen extends Model implements Runnable
 	private double maxPriceMin;
 	private double maxPriceMax;
 	private double groupGeneratorMultiplier;
+	private double priviligedClientMultiplier;
 	
 	
 	
@@ -179,7 +181,7 @@ public class Canteen extends Model implements Runnable
 				"Kolejka wolnych kasjerow", false, false);
 		
 		clientGenerator = new ClientGenerator(this, "client generator", false);
-		groupGenerator = new GroupGenerator(this, "groupGenerator", false);
+		groupGenerator = new GroupGenerator(this, "groupGenerator", false, maxGroupSize);
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
 		
@@ -222,7 +224,7 @@ public class Canteen extends Model implements Runnable
 					"group arriviall probability", minClientArrivalTime*60*groupGeneratorMultiplier, maxClientArrivalTime*60*groupGeneratorMultiplier, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
-					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
+					"privileged cllient probablity", minClientArrivalTime*60*priviligedClientMultiplier, maxClientArrivalTime*60*priviligedClientMultiplier,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
 					"privileged cllient probablity", maxPriceMin, maxPriceMax, false, false);
@@ -559,6 +561,7 @@ public class Canteen extends Model implements Runnable
 	public void setTable4Count(int table4Count) {
 		this.table4Count = table4Count;
 	}
+	
 	public int ClientsInCanteen(){
 		int count=0;
 		for (Table table : tables) {
@@ -579,6 +582,16 @@ public class Canteen extends Model implements Runnable
 	public void setGroupGeneratorMultiplier(double value)
 	{
 	  groupGeneratorMultiplier = value;
+	}
+	
+	public void setPriviligedClientMultiplier(double value)
+	{
+	  priviligedClientMultiplier = value;
+	}
+	
+	public void setMaxGroupSize(int size)
+	{
+	  maxGroupSize = size;
 	}
 	
 }
