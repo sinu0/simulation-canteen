@@ -15,6 +15,9 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
+import desmoj.core.statistic.Accumulate;
+import desmoj.core.statistic.Count;
+import desmoj.core.statistic.Tally;
 
 /**
  * @author mar
@@ -23,6 +26,9 @@ import desmoj.core.simulator.TimeSpan;
  */
 public class Canteen extends Model implements Runnable 
 {
+	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
+	
+	
 	static int clientLeftOnInitCount = 0;
 
 	private AnimPanel animPanel;
@@ -58,6 +64,21 @@ public class Canteen extends Model implements Runnable
 	protected ProcessQueue<Cashier> cashierIdleQueue;
 	protected ProcessQueue<Cook> cookIdleQueue;
 	protected ProcessQueue<Cook> workingCookQueue;
+	
+	private double minClientArrivalTime;
+	private double maxClientArrivalTime;
+	private double minClientServiceTime;
+	private double maxClientServiceTime;
+	private double minMealEatTime;
+	private double maxMealEatTime;
+	private double minMealPrepareTime;
+	private double maxMealPrepareTime;
+	private double maxAcceptQueueMin;
+	private double maxAcceptQueueMax;
+	private double maxPriceMin;
+	private double maxPriceMax;
+	private double groupGeneratorMultiplier;
+	private double priviligedClientMultiplier;
 
 	private Experiment exp;
 
@@ -75,22 +96,26 @@ public class Canteen extends Model implements Runnable
 	private LinkedList<Cashier> cashiers=new LinkedList<Cashier>(); //lista kasjerek
 	private LinkedList<Table> tables = new LinkedList<Table>(); //lista stolikow
 	private boolean automaticMode = true;
-
-	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
-	private double minClientArrivalTime;
-	private double maxClientArrivalTime;
-	private double minClientServiceTime;
-	private double maxClientServiceTime;
-	private double minMealEatTime;
-	private double maxMealEatTime;
-	private double minMealPrepareTime;
-	private double maxMealPrepareTime;
-	private double maxAcceptQueueMin;
-	private double maxAcceptQueueMax;
-	private double maxPriceMin;
-	private double maxPriceMax;
-	private double groupGeneratorMultiplier;
-	private double priviligedClientMultiplier;
+	
+	
+	//zbiory na statystyki
+	private Count clientCount;
+	private Count clientStayed;
+    private Count clientLeftBecOfPrice;
+    private Count clientLeftBecOfQueue;
+    private Tally groups;
+    private Count priviligedClientCount;
+    //jedzenie... - Accumulate
+    private Tally serviceTimeStat;
+    private Tally mealPrepareTimeStat;
+    private Tally mealEatTimeStat;
+    private Accumulate queueToCashier;
+    private Accumulate queueForPlace;
+    private Accumulate idleCashierStat;
+    private Accumulate idleCookStat;
+    private Accumulate workingCookStat;
+	
+	
 	
 	
 	
@@ -108,7 +133,6 @@ public class Canteen extends Model implements Runnable
 		change.addPropertyChangeListener(animPanel);
 		change.addPropertyChangeListener("cookCount", animPanel);
 		change.addPropertyChangeListener("tableTwoCount", animPanel);
-		
 		// TODO Auto-generated constructor stub
 	}
 	
