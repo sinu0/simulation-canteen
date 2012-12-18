@@ -41,6 +41,7 @@ public class StartPanel extends JPanel
   private JSpinner minFoodPrepareTimeSpinner;
   private JSpinner maxFoodPrepareTimeSpinner;
   private JSpinner minValueIngredientSpinner;
+  private JSpinner mealPriceSpinner;
   
   private JButton startButton;
   
@@ -206,9 +207,9 @@ public class StartPanel extends JPanel
     
     //sklonnosc do uznawania cen za wysokie
     Box highPriceBox = Box.createHorizontalBox();
-    JLabel highPriceLabel = new JLabel("Sklonnosc klientow do uznawania cen za wysokie (niska 1-10 wysoka)");
+    JLabel highPriceLabel = new JLabel("Srednia akceptowalna cena dan przez klienta");
     highPriceBox.add(highPriceLabel);
-    spinnerModel = new SpinnerNumberModel(3, 1, 10, 1);
+    spinnerModel = new SpinnerNumberModel(10, 8, 15, 1);
     highPriceSpinner = new JSpinner(spinnerModel);
     highPriceSpinner.setMaximumSize(spinnerSize);
     highPriceBox.add(Box.createRigidArea(rigidInBox));
@@ -218,9 +219,9 @@ public class StartPanel extends JPanel
     
     //sklonnosc klientow do uznawania kolejki za dluga
     Box longQueueBox = Box.createHorizontalBox();
-    JLabel longQueueLabel = new JLabel("Sklonnosc klientow do uznawania kolejki za dluga (niska 1-10 wysoka)");
+    JLabel longQueueLabel = new JLabel("Srednia akceptowalna dlugosc kolejki przez klienta");
     longQueueBox.add(longQueueLabel);
-    spinnerModel = new SpinnerNumberModel(3, 1, 10, 1);
+    spinnerModel = new SpinnerNumberModel(5, 1, 20, 1);
     longQueueSpinner = new JSpinner(spinnerModel);
     longQueueSpinner.setMaximumSize(spinnerSize);
     longQueueBox.add(Box.createRigidArea(rigidInBox));
@@ -325,7 +326,7 @@ public class StartPanel extends JPanel
     
     //czas przygotowania skladnikow w kuchnii
     Box foodPrepareTimeBox = Box.createHorizontalBox();
-    JLabel foodPrepareTimeLabel = new JLabel("Czas przygotowania skladnikow");
+    JLabel foodPrepareTimeLabel = new JLabel("Min i max czas przygotowania skladnikow");
     foodPrepareTimeBox.add(foodPrepareTimeLabel);
     spinnerModel = new SpinnerNumberModel(10, 1, 10, 1);
     
@@ -375,6 +376,18 @@ public class StartPanel extends JPanel
     minValueIngredientBox.add(Box.createRigidArea(rigidInBox));
     minValueIngredientBox.add(minValueIngredientSpinner);
     add(minValueIngredientBox);
+    add(Box.createRigidArea(rigidOutBox));
+    
+    //srednia cena dania
+    Box mealPriceBox = Box.createHorizontalBox();
+    JLabel mealPriceLabel = new JLabel("Srednia cena dan");
+    mealPriceBox.add(mealPriceLabel);
+    spinnerModel = new SpinnerNumberModel(10, 6, 15, 1);
+    mealPriceSpinner = new JSpinner(spinnerModel);
+    mealPriceSpinner.setMaximumSize(spinnerSize);
+    mealPriceBox.add(Box.createRigidArea(rigidInBox));
+    mealPriceBox.add(mealPriceSpinner);
+    add(mealPriceBox);
     add(Box.createRigidArea(new Dimension(0, 50)));
     
     
@@ -399,18 +412,25 @@ public class StartPanel extends JPanel
           frame.getCanteen().setCookCount((int)cookSpinner.getValue());
           frame.getCanteen().setTable2Count((int)table2Spinner.getValue());
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
-          
-          
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
+          
+          
+          frame.getCanteen().setClientAveragePrice(Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue())), Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue()))+5);
+          frame.getCanteen().setClientMaxAcceptableQueue(Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue())), Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue()))+10);
           frame.getCanteen().setClientServiceTime(Double.parseDouble(Integer.toString((int)minServiceTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxServiceTimeSpinner.getValue())));
           frame.getCanteen().setMealEatTime(Double.parseDouble(Integer.toString((int)minEatTimeSpinner.getValue())),Double.parseDouble(Integer.toString((int)maxEatTimeSpinner.getValue())));
-
+          frame.getCanteen().setMealPrepareTime(Double.parseDouble(Integer.toString((int)minFoodPrepareTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxFoodPrepareTimeSpinner.getValue())));
+          frame.getCanteen().setCanteenAveragePrice(Double.parseDouble(Integer.toString((int)mealPriceSpinner.getValue())));
+          frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
+          
+         
+          
+          
+          
           for (int i=0;i<(int)table2Spinner.getValue();i++)
               frame.getCanteen().addTable2();
           for (int i=0;i<(int)table4Spinner.getValue();i++)
               frame.getCanteen().addTable4();
-          frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
-          
           
           System.out.println("Watek wystartowany");
           frame.getCanteen().setMyFrame(frame);

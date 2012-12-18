@@ -33,9 +33,7 @@ public class Canteen extends Model implements Runnable
 	private int cookCount;
 	private int table2Count;
 	private int table4Count;
-	
-	
-	private int minMealCount = 3;
+	private int minMealCount;
 	
 	
 	
@@ -46,7 +44,7 @@ public class Canteen extends Model implements Runnable
 	private ContDistUniform clientArrivialTime;
 	private ContDistUniform clientDecisionTime;
 	private ContDistUniform clientAveragePrice;
-	private ContDistUniform canteenAveragePrice;
+	private double canteenAveragePrice;
 
 	private ContDistUniform clientMaxAcceptableQueue;
 	private ContDistUniform probabilityOfQuitOnNewMenu;
@@ -86,6 +84,10 @@ public class Canteen extends Model implements Runnable
 	private double maxMealEatTime;
 	private double minMealPrepareTime;
 	private double maxMealPrepareTime;
+	private double maxAcceptQueueMin;
+	private double maxAcceptQueueMax;
+	private double maxPriceMin;
+	private double maxPriceMax;
 	
 
 	/**
@@ -220,10 +222,9 @@ public class Canteen extends Model implements Runnable
 					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
-					"privileged cllient probablity", 9, 15, false, false);
-			canteenAveragePrice = new ContDistUniform(this,"Canteen average price",10,15,false,false);
+					"privileged cllient probablity", maxPriceMin, maxPriceMax, false, false);
 			clientMaxAcceptableQueue = new ContDistUniform(this,
-					"Maksymalna akceptowalna kojelka", 5, 15, false, false);
+					"Maksymalna akceptowalna kojelka", maxAcceptQueueMin, maxAcceptQueueMax, false, false);
 			setProbabilityOfQuitOnNewMenu(0, 1);
 			clientTableDecision = new ContDistUniform(this,"Preferowany stalik przez klienta",0,2,false,false);
 			setSeed();
@@ -246,7 +247,6 @@ public class Canteen extends Model implements Runnable
 		clientDecisionTime.setSeed((long)(Math.random()*100000));
 		clientArrivialTime.setSeed((long)(Math.random()*100000));
 		mealEatTime.setSeed((long)(Math.random()*100000));
-		canteenAveragePrice.setSeed((long)(Math.random()*100000));
 		}
 
 	
@@ -478,8 +478,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setClientMaxAcceptableQueue(double one, double two) {
-		this.clientMaxAcceptableQueue =new ContDistUniform(this,
-				"Client max acceptable queue", one, two, false, false);
+		maxAcceptQueueMin = one;
+		maxAcceptQueueMax = two;
 	}
 
 	public double getClientAveragePrice() {
@@ -487,8 +487,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public void setClientAveragePrice(double one, double two) {
-		this.clientAveragePrice = new ContDistUniform(this,
-				"Client max acceptable queue", one, two, false, false);
+		maxPriceMin = one;
+		maxPriceMax = two;
 	}
 
 	public LinkedList<Cook> getCooks() {
@@ -565,11 +565,12 @@ public class Canteen extends Model implements Runnable
 	}
 
 	public double getCanteenAveragePrice() {
-		return canteenAveragePrice.sample();
+		return canteenAveragePrice;
 	}
 
-	public void setCanteenAveragePrice(double one, double two) {
-		this.canteenAveragePrice = new ContDistUniform(this,"Canteen average price",one,two,false,false);
+	public void setCanteenAveragePrice(double one) {
+		
+		this.canteenAveragePrice = one;
 	}
 	
 }
