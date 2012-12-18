@@ -32,8 +32,7 @@ public class MyFrame extends JFrame
     
     //inicjalizacja wygladu ramki
     setTitle("Symulacja sto³ówki");
-    setMinimumSize(new Dimension(600, 600));
-    setSize(800, 600);
+    setSize(800, 700);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
     setResizable(false);

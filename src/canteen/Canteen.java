@@ -336,6 +336,7 @@ public class Canteen extends Model implements Runnable
 		System.out.println("Sredni czas jedzenia dania - " + mealEatTimeStat.getMean()/60);
 		
 		myFrame.getContentPane().removeAll();
+		myFrame.getStatPanel().setStat();
 		myFrame.add(myFrame.getStatPanel());
 		myFrame.revalidate();
 		
@@ -718,6 +719,21 @@ public class Canteen extends Model implements Runnable
 	public Count getClientLeftBecOfNoFood()
 	{
 	  return clientLeftBecOfNoFood;
+	}
+	
+	public int getGroupsCount()
+	{
+	  return clientGenerator.groupClientGenerate;
+	}
+	
+	public int getPriviligedCount()
+	{
+	  return clientGenerator.privilageClientGenerate;
+	}
+	
+	public int getIndyvidualClients()
+	{
+	  return clientGenerator.clientGenerate;
 	}
 	
 }
