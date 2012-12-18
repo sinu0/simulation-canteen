@@ -413,7 +413,7 @@ public class StartPanel extends JPanel
           frame.getCanteen().setTable2Count((int)table2Spinner.getValue());
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
-          
+          frame.getCanteen().setGroupGeneratorMultiplier(100/Double.parseDouble(Integer.toString((int)groupFreqSpinner.getValue())));
           
           frame.getCanteen().setClientAveragePrice(Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue())), Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue()))+5);
           frame.getCanteen().setClientMaxAcceptableQueue(Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue())), Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue()))+10);

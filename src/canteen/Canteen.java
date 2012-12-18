@@ -88,6 +88,9 @@ public class Canteen extends Model implements Runnable
 	private double maxAcceptQueueMax;
 	private double maxPriceMin;
 	private double maxPriceMax;
+	private double groupGeneratorMultiplier;
+	
+	
 	
 
 	/**
@@ -216,7 +219,7 @@ public class Canteen extends Model implements Runnable
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
-					"group arriviall probability", 10 * 60, 15 * 60, false,
+					"group arriviall probability", minClientArrivalTime*60*groupGeneratorMultiplier, maxClientArrivalTime*60*groupGeneratorMultiplier, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
 					"privileged cllient probablity", 30 * 60, 1 * 60 * 60,
@@ -571,6 +574,11 @@ public class Canteen extends Model implements Runnable
 	public void setCanteenAveragePrice(double one) {
 		
 		this.canteenAveragePrice = one;
+	}
+	
+	public void setGroupGeneratorMultiplier(double value)
+	{
+	  groupGeneratorMultiplier = value;
 	}
 	
 }
