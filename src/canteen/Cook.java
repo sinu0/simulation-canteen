@@ -20,7 +20,9 @@ public class Cook extends SimProcess {
 		while (true) {
 			if (taskToDo != null) { // jezeli wszystko bedzie ok to ten warunek
 									// zawsze bedzi spelniony!
-				hold(new TimeSpan(model.getMealPrepareTime(), TimeUnit.SECONDS));
+				double mealPrepare = model.getMealPrepareTime();
+				model.getMealPrepareTimeStat().update(mealPrepare);
+				hold(new TimeSpan(mealPrepare, TimeUnit.SECONDS));
 				model.getDishesStorage().addStorage(taskToDo, 5);
 				model.getKitchen().dishDone(taskToDo);
 				taskToDo = null;

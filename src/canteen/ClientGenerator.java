@@ -27,7 +27,7 @@ public class ClientGenerator extends SimProcess{
 			clientGenerate++;
 			model.change.firePropertyChange("client generate", clientGenerate-1, clientGenerate);
 			hold(new TimeSpan(model.getClientArrivialTime(),TimeUnit.SECONDS));
-			
+			model.getClientCount().update();
 		}
 		
 	}

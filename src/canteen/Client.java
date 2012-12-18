@@ -33,7 +33,6 @@ public class Client extends SimProcess {
 		maxAceptableQueue = (int) this.model.getClientMaxAcceptableQueue();
 		averagePrice = this.model.getClientAveragePrice();
 		clientCharacter = this.model.getClientTableDecision();
-
 	}
 
 	/* 
@@ -53,6 +52,7 @@ public class Client extends SimProcess {
 					if (model.getAvailableSeats() - model.clientQueue.size() > 0
 							|| isMemberOfGroup) {
 						selectMenu();// wybiera menu
+						model.getClientStayed().update();
 						if (isPrivileged)
 							addMeFirst();// jeżeli klient jest uprzywilejowany
 											// zostaje dodany na poczatek
@@ -91,7 +91,9 @@ public class Client extends SimProcess {
 							}
 							table.addClient(this);//klient sieada
 							model.change.firePropertyChange("table", model.getSeatsCount(), model.getSeatsCount()-1);
-							hold(new TimeSpan(model.getMealEatTime(),
+							double eatTime = model.getMealEatTime();
+							model.getMealEatTimeStat().update(eatTime);
+							hold(new TimeSpan(eatTime,
 									TimeUnit.SECONDS));// spozywa jedzenie
 							// odchodzi od stolika
 							table.removeClient(this);
@@ -104,17 +106,20 @@ public class Client extends SimProcess {
 
 						} else{
 							Canteen.clientLeftOnInitCount++;
+							model.getClientLeftBecOfNoFood().update();
 							System.out.println("Nie ma dla mnie jedzenia");
 						}
 					} else{
 						Canteen.clientLeftOnInitCount++;
+						model.getClientLeftBecOfNoPlace().update();
 					System.out.println("Brak miejsca");}
 				} else{
 					Canteen.clientLeftOnInitCount++;
+					model.getClientLeftBecOfQueue().update();
 				System.out.println("Za dluga kolejka ");}
 			} else{
 				Canteen.clientLeftOnInitCount++;
-			
+			model.getClientLeftBecOfPrice().update();
 			System.out.println("cena jest za wysoka");
 
 		}}

@@ -31,7 +31,9 @@ public class Cashier extends SimProcess {
 											// rowniez przesle ta informacej do
 											// kuchni
 				{
-					hold(new TimeSpan(model.getClientServiceTime(),TimeUnit.SECONDS));
+				    double serviceTime = model.getClientServiceTime();
+					hold(new TimeSpan(serviceTime,TimeUnit.SECONDS));
+					model.getServiceTimeStat().update(serviceTime);
 					client.setHasMeal(true);
 					updateStorage(menu);
 				} else {

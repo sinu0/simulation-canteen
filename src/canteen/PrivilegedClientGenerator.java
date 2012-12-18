@@ -31,7 +31,7 @@ public class PrivilegedClientGenerator extends ClientGenerator{
 			privilageClientGenerate++;
 			model.change.firePropertyChange("privileged client generate", privilageClientGenerate-1, privilageClientGenerate);
 			hold(new TimeSpan(model.getPrivilegedClientArrivialTime(),TimeUnit.SECONDS));
-			
+			model.getClientCount().update();
 		}
 		
 	}

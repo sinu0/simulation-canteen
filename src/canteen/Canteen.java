@@ -103,14 +103,15 @@ public class Canteen extends Model implements Runnable
 	private Count clientStayed;
     private Count clientLeftBecOfPrice;
     private Count clientLeftBecOfQueue;
-    private Tally groups;
-    private Count priviligedClientCount;
+    private Count clientLeftBecOfNoPlace;
+    private Count clientLeftBecOfNoFood;
+    private Tally groupSize;
     //jedzenie... - Accumulate
     private Tally serviceTimeStat;
     private Tally mealPrepareTimeStat;
     private Tally mealEatTimeStat;
     private Accumulate queueToCashier;
-    private Accumulate queueForPlace;
+    private Accumulate queueToPlace;
     private Accumulate idleCashierStat;
     private Accumulate idleCookStat;
     private Accumulate workingCookStat;
@@ -234,6 +235,27 @@ public class Canteen extends Model implements Runnable
 		System.out.println("INIT");
 		System.out.println("Ilosc kucharzy " + cookCount);
 		if (automaticMode) {
+			
+			clientCount = new Count(this, "Client count", false, false);
+			clientStayed = new Count(this, "Client stayed in the canteen", false, false);
+			clientLeftBecOfPrice = new Count(this, "Clients, who left the canteen because of price", false, false);
+			clientLeftBecOfQueue = new Count(this, "Clients, who left the canteen because of length of the queue", false, false);
+			clientLeftBecOfNoPlace = new Count(this, "Clients, who left the canteen because of lack of place", false, false);
+			clientLeftBecOfNoFood = new Count(this, "Clients, who left the canteen because of lack of food", false, false);
+			groupSize = new Tally(this, "Groups statistics", false, false);
+			//jedzenie...
+			serviceTimeStat = new Tally(this, "Service time", false, false);
+			mealPrepareTimeStat = new Tally(this, "Meal prepare time", false, false);
+			mealEatTimeStat = new Tally(this,  "Meal eat time", false, false);
+			queueToCashier = new Accumulate(this, "Queue to cashier", false, false);
+			queueToPlace = new Accumulate(this, "Queue to place", false, false);
+			idleCashierStat = new Accumulate(this, "Idle cashiers", false, false);
+			idleCookStat = new Accumulate(this, "Idle cooks", false, false);
+			workingCookStat = new Accumulate(this, "Working cooks", false, false);
+			
+			
+			
+			
 			clientServiceTime = new ContDistUniform(this,
 					"client service time", minClientServiceTime*60, maxClientServiceTime*60, false, false);
 			mealPrepareTime = new ContDistUniform(this, "meal prepare time",
@@ -294,6 +316,24 @@ public class Canteen extends Model implements Runnable
 		exp.start();
 
 		exp.finish();
+		System.out.println("TROLOLOLOL");
+		System.out.println("All clients count - " + clientCount.getValue());
+		System.out.println("Klienci indywidualni - " + clientGenerator.clientGenerate);
+		System.out.println("Groups count - " + clientGenerator.groupClientGenerate);
+		System.out.println("Priviliged clients count - " + clientGenerator.privilageClientGenerate);
+		/*
+		System.out.println("All clients count - " + clientCount.getValue());
+		System.out.println("Zostali - " + clientStayed.getValue());
+		System.out.println("Zwiali przez brak jedzenia - " + clientLeftBecOfNoFood.getValue());
+		System.out.println("Zwiali przez dluga kolejke - " + clientLeftBecOfQueue.getValue());
+		System.out.println("Zwiali przez brak miejsca - " + clientLeftBecOfNoPlace.getValue());
+		System.out.println("Zwiali przez wysokie ceny - " + clientLeftBecOfPrice.getValue());
+		*/
+		System.out.println("Ilosc grup - " + clientGenerator.groupClientGenerate);
+		System.out.println("Sredni rozmiar grupy - " + groupSize.getMean());
+		System.out.println("Sredni czas obslugi klienta - " + serviceTimeStat.getMean()/60);
+		System.out.println("Sredni czas przygotowania dania - " + mealPrepareTimeStat.getMean()/60);
+		System.out.println("Sredni czas jedzenia dania - " + mealEatTimeStat.getMean()/60);
 		
 		myFrame.getContentPane().removeAll();
 		myFrame.add(myFrame.getStatPanel());
@@ -616,6 +656,68 @@ public class Canteen extends Model implements Runnable
 	public void setMaxGroupSize(int size)
 	{
 	  maxGroupSize = size;
+	}
+
+	public Count getClientCount() {
+		return clientCount;
+	}
+
+	public Count getClientStayed() {
+		return clientStayed;
+	}
+
+	public Count getClientLeftBecOfPrice() {
+		return clientLeftBecOfPrice;
+	}
+
+	public Count getClientLeftBecOfQueue() {
+		return clientLeftBecOfQueue;
+	}
+
+	public Tally getGroups() {
+		return groupSize;
+	}
+
+	public Tally getServiceTimeStat() {
+		return serviceTimeStat;
+	}
+
+	public Tally getMealPrepareTimeStat() {
+		return mealPrepareTimeStat;
+	}
+
+	public Tally getMealEatTimeStat() {
+		return mealEatTimeStat;
+	}
+
+	public Accumulate getQueueToCashier() {
+		return queueToCashier;
+	}
+
+	public Accumulate getQueueForPlace() {
+		return queueToPlace;
+	}
+
+	public Accumulate getIdleCashierStat() {
+		return idleCashierStat;
+	}
+
+	public Accumulate getIdleCookStat() {
+		return idleCookStat;
+	}
+
+	public Accumulate getWorkingCookStat() {
+		return workingCookStat;
+	}
+	
+	public Count getClientLeftBecOfNoPlace()
+	{
+	  return clientLeftBecOfNoPlace;
+	}
+	
+	public Count getClientLeftBecOfNoFood()
+	{
+	  return clientLeftBecOfNoFood;
 	}
 	
 }

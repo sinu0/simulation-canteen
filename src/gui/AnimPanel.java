@@ -60,7 +60,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 		@Override
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
-			System.out.println("ZMIENILEM WARTOSC");
+			//System.out.println("ZMIENILEM WARTOSC");
 			speedLabel.setText("Predkosc - " + speedSlider.getValue());
 			model.setDelay(speedSlider.getValue());
 		}

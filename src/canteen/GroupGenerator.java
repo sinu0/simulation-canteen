@@ -16,7 +16,7 @@ public class GroupGenerator extends ClientGenerator{
 		super(arg0, arg1, arg2);
 		groupOfClient = new LinkedList<Client>();
 		rand = new Random();
-		groupMax=4;
+		groupMax = max;
 		groupMin=2;
 	}
 
@@ -25,14 +25,23 @@ public class GroupGenerator extends ClientGenerator{
 		while(true){
 			
 			groupClientGenerate++;
-			double numberOfClient = (1+rand.nextGaussian())*100;//guassian zwraca rozkład normalny w zakresie 0 - 100 gdzie wartosc oczekiwana to 50
-			if(numberOfClient>40 && numberOfClient<60) numberOfClient=groupMin;
+			double numberOfClient = 0;
+		    double random = (rand.nextGaussian())*100;//guassian zwraca rozkład normalny w zakresie 0 - 100 gdzie wartosc oczekiwana to 50
+		    /*
+			if(random>40 && random<60) numberOfClient=groupMin;
 			else
-			if(numberOfClient<40 && numberOfClient>0) numberOfClient=(int)(groupMax+groupMin)/2;
+			if(random<40 && random>=0) numberOfClient=(int)(groupMax+groupMin)/2;
 			else
-			if(numberOfClient>100 || numberOfClient<0) numberOfClient=0;
+			if(random>100 || random<0) numberOfClient=0;
 				numberOfClient=groupMax;
+				*/
+			if(random>=40 && random<=60) numberOfClient=(int)(groupMax+groupMin)/2;
+			if(random<40) numberOfClient=groupMin;
+			if (random>60) numberOfClient=groupMax;
+			//if (random<0 && random>100) numberOfClient=0;
+			
 			double decisionPoints=0;
+			model.getGroups().update(numberOfClient);
 			
 			for(int i=0;i<numberOfClient;i++){
 				Client client = new Client(model, "Client", false);
@@ -41,6 +50,7 @@ public class GroupGenerator extends ClientGenerator{
 				groupOfClient.add(client);
 				
 				decisionPoints+=client.decision()/numberOfClient;
+				model.getClientCount().update();
 			}
 			if(decisionPoints/2>0.5){
 				
