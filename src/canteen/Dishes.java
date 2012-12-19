@@ -20,7 +20,7 @@ public class Dishes {
 		dish.add("ryz");
 		dish.add("wolownia");
 		soup.add("rosoł");
-		soup.add("pomidorowa");
+		soup.add("pomidorowa");	
 			
 		this.averagePrice=averagePrice;
 		//add dishes

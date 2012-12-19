@@ -239,15 +239,13 @@ public class Client extends SimProcess {
 		groupNumber = number;
 	}
 
-	public int decision() {
-
-		if (model.getAvailableSeats() - model.clientQueue.size() >= 0) {
+	public int decisionPrice() {
 			int dec = (model.getDishes().averagePrice < averagePrice) ? 1 : 0; // ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
-			dec += (maxAceptableQueue > model.clientQueue.size()) ? 1 : 0;
 			return dec;
-		} else
-			return 0;
-
+	}
+	public int decisionMaxQueue() {
+		int dec= (maxAceptableQueue > model.clientQueue.size()) ? 1 : 0;
+		return dec;
 	}
 
 	public void setStayInCanteen(boolean set) {

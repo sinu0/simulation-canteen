@@ -7,81 +7,116 @@ import java.util.concurrent.TimeUnit;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 
-public class GroupGenerator extends ClientGenerator{
+public class GroupGenerator extends ClientGenerator {
 	private Random rand;
 	private LinkedList<Client> groupOfClient;
 	private int groupMax;
 	private int groupMin;
+
 	public GroupGenerator(Model arg0, String arg1, boolean arg2, int max) {
 		super(arg0, arg1, arg2);
 		groupOfClient = new LinkedList<Client>();
 		rand = new Random();
 		groupMax = max;
-		groupMin=2;
+		groupMin = 2;
 	}
 
 	@Override
 	public void lifeCycle() {
-		while(true){
-			
+		while (true) {
+
 			groupClientGenerate++;
+			boolean active = false;
+			int price = 0;
+			int queue = 0;
 			double numberOfClient = 0;
-		    double random = (rand.nextGaussian())*100;//guassian zwraca rozkład normalny w zakresie 0 - 100 gdzie wartosc oczekiwana to 50
-		    /*
-			if(random>40 && random<60) numberOfClient=groupMin;
-			else
-			if(random<40 && random>=0) numberOfClient=(int)(groupMax+groupMin)/2;
-			else
-			if(random>100 || random<0) numberOfClient=0;
-				numberOfClient=groupMax;
-				*/
-			if(random>=40 && random<=60) numberOfClient=(int)(groupMax+groupMin)/2;
-			if(random<40) numberOfClient=groupMin;
-			if (random>60) numberOfClient=groupMax;
-			//if (random<0 && random>100) numberOfClient=0;
-			
-			double decisionPoints=0;
+			double random = (rand.nextGaussian()) * 100;// guassian zwraca
+														// rozkład normalny w
+														// zakresie 0 - 100
+														// gdzie wartosc
+														// oczekiwana to 50
+			/*
+			 * if(random>40 && random<60) numberOfClient=groupMin; else
+			 * if(random<40 && random>=0)
+			 * numberOfClient=(int)(groupMax+groupMin)/2; else if(random>100 ||
+			 * random<0) numberOfClient=0; numberOfClient=groupMax;
+			 */
+			if (random >= 40 && random <= 60)
+				numberOfClient = (int) (groupMax + groupMin) / 2;
+			if (random < 40)
+				numberOfClient = groupMin;
+			if (random > 60)
+				numberOfClient = groupMax;
+			// if (random<0 && random>100) numberOfClient=0;
+
+			double decisionPoints = 0;
 			model.getGroups().update(numberOfClient);
-			
-			for(int i=0;i<numberOfClient;i++){
+
+			for (int i = 0; i < numberOfClient; i++) {
 				Client client = new Client(model, "Client", false);
-				groupOfClient=new LinkedList<Client>();
+				groupOfClient = new LinkedList<Client>();
 				client.setMemberOfGroup(true, groupClientGenerate);
 				groupOfClient.add(client);
-				
-				decisionPoints+=client.decision()/numberOfClient;
+				price += client.decisionPrice();
+				queue += client.decisionMaxQueue();
+
 				model.getClientCount().update();
 			}
-			if(decisionPoints/2>0.5){
+			price = (int) numberOfClient - price;
+			queue = (int) numberOfClient - queue;
+			if (numberOfClient > model.getAvailableSeats()
+					- model.clientQueue.size()) {
+				active = false;
+				// brak miejsca
+			} else {
 				
+				active = false;
+				if ((price + queue)/numberOfClient == numberOfClient){
+					
+					System.out.println("cena i kolejka za wysoka!");}
+				else if (price == numberOfClient) {
+					System.out.println("cena za wysoka!wqer");
+				} else if (queue == numberOfClient){
+					System.out.println("cena za wysoka!");}
+				else
+					active = true;
+
+			}
+			if (active) {
+
 				for (Client client : groupOfClient) {
 					client.setStayInCanteen(true);
 					client.activateAfter(this);
-					
+
 				}
-			}
-			else{
+			} else {
 				for (Client client : groupOfClient) {
 					client.setStayInCanteen(false);
-					client.activateAfter(this);}
+					client.activateAfter(this);
+				}
 			}
-			
-			model.change.firePropertyChange("group generate", groupClientGenerate-1, groupClientGenerate);
-			hold(new TimeSpan(model.getGroupArrivialTime(),TimeUnit.SECONDS));
-			
+
+			model.change.firePropertyChange("group generate",
+					groupClientGenerate - 1, groupClientGenerate);
+			hold(new TimeSpan(model.getGroupArrivialTime(), TimeUnit.SECONDS));
+
 		}
-		
+
 	}
-	public int getGroupMax(){
+
+	public int getGroupMax() {
 		return groupMax;
 	}
-	public int getGroupMin(){
+
+	public int getGroupMin() {
 		return groupMax;
 	}
-	public void setGroupMax(int max){
-		this.groupMax=max;
+
+	public void setGroupMax(int max) {
+		this.groupMax = max;
 	}
-	public void setGroupMin(int min){
-		this.groupMax=min;
+
+	public void setGroupMin(int min) {
+		this.groupMax = min;
 	}
 }
