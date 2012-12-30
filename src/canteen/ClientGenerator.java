@@ -8,6 +8,7 @@ import desmoj.core.simulator.TimeSpan;
 
 public class ClientGenerator extends SimProcess{
 
+	static public int allClientGenerate=0;
 	static public int clientGenerate=0;
 	static public int groupClientGenerate=0;
 	static public int privilageClientGenerate=0;
@@ -24,6 +25,7 @@ public class ClientGenerator extends SimProcess{
 		while(true){
 			Client client = new Client(model, "Client", false);
 			client.activateAfter(this);
+			allClientGenerate++;
 			clientGenerate++;
 			model.change.firePropertyChange("client generate", clientGenerate-1, clientGenerate);
 			hold(new TimeSpan(model.getClientArrivialTime(),TimeUnit.SECONDS));

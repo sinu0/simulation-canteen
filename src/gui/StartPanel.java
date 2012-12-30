@@ -407,7 +407,7 @@ public class StartPanel extends JPanel
     
     
     
-    startButton = new JButton("START KURWA!!!!!");
+    startButton = new JButton("START!!!!!");
     startButton.setMaximumSize(new Dimension(200, 100));
     this.add(startButton);
     startButton.addActionListener(new ActionListener()

@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import canteen.Canteen;
+import canteen.ClientGenerator;
 
 public class StatPanel extends JPanel
 {
@@ -29,19 +30,19 @@ public class StatPanel extends JPanel
     client.setBounds(30, 40, 100, 20);
     add(client);
     
-    JLabel allClients = new JLabel("Wszyscy klienci: " + model.getClientCount().getValue());
+    JLabel allClients = new JLabel("Wszyscy klienci: " + ClientGenerator.allClientGenerate);
     allClients.setBounds(40, 60, 150, 20);
     add(allClients);
     
-    JLabel indClients = new JLabel("Pojedynczy klienci: " + model.getIndyvidualClients());
+    JLabel indClients = new JLabel("Pojedynczy klienci: " + ClientGenerator.clientGenerate);
     indClients.setBounds(40, 80, 150, 20);
     add(indClients);
     
-    JLabel prvClient = new JLabel("Ilosc klientow uprzywilejowanych: " + model.getPriviligedCount());
+    JLabel prvClient = new JLabel("Ilosc klientow uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
     prvClient.setBounds(40, 100, 220, 20);
     add(prvClient);
     
-    JLabel groups = new JLabel("Ilosc grup: " + model.getGroupsCount());
+    JLabel groups = new JLabel("Ilosc grup: " + ClientGenerator.groupClientGenerate);
     groups.setBounds(40, 120, 150, 20);
     add(groups);
     
@@ -49,7 +50,7 @@ public class StatPanel extends JPanel
     avgGroupSize.setBounds(40, 140, 180, 20);
     add(avgGroupSize);
     
-    JLabel clientStayed = new JLabel("Zostalo w stolowce: " + model.getClientStayed().getValue());
+    JLabel clientStayed = new JLabel("Zostalo w stolowce: " + model.getClientStayedValue());
     clientStayed.setBounds(40, 170, 150, 20);
     add(clientStayed);
     

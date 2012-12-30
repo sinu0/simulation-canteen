@@ -666,6 +666,12 @@ public class Canteen extends Model implements Runnable
 	public Count getClientStayed() {
 		return clientStayed;
 	}
+	
+	public int getClientStayedValue()
+	{
+		return (int)(clientStayed.getValue() - clientLeftBecOfNoFood.getValue());
+	}
+	
 
 	public Count getClientLeftBecOfPrice() {
 		return clientLeftBecOfPrice;
@@ -719,21 +725,6 @@ public class Canteen extends Model implements Runnable
 	public Count getClientLeftBecOfNoFood()
 	{
 	  return clientLeftBecOfNoFood;
-	}
-	
-	public int getGroupsCount()
-	{
-	  return clientGenerator.groupClientGenerate;
-	}
-	
-	public int getPriviligedCount()
-	{
-	  return clientGenerator.privilageClientGenerate;
-	}
-	
-	public int getIndyvidualClients()
-	{
-	  return clientGenerator.clientGenerate;
 	}
 	
 }

@@ -52,11 +52,18 @@ public class Client extends SimProcess {
 					if (model.getAvailableSeats() - model.clientQueue.size() > 0
 							|| isMemberOfGroup) {
 						selectMenu();// wybiera menu
+						//if (!isMemberOfGroup)
+						{
+						  //model.getClientStayed().update();
+						}
 						model.getClientStayed().update();
 						if (isPrivileged)
+						{
+						    System.out.println("Jestem uprzywilejowany");
 							addMeFirst();// jeżeli klient jest uprzywilejowany
 											// zostaje dodany na poczatek
 											// kolejki
+						}
 						else
 							addMeToQueue();
 						if (!model.cashierIdleQueue.isEmpty()) {
@@ -68,6 +75,7 @@ public class Client extends SimProcess {
 									// kasjerka
 									// sama wyciaga go z kolejki
 						if (hasMeal) {// czy dosotal jedzenie
+							//model.getClientStayed().update();
 							if (model.getAvailableSeats() <= 0) { //jezeli jest brak siedzen klient oczekuje w kolejce na wolne siedzenie
 								addWaitingForTableQueue();
 								System.out.println("gdfg");

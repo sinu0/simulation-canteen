@@ -24,7 +24,7 @@ public class GroupGenerator extends ClientGenerator {
 	@Override
 	public void lifeCycle() {
 		while (true) {
-
+			groupOfClient = new LinkedList<Client>();
 			groupClientGenerate++;
 			boolean active = false;
 			int price = 0;
@@ -48,15 +48,16 @@ public class GroupGenerator extends ClientGenerator {
 			if (random > 60)
 				numberOfClient = groupMax;
 			// if (random<0 && random>100) numberOfClient=0;
-
+			allClientGenerate += (long)numberOfClient;
 			double decisionPoints = 0;
 			model.getGroups().update(numberOfClient);
-
+			System.out.println(groupClientGenerate + ": Client count: " + numberOfClient);
 			for (int i = 0; i < numberOfClient; i++) {
 				Client client = new Client(model, "Client", false);
-				groupOfClient = new LinkedList<Client>();
+				//groupOfClient = new LinkedList<Client>();
 				client.setMemberOfGroup(true, groupClientGenerate);
 				groupOfClient.add(client);
+				System.out.println(groupClientGenerate + ": Client create " + i);
 				price += client.decisionPrice();
 				queue += client.decisionMaxQueue();
 
@@ -72,28 +73,47 @@ public class GroupGenerator extends ClientGenerator {
 				
 				active = false;
 				if ((price + queue)/numberOfClient == numberOfClient){
-					
+					model.getClientLeftBecOfPrice().update((long)numberOfClient);
 					System.out.println("cena i kolejka za wysoka!");}
 				else if (price == numberOfClient) {
+					
 					System.out.println("cena za wysoka!wqer");
+					model.getClientLeftBecOfPrice().update((long)numberOfClient);
 				} else if (queue == numberOfClient){
-					System.out.println("cena za wysoka!");}
+					model.getClientLeftBecOfQueue().update((long)numberOfClient);
+					System.out.println("Kolejka za dluga!");}
 				else
 					active = true;
 
 			}
+			System.out.println(groupClientGenerate + ": Client List size " + groupOfClient.size());
 			if (active) {
-
 				for (Client client : groupOfClient) {
+					int i=0;
+					System.out.println(groupClientGenerate + ": Client " + i++);
+					//model.getClientStayed().update((long)numberOfClient);
 					client.setStayInCanteen(true);
 					client.activateAfter(this);
 
 				}
+				/*
+				System.out.println(groupClientGenerate + ": Client 2 List size " + groupOfClient.size());
+				for (int i = 0; i < numberOfClient; i++) {
+					groupOfClient.get(i).setStayInCanteen(true);
+					groupOfClient.get(i).activateAfter(this);
+				}
+				*/
 			} else {
 				for (Client client : groupOfClient) {
 					client.setStayInCanteen(false);
 					client.activateAfter(this);
 				}
+				/*
+				for (int i = 0; i < numberOfClient; i++) {
+					groupOfClient.get(i).setStayInCanteen(false);
+					groupOfClient.get(i).activateAfter(this);
+				}
+				*/
 			}
 
 			model.change.firePropertyChange("group generate",

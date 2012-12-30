@@ -28,6 +28,7 @@ public class PrivilegedClientGenerator extends ClientGenerator{
 			Client client = new Client(model, "Client", false);
 			client.setPrivileged(true);
 			client.activateAfter(this);
+			allClientGenerate++;
 			privilageClientGenerate++;
 			model.change.firePropertyChange("privileged client generate", privilageClientGenerate-1, privilageClientGenerate);
 			hold(new TimeSpan(model.getPrivilegedClientArrivialTime(),TimeUnit.SECONDS));
