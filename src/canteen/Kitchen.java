@@ -61,6 +61,7 @@ public class Kitchen extends SimProcess {
 	public Cook getFirstCook() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() - 1);
+		model.getIdleCookStat().update(model.cookIdleQueue.size());
 		Cook c = model.cookIdleQueue.first();
 		model.cookIdleQueue.remove(c);
 		return c;

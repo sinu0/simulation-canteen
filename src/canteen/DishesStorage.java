@@ -28,6 +28,7 @@ public class DishesStorage extends Dishes {
 		for (String dishs : soup) {
 
 			storage.put(dishs, initValue);
+			//model.getFoodStat().put(dishs, initValue);
 		}
 		for (String dishs : dish) {
 			storage.put(dishs, initValue);

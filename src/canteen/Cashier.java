@@ -63,6 +63,7 @@ public class Cashier extends SimProcess {
 	private void updateStorage(LinkedList<String> menu) {
 		for (String string : menu) {
 			model.getDishesStorage().subStorage(string);
+			model.getFoodServed().put(string, model.getFoodServed().get(string)+1);
 		}
 		
 	}
@@ -71,6 +72,7 @@ public class Cashier extends SimProcess {
 		model.change.firePropertyChange("idleCashierQueue", model
 				.getCashierIdleQueue().size(),
 				model.cashierIdleQueue.size() + 1);
+		model.getIdleCashierStat().update(model.cashierIdleQueue.size());
 		model.cashierIdleQueue.insert(this);
 	}
 
@@ -78,6 +80,7 @@ public class Cashier extends SimProcess {
 		
 		model.change.firePropertyChange("clientQueue", model.getClientQueue()
 				.size(), model.clientQueue.size() - 1);
+		model.getQueueToCashier().update(model.clientQueue.size());
 		Client c = model.clientQueue.first();
 		model.clientQueue.remove(c);
 		return c;

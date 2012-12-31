@@ -42,6 +42,7 @@ public class Client extends SimProcess {
 	 */
 	@Override
 	public void lifeCycle() {
+		model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		if (stayInCanteen) { // jezeli jest czlonkiem grupy to proces decyzji juz przeszedl
 			if (model.getDishes().averagePrice < averagePrice
 					|| isMemberOfGroup || isPrivileged) {
@@ -79,6 +80,7 @@ public class Client extends SimProcess {
 							if (model.getAvailableSeats() <= 0) { //jezeli jest brak siedzen klient oczekuje w kolejce na wolne siedzenie
 								addWaitingForTableQueue();
 								System.out.println("gdfg");
+								
 								passivate(); // czeaka az zwolnia sie miejsca w
 												// stolowce
 
@@ -196,22 +198,27 @@ public class Client extends SimProcess {
 	public void addMeToQueue() {
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
+		model.getQueueToCashier().update(model.clientQueue.size());
 		model.clientQueue.insert(this);
 	}
 
 	public Client getFirstFromWaitingQueue() {
+		//model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() - 1);
 		Client c = model.clientNoPleceQueue.first();
+		
 		model.clientNoPleceQueue.remove(c);
 		return c;
 	}
 
 	public void addWaitingForTableQueue() {
+		//model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() + 1);
+		
 		model.clientNoPleceQueue.insert(this);
 
 	}
@@ -219,6 +226,7 @@ public class Client extends SimProcess {
 	public void addMeFirst() {
 		model.change.firePropertyChange("clientQueue",
 				model.clientQueue.size(), model.clientQueue.size() + 1);
+		model.getQueueToCashier().update(model.clientQueue.size());
 		if (model.clientQueue.isEmpty())
 			model.clientQueue.insert(this);
 		else
@@ -229,6 +237,7 @@ public class Client extends SimProcess {
 		model.change.firePropertyChange("idelCashier",
 				model.cashierIdleQueue.size(),
 				model.cashierIdleQueue.size() - 1);
+		model.getIdleCashierStat().update(model.cashierIdleQueue.size());
 		Cashier c = model.cashierIdleQueue.first();
 		model.cashierIdleQueue.remove(c);
 		return c;

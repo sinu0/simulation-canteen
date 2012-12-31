@@ -5,6 +5,7 @@ import gui.MyFrame;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +42,7 @@ public class Canteen extends Model implements Runnable
 	private int table4Count;
 	private int minMealCount;
 	private int maxGroupSize;
+	private int initDishesValue;
 	
 	
 	
@@ -114,7 +116,8 @@ public class Canteen extends Model implements Runnable
     private Accumulate queueToPlace;
     private Accumulate idleCashierStat;
     private Accumulate idleCookStat;
-    private Accumulate workingCookStat;
+    private HashMap<String, Integer> foodStat;
+    private HashMap<String, Integer> foodServed;
 	
 	
 	
@@ -181,7 +184,7 @@ public class Canteen extends Model implements Runnable
 		{
 		  this.addCashier();
 		}
-		
+		System.out.println("Cook count - " + cookCount);
 		for (int i=0;i<cookCount;i++)
 		{
 		  this.addCook();
@@ -210,9 +213,11 @@ public class Canteen extends Model implements Runnable
 		privilegedClientGenerator = new PrivilegedClientGenerator(this,
 				"privilegedClientGenerator", false);
 		
+		
+		initDishesValue = 5;
 		dishes = new Dishes(getCanteenAveragePrice());
 		kitchen = new Kitchen(this, "Kitchen", false);
-		storage = new DishesStorage(dishes.averagePrice, 5, this);
+		storage = new DishesStorage(dishes.averagePrice, initDishesValue, this);
 
 		kitchen.activate(new TimeSpan(0));
 		clientGenerator.activate(new TimeSpan(0));
@@ -224,6 +229,24 @@ public class Canteen extends Model implements Runnable
 		}
 		for (Cashier cashier : cashiers) {
 			cashier.activate(new TimeSpan(0));
+		}
+		
+		foodStat = new HashMap<String, Integer>();
+		foodServed = new HashMap<String, Integer>();
+		for (String dish: dishes.soup)
+		{
+		  foodStat.put(dish, initDishesValue);
+		  foodServed.put(dish, 0);
+		}
+		for (String dish: dishes.dish)
+		{
+			  foodStat.put(dish, initDishesValue);
+			  foodServed.put(dish, 0);
+		}
+		for (String dish: dishes.drink)
+		{
+			  foodStat.put(dish, initDishesValue*100);
+			  foodServed.put(dish, 0);
 		}
 	}
 
@@ -251,7 +274,6 @@ public class Canteen extends Model implements Runnable
 			queueToPlace = new Accumulate(this, "Queue to place", false, false);
 			idleCashierStat = new Accumulate(this, "Idle cashiers", false, false);
 			idleCookStat = new Accumulate(this, "Idle cooks", false, false);
-			workingCookStat = new Accumulate(this, "Working cooks", false, false);
 			
 			
 			
@@ -358,7 +380,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * W znawia symulacje
+	 * Wznawia symulacje
 	 */
 	public void unPause() {
 		exp.proceed();
@@ -712,10 +734,6 @@ public class Canteen extends Model implements Runnable
 	public Accumulate getIdleCookStat() {
 		return idleCookStat;
 	}
-
-	public Accumulate getWorkingCookStat() {
-		return workingCookStat;
-	}
 	
 	public Count getClientLeftBecOfNoPlace()
 	{
@@ -725,6 +743,16 @@ public class Canteen extends Model implements Runnable
 	public Count getClientLeftBecOfNoFood()
 	{
 	  return clientLeftBecOfNoFood;
+	}
+	
+	public HashMap<String, Integer> getFoodStat()
+	{
+	  return foodStat;
+	}
+	
+	public HashMap<String, Integer> getFoodServed()
+	{
+	  return foodServed;
 	}
 	
 }

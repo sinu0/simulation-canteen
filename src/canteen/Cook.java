@@ -24,6 +24,7 @@ public class Cook extends SimProcess {
 				model.getMealPrepareTimeStat().update(mealPrepare);
 				hold(new TimeSpan(mealPrepare, TimeUnit.SECONDS));
 				model.getDishesStorage().addStorage(taskToDo, 5);
+				model.getFoodStat().put(taskToDo, model.getFoodStat().get(taskToDo)+5);
 				model.getKitchen().dishDone(taskToDo);
 				taskToDo = null;
 			} else {
@@ -41,6 +42,7 @@ public class Cook extends SimProcess {
 	public void insertMeToIdleQueue() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() + 1);
+		model.getIdleCookStat().update(model.cookIdleQueue.size());
 		model.cookIdleQueue.insert(this);
 	}
 

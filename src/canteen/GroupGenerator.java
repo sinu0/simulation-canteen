@@ -51,13 +51,11 @@ public class GroupGenerator extends ClientGenerator {
 			allClientGenerate += (long)numberOfClient;
 			double decisionPoints = 0;
 			model.getGroups().update(numberOfClient);
-			System.out.println(groupClientGenerate + ": Client count: " + numberOfClient);
 			for (int i = 0; i < numberOfClient; i++) {
 				Client client = new Client(model, "Client", false);
 				//groupOfClient = new LinkedList<Client>();
 				client.setMemberOfGroup(true, groupClientGenerate);
 				groupOfClient.add(client);
-				System.out.println(groupClientGenerate + ": Client create " + i);
 				price += client.decisionPrice();
 				queue += client.decisionMaxQueue();
 
@@ -77,7 +75,7 @@ public class GroupGenerator extends ClientGenerator {
 					System.out.println("cena i kolejka za wysoka!");}
 				else if (price == numberOfClient) {
 					
-					System.out.println("cena za wysoka!wqer");
+					System.out.println("cena za wysoka!");
 					model.getClientLeftBecOfPrice().update((long)numberOfClient);
 				} else if (queue == numberOfClient){
 					model.getClientLeftBecOfQueue().update((long)numberOfClient);
@@ -86,11 +84,9 @@ public class GroupGenerator extends ClientGenerator {
 					active = true;
 
 			}
-			System.out.println(groupClientGenerate + ": Client List size " + groupOfClient.size());
 			if (active) {
 				for (Client client : groupOfClient) {
 					int i=0;
-					System.out.println(groupClientGenerate + ": Client " + i++);
 					//model.getClientStayed().update((long)numberOfClient);
 					client.setStayInCanteen(true);
 					client.activateAfter(this);

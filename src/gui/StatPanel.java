@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.LinkedList;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -142,7 +144,95 @@ public class StatPanel extends JPanel
     stdEatTime.setBounds(40, 610, 180, 20);
     add(stdEatTime);
     
+    JLabel queueToCashier = new JLabel("Kolejka klientow do kasy");
+    queueToCashier.setBounds(400, 40, 150, 20);
+    add(queueToCashier);
     
+    JLabel maxQueueToCashier = new JLabel("Maksymalna " + (int)model.getQueueToCashier().getMaximum());
+    maxQueueToCashier.setBounds(410, 60, 150, 20);
+    add(maxQueueToCashier);
+    
+    JLabel meanQueueToCashier = new JLabel("Srednia " + model.getQueueToCashier().getMean());
+    meanQueueToCashier.setBounds(410, 80, 250, 20);
+    add(meanQueueToCashier);
+    
+    JLabel stdQueueToCashier = new JLabel("Odchylenie standardowe " + model.getQueueToCashier().getStdDev());
+    stdQueueToCashier.setBounds(410, 100, 250, 20);
+    add(stdQueueToCashier);
+    
+    JLabel queueForPlace = new JLabel("Kolejka klientow po miejsce przy stoliku");
+    queueForPlace.setBounds(400, 130, 250, 20);
+    add(queueForPlace);
+    
+    JLabel maxQueueForPlace = new JLabel("Maksymalna: " + (int)model.getQueueForPlace().getMaximum());
+    maxQueueForPlace.setBounds(410, 150, 250, 20);
+    add(maxQueueForPlace);
+    
+    JLabel meanQueueForPlace = new JLabel("Srednia: " + model.getQueueForPlace().getMean());
+    meanQueueForPlace.setBounds(410, 170, 250, 20);
+    add(meanQueueForPlace);
+    
+    JLabel stdQueueForPlace = new JLabel("Odchylenie standardowe: " + model.getQueueForPlace().getStdDev());
+    stdQueueForPlace.setBounds(410, 190, 250, 20);
+    add(stdQueueForPlace);
+    
+    JLabel idleCashier = new JLabel("Wolne kasjerki");
+    idleCashier.setBounds(400, 220, 150, 20);
+    add(idleCashier);
+    
+    JLabel meanIdleCashier = new JLabel("Srednio: " + model.getIdleCashierStat().getMean());
+    meanIdleCashier.setBounds(410, 240, 250, 20);
+    add(meanIdleCashier);
+    
+    JLabel stdIdleCashier = new JLabel("Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
+    stdIdleCashier.setBounds(410, 260, 250, 20);
+    add(stdIdleCashier);
+    
+    JLabel idleCook = new JLabel("Wolni kucharze");
+    idleCook.setBounds(400, 290, 150, 20);
+    add(idleCook);
+    
+    JLabel meanIdleCook = new JLabel("Srednio: " + model.getIdleCookStat().getMean());
+    meanIdleCook.setBounds(410, 310, 250, 20);
+    add(meanIdleCook);
+    
+    JLabel stdIdleCook = new JLabel("Odchylenie standardowe: " + model.getIdleCookStat().getStdDev());
+    stdIdleCook.setBounds(410, 330, 250, 20);
+    add(stdIdleCook);
+    
+    JLabel foodPrepare = new JLabel("Dania             przygotowane      wydane");
+    foodPrepare.setBounds(400, 360, 320, 20);
+    add(foodPrepare);
+    
+    LinkedList<String> foodName = new LinkedList<String>();
+    for (String dish : model.getDishes().getDish())
+      foodName.add(dish);
+    for (String dish : model.getDishes().getSoup())
+        foodName.add(dish);
+    for (String dish : model.getDishes().getDrink())
+        foodName.add(dish);
+    
+    for (int i=0;i<foodName.size();i++)
+    {
+      JLabel food = new JLabel(foodName.get(i).substring(0, 1).toUpperCase() + foodName.get(i).substring(1, foodName.get(i).length()));
+      food.setBounds(410, 380+i*20, 80, 20);
+      add(food);
+    }
+    
+    
+    for (int i=0;i<foodName.size();i++)
+    {
+      JLabel food = new JLabel(Integer.toString(model.getFoodStat().get(foodName.get(i))));
+      food.setBounds(500, 380+i*20, 140, 20);
+      add(food);
+    }
+    
+    for (int i=0;i<foodName.size();i++)
+    {
+      JLabel served = new JLabel(Integer.toString(model.getFoodServed().get(foodName.get(i))));
+      served.setBounds(580, 380+i*20, 100, 20);
+      add(served);
+    }
   }
   
   
