@@ -103,12 +103,12 @@ public class StatPanel extends JPanel
     statList.add(" Wszyscy klienci: " + ClientGenerator.allClientGenerate);
     
     JLabel indClients = new JLabel("Pojedynczy klienci: " + ClientGenerator.clientGenerate);
-    indClients.setBounds(40, 80, 150, 20);
+    indClients.setBounds(40, 80, 170, 20);
     add(indClients);
     statList.add(" Pojedynczy klienci: " + ClientGenerator.clientGenerate);
     
     JLabel prvClient = new JLabel("Ilosc klientow uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
-    prvClient.setBounds(40, 100, 220, 20);
+    prvClient.setBounds(40, 100, 280, 20);
     add(prvClient);
     statList.add(" Ilosc klientow uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
     
@@ -118,32 +118,32 @@ public class StatPanel extends JPanel
     statList.add(" Ilosc grup: " + ClientGenerator.groupClientGenerate);
     
     JLabel avgGroupSize = new JLabel("Sredni rozmiar grupy: " + model.getGroups().getMean());
-    avgGroupSize.setBounds(40, 140, 180, 20);
+    avgGroupSize.setBounds(40, 140, 230, 20);
     add(avgGroupSize);
     statList.add(" Sredni rozmiar grupy: " + model.getGroups().getMean());
     
     JLabel clientStayed = new JLabel("Zostalo w stolowce: " + model.getClientStayedValue());
-    clientStayed.setBounds(40, 170, 150, 20);
+    clientStayed.setBounds(40, 170, 190, 20);
     add(clientStayed);
     statList.add(" Zostalo w stolowce: " + model.getClientStayedValue());
     
     JLabel clientLeftBecOfPrice = new JLabel("Odeszlo przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
-    clientLeftBecOfPrice.setBounds(40, 190, 200, 20);
+    clientLeftBecOfPrice.setBounds(40, 190, 270, 20);
     add(clientLeftBecOfPrice);
     statList.add(" Odeszlo przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
     
     JLabel clientLeftBecOfQueue = new JLabel("Odeszlo przez zbyt dluga kolejke do kasy: " + model.getClientLeftBecOfQueue().getValue());
-    clientLeftBecOfQueue.setBounds(40, 210, 270, 20);
+    clientLeftBecOfQueue.setBounds(40, 210, 320, 20);
     add(clientLeftBecOfQueue);
     statList.add(" Odeszlo przez zbyt dluga kolejke do kasy: " + model.getClientLeftBecOfQueue().getValue());
     
     JLabel clientLeftBecOfNoFood = new JLabel("Odeszlo przez brak dan: " + model.getClientLeftBecOfNoFood().getValue());
-    clientLeftBecOfNoFood.setBounds(40, 230, 200, 20);
+    clientLeftBecOfNoFood.setBounds(40, 230, 250, 20);
     add(clientLeftBecOfNoFood);
     statList.add(" Odeszlo przez brak dan: " + model.getClientLeftBecOfNoFood().getValue());
     
     JLabel clientLeftBecOfNoPlace = new JLabel("Odeszlo przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
-    clientLeftBecOfNoPlace.setBounds(40, 250, 200, 20);
+    clientLeftBecOfNoPlace.setBounds(40, 250, 250, 20);
     add(clientLeftBecOfNoPlace);
     statList.add(" Odeszlo przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
         
@@ -152,7 +152,7 @@ public class StatPanel extends JPanel
     
     //czas obslugi klienta
     JLabel serviceTime = new JLabel("Czas obslugi klienta");
-    serviceTime.setBounds(30, 290, 120, 20);
+    serviceTime.setBounds(30, 290, 170, 20);
     add(serviceTime);
     statList.add("Czas obslugi klienta");
     
@@ -172,7 +172,7 @@ public class StatPanel extends JPanel
     statList.add(" Sredni: " + setMinSec(model.getServiceTimeStat().getMean()));
     
     JLabel stdServiceTime = new JLabel("Odchylenie standardowe: " + setMinSec(model.getServiceTimeStat().getStdDev()));
-    stdServiceTime.setBounds(40, 370, 200, 20);
+    stdServiceTime.setBounds(40, 370, 250, 20);
     add(stdServiceTime);
     statList.add(" Odchylenie standardowe: " + setMinSec(model.getServiceTimeStat().getStdDev()));
     
@@ -181,7 +181,7 @@ public class StatPanel extends JPanel
     
     //czas przygotowywania posilku
     JLabel mealPrepare = new JLabel("Czas przygotowania posilku");
-    mealPrepare.setBounds(30, 410, 180, 20);
+    mealPrepare.setBounds(30, 410, 220, 20);
     add(mealPrepare);
     statList.add("Czas przygotowania posilku");
     
@@ -201,7 +201,7 @@ public class StatPanel extends JPanel
     statList.add(" Sredni: " + setMinSec(model.getMealPrepareTimeStat().getMean()));
     
     JLabel stdMealPrepare = new JLabel("Odchylenie standardowe: " + setMinSec(model.getMealPrepareTimeStat().getStdDev()));
-    stdMealPrepare.setBounds(40, 490, 180, 20);
+    stdMealPrepare.setBounds(40, 490, 250, 20);
     add(stdMealPrepare);
     statList.add(" Odchylenie standardowe: " + setMinSec(model.getMealPrepareTimeStat().getStdDev()));
     
@@ -230,7 +230,7 @@ public class StatPanel extends JPanel
     statList.add(" Sredni: " + setMinSec(model.getMealEatTimeStat().getMean()));
     
     JLabel stdEatTime = new JLabel("Odchylenie standardowe: " + setMinSec(model.getMealEatTimeStat().getStdDev()));
-    stdEatTime.setBounds(40, 610, 180, 20);
+    stdEatTime.setBounds(40, 610, 250, 20);
     add(stdEatTime);
     statList.add(" Odchylenie standardowe: " + setMinSec(model.getMealEatTimeStat().getStdDev()));
     
@@ -238,7 +238,7 @@ public class StatPanel extends JPanel
     
     //kolejka do kasy
     JLabel queueToCashier = new JLabel("Kolejka klientow do kasy");
-    queueToCashier.setBounds(400, 40, 150, 20);
+    queueToCashier.setBounds(400, 40, 190, 20);
     add(queueToCashier);
     statList.add("Kolejka klientow do kasy");
     
@@ -261,7 +261,7 @@ public class StatPanel extends JPanel
     
     //kolejka po miejsce
     JLabel queueForPlace = new JLabel("Kolejka klientow po miejsce przy stoliku");
-    queueForPlace.setBounds(400, 130, 250, 20);
+    queueForPlace.setBounds(400, 130, 300, 20);
     add(queueForPlace);
     statList.add("Kolejka klientow po miejsce przy stoliku");
     
@@ -335,7 +335,7 @@ public class StatPanel extends JPanel
     for (int i=0;i<foodName.size();i++)
     {
       JLabel food = new JLabel(foodName.get(i).substring(0, 1).toUpperCase() + foodName.get(i).substring(1, foodName.get(i).length()));
-      food.setBounds(410, 380+i*20, 80, 20);
+      food.setBounds(410, 380+i*20, 120, 20);
       add(food);
     }
     
