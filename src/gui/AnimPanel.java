@@ -1,9 +1,14 @@
 package gui;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -35,6 +40,8 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   
   private JLabel speedLabel;
   private JSlider speedSlider;
+  
+  private BufferedImage diskImage;
 
   AnimPanel(MyFrame _frame)
   {
@@ -45,6 +52,23 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	setLayout(null);  
 	tables = new LinkedList<JLabel>();
 	
+	//Utworzenie nowego pliku na dysku
+    File imageFile = new File("gui.png");
+    //wczytanie obrazu z pliku
+    try {
+		diskImage = ImageIO.read(imageFile);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
+	repaint();
+  }
+  
+  public void paintComponent(Graphics g)
+  {
+	
+      g.drawImage(diskImage, 0, 0, this);
   }
   
   public void drawPanel()
