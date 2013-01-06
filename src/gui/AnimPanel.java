@@ -106,7 +106,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	
 	
     idleCook = new JLabel("Wolni kucharze: " + model.getCookCount());
-	idleCook.setBounds(50, 40, 140, 20);
+	idleCook.setBounds(50, 40, 170, 20);
 	add(idleCook);
 	    
 	workingCook = new JLabel("Pracuj�cy kucharze: 0");
