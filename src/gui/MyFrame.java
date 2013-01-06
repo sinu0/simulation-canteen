@@ -36,6 +36,7 @@ public class MyFrame extends JFrame
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
     setResizable(false);
+    setLocation(350, 5);
     
     add(new JScrollPane(startPanel));
     revalidate();

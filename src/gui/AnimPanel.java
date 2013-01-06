@@ -160,7 +160,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	{
 	  JLabel label = new JLabel("0/" + model.getTables().get(i).getSeatCunt());
 	  tables.add(label);
-	  label.setBounds(120+(i-(i/5)*5)*130, 290+100*(i/5), 100, 25);
+	  label.setBounds(131+(i-(i/5)*5)*130, 296+100*(i/5), 100, 25);
 	  add(label);
 	}
 	
