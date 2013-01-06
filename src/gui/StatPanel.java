@@ -291,12 +291,12 @@ public class StatPanel extends JPanel
     JLabel meanIdleCashier = new JLabel(" Srednio: " + model.getIdleCashierStat().getMean());
     meanIdleCashier.setBounds(410, 240, 250, 20);
     add(meanIdleCashier);
-    statList.add("Srednio: " + model.getIdleCashierStat().getMean());
+    statList.add(" Srednio: " + model.getIdleCashierStat().getMean());
     
     JLabel stdIdleCashier = new JLabel(" Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
     stdIdleCashier.setBounds(410, 260, 250, 20);
     add(stdIdleCashier);
-    statList.add("Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
+    statList.add(" Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
     
     statList.add("");
     
@@ -310,12 +310,12 @@ public class StatPanel extends JPanel
     JLabel meanIdleCook = new JLabel(" Srednio: " + model.getIdleCookStat().getMean());
     meanIdleCook.setBounds(410, 310, 250, 20);
     add(meanIdleCook);
-    statList.add("Srednio: " + model.getIdleCookStat().getMean());
+    statList.add(" Srednio: " + model.getIdleCookStat().getMean());
     
     JLabel stdIdleCook = new JLabel(" Odchylenie standardowe: " + model.getIdleCookStat().getStdDev());
     stdIdleCook.setBounds(410, 330, 250, 20);
     add(stdIdleCook);
-    statList.add("Odchylenie standardowe: " + model.getIdleCookStat().getStdDev());
+    statList.add(" Odchylenie standardowe: " + model.getIdleCookStat().getStdDev());
     
     statList.add("");
     
