@@ -106,11 +106,11 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	
 	
     idleCook = new JLabel("Wolni kucharze: " + model.getCookCount());
-	idleCook.setBounds(50, 40, 250, 20);
+	idleCook.setBounds(50, 40, 200, 20);
 	add(idleCook);
 	    
 	workingCook = new JLabel("Pracuj¹cy kucharze: 0");
-	workingCook.setBounds(50, 70, 150, 20);
+	workingCook.setBounds(50, 70, 250, 25);
 	add(workingCook);
 	    
 	cashier = new JLabel("Kasjerki: " + model.getCashierCount());
@@ -146,7 +146,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	add(rosol);    
 	    
 	pomidorowa = new JLabel("Pomidorowa: 5");
-	pomidorowa.setBounds(280, 90, 150, 20);
+	pomidorowa.setBounds(280, 90, 200, 25);
 	add(pomidorowa);
 	    
 	kompot = new JLabel("Kompot: 500");
