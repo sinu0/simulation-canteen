@@ -3,6 +3,7 @@ package gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,6 +45,8 @@ public class StartPanel extends JPanel
   private JSpinner minValueIngredientSpinner;
   private JSpinner mealPriceSpinner;
   
+  private LinkedList<String> paramList;
+  
   private JButton startButton;
   
   
@@ -64,6 +67,8 @@ public class StartPanel extends JPanel
   {
 	frame = _frame;
 	canteenThread = new Thread(frame.getCanteen());
+	
+	paramList = new LinkedList<String>();
 	
     add(new JLabel("Parametry symulacji"));
     add(Box.createRigidArea(new Dimension(0, 20)));
@@ -422,21 +427,37 @@ public class StartPanel extends JPanel
           
           //frame.set
           frame.getCanteen().setSimTime((int)maxSimTimeSpinner.getValue());
+          paramList.add("Czas symulacji: " + (int)maxSimTimeSpinner.getValue() + "h");
           frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
+          paramList.add("Ilosc kasjerek: " + (int)cashierSpinner.getValue());
           frame.getCanteen().setCookCount((int)cookSpinner.getValue());
+          paramList.add("Ilosc kucharzy: " + (int)cookSpinner.getValue());
           frame.getCanteen().setTable2Count((int)table2Spinner.getValue());
+          paramList.add("Ilosc stolikow 2-osobowych: " + (int)table2Spinner.getValue());
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
+          paramList.add("Ilosc stolikow 4-osobowych: " + (int)table4Spinner.getValue());
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
+          paramList.add("Czas pojawiania sie nowych klientow: " + Integer.toString((int)minTimeClientSpinner.getValue()) + "-" + Integer.toString((int)maxTimeClientSpinner.getValue()) + "min");
           frame.getCanteen().setGroupGeneratorMultiplier(100/Double.parseDouble(Integer.toString((int)groupFreqSpinner.getValue())));
+          paramList.add("Czestosc pojawiania sie grupy: " + Integer.toString((int)groupFreqSpinner.getValue()) + "%");
           frame.getCanteen().setMaxGroupSize((int)groupSizeSpinner.getValue());
+          paramList.add("Maksymalny rozmiar grupy: " + (int)groupSizeSpinner.getValue());
           frame.getCanteen().setPriviligedClientMultiplier(100/Double.parseDouble(Integer.toString((int)priviligedFreqSpinner.getValue())));
+          paramList.add("Czestosc pojawiania sie klientow uprzywilejowanych: " + Integer.toString((int)priviligedFreqSpinner.getValue()) + "%");
           frame.getCanteen().setClientAveragePrice(Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue())), Double.parseDouble(Integer.toString((int)highPriceSpinner.getValue()))+5);
+          paramList.add("Srdnia maksymalna akceptowalna przez klienta cena dan: " + Integer.toString((int)highPriceSpinner.getValue()) + "zl");
           frame.getCanteen().setClientMaxAcceptableQueue(Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue())), Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue()))+7);
+          paramList.add("Srednia maksymalna akceptowalna przez klienta dlugosc kolejki: " + Integer.toString((int)longQueueSpinner.getValue()) + "osob");
           frame.getCanteen().setClientServiceTime(Double.parseDouble(Integer.toString((int)minServiceTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxServiceTimeSpinner.getValue())));
+          paramList.add("Czas obslugi klienta: " + Integer.toString((int)minServiceTimeSpinner.getValue()) + "-" + Integer.toString((int)maxServiceTimeSpinner.getValue()) + "minut");
           frame.getCanteen().setMealEatTime(Double.parseDouble(Integer.toString((int)minEatTimeSpinner.getValue())),Double.parseDouble(Integer.toString((int)maxEatTimeSpinner.getValue())));
+          paramList.add("Czas jedzenia posilku: " + Integer.toString((int)minEatTimeSpinner.getValue()) + "-" + Integer.toString((int)maxEatTimeSpinner.getValue()) + "min");
           frame.getCanteen().setMealPrepareTime(Double.parseDouble(Integer.toString((int)minFoodPrepareTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxFoodPrepareTimeSpinner.getValue())));
+          paramList.add("Czas przygotowania posilku: " + Integer.toString((int)minFoodPrepareTimeSpinner.getValue()) + "-" + Integer.toString((int)maxFoodPrepareTimeSpinner.getValue()) + "min");
           frame.getCanteen().setCanteenAveragePrice(Double.parseDouble(Integer.toString((int)mealPriceSpinner.getValue())));
+          paramList.add("Srednia cena dan w stolowce: " + Integer.toString((int)mealPriceSpinner.getValue()) + "zl");
           frame.getCanteen().setMinMealCount((int)minValueIngredientSpinner.getValue());
+          paramList.add("Minimalna wartosc skladnika: " + (int)minValueIngredientSpinner.getValue());
           
          
           
@@ -461,6 +482,11 @@ public class StartPanel extends JPanel
     
     
     
+  }
+  
+  public LinkedList<String> getParamList()
+  {
+    return paramList;
   }
 
 }
