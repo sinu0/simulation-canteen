@@ -389,7 +389,7 @@ public class StartPanel extends JPanel
     Box minValueIngredientBox = Box.createHorizontalBox();
     JLabel minValueIngredientLabel = new JLabel("Minimalna wartosc skladnika dania");
     minValueIngredientBox.add(minValueIngredientLabel);
-    spinnerModel = new SpinnerNumberModel(3, 1, 10, 1);
+    spinnerModel = new SpinnerNumberModel(6, 1, 20, 1);
     minValueIngredientSpinner = new JSpinner(spinnerModel);
     minValueIngredientSpinner.setMaximumSize(spinnerSize);
     minValueIngredientBox.add(Box.createRigidArea(rigidInBox));

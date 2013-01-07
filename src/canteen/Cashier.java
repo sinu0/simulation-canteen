@@ -43,11 +43,12 @@ public class Cashier extends SimProcess {
 																// z lokolu
 						hold(new TimeSpan(model.getClientDecitionTime(),TimeUnit.SECONDS));
 						if(client.selectMenuOnceAgain(model.getDishesStorage()
-								.getAvailableList())==true) //jezeli brakowala czegos dla niego to wychodzi
-						{ updateStorage(menu);
+								.getAvailableList())==true && checkClinetList(client.getMenu())) //jezeli brakowala czegos dla niego to wychodzi
+						{ menu = client.getMenu();
+						  updateStorage(menu);
 							hold(new TimeSpan(model.getClientServiceTime(),TimeUnit.SECONDS));
 							client.setHasMeal(true);
-							menu = client.getMenu();
+							
 							
 							
 						}

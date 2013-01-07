@@ -214,7 +214,7 @@ public class Canteen extends Model implements Runnable
 				"privilegedClientGenerator", false);
 		
 		
-		initDishesValue = 5;
+		initDishesValue = 20;
 		dishes = new Dishes(getCanteenAveragePrice());
 		kitchen = new Kitchen(this, "Kitchen", false);
 		storage = new DishesStorage(dishes.averagePrice, initDishesValue, this);
@@ -245,7 +245,7 @@ public class Canteen extends Model implements Runnable
 		}
 		for (String dish: dishes.drink)
 		{
-			  foodStat.put(dish, initDishesValue*100);
+			  foodStat.put(dish, initDishesValue*25);
 			  foodServed.put(dish, 0);
 		}
 	}
