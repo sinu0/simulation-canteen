@@ -98,11 +98,11 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
 			//System.out.println("ZMIENILEM WARTOSC");
-			speedLabel.setText("Predkosc - " + speedSlider.getValue());
+			speedLabel.setText("Prêdkoœæ - " + speedSlider.getValue());
 			model.setDelay(max - speedSlider.getValue());
 		}
 	});
-	speedLabel.setText("Predkosc - " + speedSlider.getValue());
+	speedLabel.setText("Prêdkoœæ - " + speedSlider.getValue());
 	
 	
 	
@@ -122,7 +122,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	clientQueue.setBounds(480, 200, 200, 20);
 	add(clientQueue);
 	    
-	ingredients = new JLabel("Skladniki:");
+	ingredients = new JLabel("Sk³adniki:");
 	ingredients.setBounds(270, 0, 100, 20);
 	add(ingredients);
 	   
@@ -130,7 +130,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	kotlet.setBounds(280, 15, 100, 20);
 	add(kotlet);
 	    
-	wolowina = new JLabel("Wolowina: 5");
+	wolowina = new JLabel("Wo³owina: 5");
 	wolowina.setBounds(280, 30, 100, 20);
 	add(wolowina);    
 	    
@@ -138,11 +138,11 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	ziemniaki.setBounds(280, 45, 100, 20);
 	add(ziemniaki);    
 	    
-	ryz = new JLabel("Ryz: 5");
+	ryz = new JLabel("Ry¿: 5");
 	ryz.setBounds(280, 60, 100, 20);
 	add(ryz);    
 	    
-	rosol = new JLabel("Rosol: 5");
+	rosol = new JLabel("Rosó³: 5");
 	rosol.setBounds(280, 75, 100, 20);
 	add(rosol);    
 	    
@@ -195,16 +195,19 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     if (event.getPropertyName().equals("cookIdleQueue"))
     {
 	  idleCook.setText("Wolni kucharze: " + model.getCookIdleQueue().size());
-      workingCook.setText("Pracujacy kucharze: " + (model.getCookCount()-model.getCookIdleQueue().size()));
+      workingCook.setText("Pracuj¹cy kucharze: " + (model.getCookCount()-model.getCookIdleQueue().size()));
     }
     if (event.getPropertyName().equals("storage"))
     {	
     	
     	kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
-    	wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
+    	//wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
+    	wolowina.setText("Wo³owina: " + model.getDishesStorage().getValue("wo³owina"));
     	ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
-    	ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
-    	rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoÅ‚"));
+    	//ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
+    	ryz.setText("Ry¿: " + model.getDishesStorage().getValue("ry¿"));
+    	//rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoÅ‚"));
+    	rosol.setText("Rosó³: " + model.getDishesStorage().getValue("rosó³"));
     	pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
     	kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
     }
