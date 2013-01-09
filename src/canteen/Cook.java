@@ -19,6 +19,7 @@ public class Cook extends SimProcess {
 
 	@Override
 	public void lifeCycle() {
+		model.getIdleCookStat().update(model.cookIdleQueue.size());
 		while (true) {
 			if (taskToDo != null) { // jezeli wszystko bedzie ok to ten warunek
 									// zawsze bedzi spelniony!

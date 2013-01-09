@@ -168,7 +168,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja super sto≈Ç√≥wki ";
+		return "Symulacja sto≥Ûwki studenckiej ";
 	}
 
 	/* (non-Javadoc)
@@ -273,6 +273,7 @@ public class Canteen extends Model implements Runnable
 			queueToCashier = new Accumulate(this, "Queue to cashier", false, false);
 			queueToPlace = new Accumulate(this, "Queue to place", false, false);
 			idleCashierStat = new Accumulate(this, "Idle cashiers", false, false);
+			idleCashierStat.update(0);
 			idleCookStat = new Accumulate(this, "Idle cooks", false, false);
 			
 			
@@ -338,7 +339,7 @@ public class Canteen extends Model implements Runnable
 		exp.start();
 
 		exp.finish();
-		System.out.println("TROLOLOLOL");
+		
 		System.out.println("All clients count - " + clientCount.getValue());
 		System.out.println("Klienci indywidualni - " + clientGenerator.clientGenerate);
 		System.out.println("Groups count - " + clientGenerator.groupClientGenerate);
