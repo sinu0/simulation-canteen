@@ -754,5 +754,9 @@ public class Canteen extends Model implements Runnable
 	{
 	  return foodServed;
 	}
+
+	public ProcessQueue<Client> getClientNoPleceQueue() {
+		return clientNoPleceQueue;
+	}
 	
 }

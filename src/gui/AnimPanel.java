@@ -36,6 +36,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   private JLabel rosol;
   private JLabel pomidorowa;
   private JLabel kompot;
+  private JLabel clientPlaceQueue;
   private LinkedList<JLabel> tables;
   
   private JLabel speedLabel;
@@ -152,6 +153,10 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	kompot = new JLabel("Kompot: 500");
 	kompot.setBounds(280, 105, 100, 20);
 	add(kompot);
+	
+	clientPlaceQueue = new JLabel("Klienci oczekuj¹cy na miejsce przy stoliku: 0");
+	clientPlaceQueue.setBounds(100, 200, 300, 20);
+	add(clientPlaceQueue);
 	    
 	System.out.println("Model tables " + (model.getTable4Count()+model.getTable4Count()));
 	
@@ -218,6 +223,9 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
       for (int i=0;i<tables.size();i++)
         tables.get(i).setText(model.getTables().get(i).getClientCount() + "/" + model.getTables().get(i).getSeatCunt());
     }
+    //  clientNoPlaceQueue
+    if (event.getPropertyName().equals("clientNoPlaceQueue"))
+      clientPlaceQueue.setText("Klienci oczekuj¹cy na miejsce przy stoliku: " + model.getClientNoPleceQueue().size());
   }
 
 }

@@ -149,7 +149,7 @@ public class StartPanel extends JPanel
     minTimeClientValue = (int)minTimeClientSpinner.getValue();
     minTimeClientSpinner.setMaximumSize(spinnerSize);
     
-    spinnerModel = new SpinnerNumberModel(90, 80, 600, 1);
+    spinnerModel = new SpinnerNumberModel(300, 80, 1200, 1);
     maxTimeClientSpinner = new JSpinner(spinnerModel);
     maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
     maxTimeClientSpinner.setMaximumSize(spinnerSize);
@@ -162,7 +162,7 @@ public class StartPanel extends JPanel
           minTimeClientValue = (int)minTimeClientSpinner.getValue();
           maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
           minTimeClientSpinner.setModel(new SpinnerNumberModel(minTimeClientValue, 1, maxTimeClientValue, 1));
-		  maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 600, 1));
+		  maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 1200, 1));
 		  	
 		}
 	  }
@@ -173,7 +173,7 @@ public class StartPanel extends JPanel
       {
     	minTimeClientValue = (int)minTimeClientSpinner.getValue();
         maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
-        maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 600, 1));
+        maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 1200, 1));
         minTimeClientSpinner.setModel(new SpinnerNumberModel(minTimeClientValue, 1, maxTimeClientValue, 1));
 		}
 	  }
