@@ -288,15 +288,22 @@ public class StatPanel extends JPanel
     add(idleCashier);
     statList.add("Wolne kasjerki");
     
-    JLabel meanIdleCashier = new JLabel(" Srednio: " + model.getIdleCashierStat().getMean());
+    double mean = model.getIdleCashierStat().getMean();
+    double std = model.getIdleCashierStat().getStdDev();
+    if (new Double(model.getIdleCashierStat().getMean()).equals(Double.NaN))
+    {
+      mean = 0;
+      std=0;
+    }
+    JLabel meanIdleCashier = new JLabel(" Srednio: " + mean);
     meanIdleCashier.setBounds(410, 240, 250, 20);
     add(meanIdleCashier);
-    statList.add(" Srednio: " + model.getIdleCashierStat().getMean());
+    statList.add(" Srednio: " + mean);
     
-    JLabel stdIdleCashier = new JLabel(" Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
+    JLabel stdIdleCashier = new JLabel(" Odchylenie standardowe: " + std);
     stdIdleCashier.setBounds(410, 260, 250, 20);
     add(stdIdleCashier);
-    statList.add(" Odchylenie standardowe: " + model.getIdleCashierStat().getStdDev());
+    statList.add(" Odchylenie standardowe: " + std);
     
     statList.add("");
     

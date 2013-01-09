@@ -66,6 +66,7 @@ public class GroupGenerator extends ClientGenerator {
 			if (numberOfClient > model.getAvailableSeats()
 					- model.clientQueue.size()) {
 				active = false;
+				model.getClientLeftBecOfNoPlace().update((long)numberOfClient);
 				// brak miejsca
 			} else {
 				

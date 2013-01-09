@@ -20,6 +20,7 @@ public class Cashier extends SimProcess {
 
 	@Override
 	public void lifeCycle() {
+		model.getIdleCashierStat().update(model.cashierIdleQueue.size());
 		while (true) {
 			if (model.getClientQueue().isEmpty()) {
 				insertMeToIdleQueue();
@@ -64,7 +65,6 @@ public class Cashier extends SimProcess {
 			}
 
 		}
-
 	}
 
 	private void updateStorage(LinkedList<String> menu) {

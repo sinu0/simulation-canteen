@@ -168,7 +168,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja super sto≈Ç√≥wki ";
+		return "Symulacja sto≥Ûwki studenckiej ";
 	}
 
 	/* (non-Javadoc)
@@ -273,6 +273,7 @@ public class Canteen extends Model implements Runnable
 			queueToCashier = new Accumulate(this, "Queue to cashier", false, false);
 			queueToPlace = new Accumulate(this, "Queue to place", false, false);
 			idleCashierStat = new Accumulate(this, "Idle cashiers", false, false);
+			idleCashierStat.update(0);
 			idleCookStat = new Accumulate(this, "Idle cooks", false, false);
 			
 			
@@ -289,10 +290,10 @@ public class Canteen extends Model implements Runnable
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
-					"group arriviall probability", minClientArrivalTime*60*groupGeneratorMultiplier, maxClientArrivalTime*60*groupGeneratorMultiplier, false,
+					"group arriviall probability", minClientArrivalTime*groupGeneratorMultiplier, maxClientArrivalTime*groupGeneratorMultiplier, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
-					"privileged cllient probablity", minClientArrivalTime*60*priviligedClientMultiplier, maxClientArrivalTime*60*priviligedClientMultiplier,
+					"privileged cllient probablity", minClientArrivalTime*priviligedClientMultiplier, maxClientArrivalTime*priviligedClientMultiplier,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
 					"privileged cllient probablity", maxPriceMin, maxPriceMax, false, false);
@@ -338,7 +339,7 @@ public class Canteen extends Model implements Runnable
 		exp.start();
 
 		exp.finish();
-		System.out.println("TROLOLOLOL");
+		
 		System.out.println("All clients count - " + clientCount.getValue());
 		System.out.println("Klienci indywidualni - " + clientGenerator.clientGenerate);
 		System.out.println("Groups count - " + clientGenerator.groupClientGenerate);
@@ -753,6 +754,10 @@ public class Canteen extends Model implements Runnable
 	public HashMap<String, Integer> getFoodServed()
 	{
 	  return foodServed;
+	}
+
+	public ProcessQueue<Client> getClientNoPleceQueue() {
+		return clientNoPleceQueue;
 	}
 	
 }
