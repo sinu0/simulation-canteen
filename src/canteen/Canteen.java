@@ -289,10 +289,10 @@ public class Canteen extends Model implements Runnable
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,
-					"group arriviall probability", minClientArrivalTime*60*groupGeneratorMultiplier, maxClientArrivalTime*60*groupGeneratorMultiplier, false,
+					"group arriviall probability", minClientArrivalTime*groupGeneratorMultiplier, maxClientArrivalTime*groupGeneratorMultiplier, false,
 					false);
 			privilegedClientArrivialProbability = new ContDistUniform(this,
-					"privileged cllient probablity", minClientArrivalTime*60*priviligedClientMultiplier, maxClientArrivalTime*60*priviligedClientMultiplier,
+					"privileged cllient probablity", minClientArrivalTime*priviligedClientMultiplier, maxClientArrivalTime*priviligedClientMultiplier,
 					false, false);
 			clientAveragePrice = new ContDistUniform(this,
 					"privileged cllient probablity", maxPriceMin, maxPriceMax, false, false);
