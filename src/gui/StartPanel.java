@@ -258,7 +258,7 @@ public class StartPanel extends JPanel
     minClientServiceTime = (int)minServiceTimeSpinner.getValue();
     minServiceTimeSpinner.setMaximumSize(spinnerSize);
     
-    spinnerModel = new SpinnerNumberModel(50, 20, 60, 1);
+    spinnerModel = new SpinnerNumberModel(50, 20, 120, 1);
     maxServiceTimeSpinner = new JSpinner(spinnerModel);
     maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
     maxServiceTimeSpinner.setMaximumSize(spinnerSize);
@@ -271,7 +271,7 @@ public class StartPanel extends JPanel
 			minClientServiceTime = (int)minServiceTimeSpinner.getValue();
 			maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
 			minServiceTimeSpinner.setModel(new SpinnerNumberModel(minClientServiceTime, 1, maxClientServiceTime, 1));
-			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 60, 1));
+			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 120, 1));
 			
 		}
 	});
@@ -282,7 +282,7 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
 			minClientServiceTime = (int)minServiceTimeSpinner.getValue();
-			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 60, 1));
+			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 120, 1));
 			minServiceTimeSpinner.setModel(new SpinnerNumberModel(minClientServiceTime, 1, maxClientServiceTime, 1));
 			
 			
