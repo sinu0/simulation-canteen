@@ -301,12 +301,12 @@ public class StartPanel extends JPanel
     JLabel eatTimeLabel = new JLabel("Min i max czas jedzenia posilku [min]");
     eatTimeBox.add(eatTimeLabel);
     
-    spinnerModel = new SpinnerNumberModel(12, 10, 25, 1);
+    spinnerModel = new SpinnerNumberModel(12, 5, 25, 1);
     minEatTimeSpinner = new JSpinner(spinnerModel);
     minEatTimeSpinner.setMaximumSize(spinnerSize);
     minEatTimeValue = (int)minEatTimeSpinner.getValue();
     
-    spinnerModel = new SpinnerNumberModel(25, 12, 30, 1);
+    spinnerModel = new SpinnerNumberModel(25, 12, 40, 1);
     maxEatTimeSpinner = new JSpinner(spinnerModel);
     maxEatTimeSpinner.setMaximumSize(spinnerSize);
     maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
@@ -319,8 +319,8 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			minEatTimeValue = (int)minEatTimeSpinner.getValue();
 			maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
-			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 10, maxEatTimeValue, 1));
-			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 30, 1));
+			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 5, maxEatTimeValue, 1));
+			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 40, 1));
 			
 		}
 	});
@@ -331,8 +331,8 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			minEatTimeValue = (int)minEatTimeSpinner.getValue();
 			maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
-			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 30, 1));
-			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 10, maxEatTimeValue, 1));		
+			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 40, 1));
+			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 5, maxEatTimeValue, 1));		
 		}
 	});
     eatTimeBox.add(Box.createRigidArea(rigidInBox));
@@ -347,13 +347,13 @@ public class StartPanel extends JPanel
     Box foodPrepareTimeBox = Box.createHorizontalBox();
     JLabel foodPrepareTimeLabel = new JLabel("Min i max czas przygotowania skladnikow [min]");
     foodPrepareTimeBox.add(foodPrepareTimeLabel);
-    spinnerModel = new SpinnerNumberModel(7, 6, 12, 1);
+    spinnerModel = new SpinnerNumberModel(7, 4, 12, 1);
     
     minFoodPrepareTimeSpinner = new JSpinner(spinnerModel);
     minFoodPrepareTimeSpinner.setMaximumSize(spinnerSize);
     minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
     
-    spinnerModel = new SpinnerNumberModel(12, 7, 16, 1);
+    spinnerModel = new SpinnerNumberModel(12, 7, 20, 1);
     maxFoodPrepareTimeSpinner = new JSpinner(spinnerModel);
     maxFoodPrepareTimeSpinner.setMaximumSize(spinnerSize);
     maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
@@ -363,8 +363,8 @@ public class StartPanel extends JPanel
 		public void stateChanged(ChangeEvent e) {
 			  minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
 			  maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
-			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 6, maxFoodPrepareTimeValue, 1));
-			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 16, 1));
+			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 4, maxFoodPrepareTimeValue, 1));
+			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 20, 1));
 		}
 	});
     maxFoodPrepareTimeSpinner.addChangeListener(new ChangeListener() {
@@ -373,8 +373,8 @@ public class StartPanel extends JPanel
 		public void stateChanged(ChangeEvent e) {
 			  maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
 			  minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
-			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 16, 1));
-			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 6, maxFoodPrepareTimeValue, 1));
+			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 20, 1));
+			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 4, maxFoodPrepareTimeValue, 1));
 		}
 	});
     
