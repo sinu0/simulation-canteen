@@ -83,7 +83,7 @@ public class StartPanel extends JPanel
     Box timeBox = Box.createHorizontalBox();
     JLabel maxTimeLabel = new JLabel("Maksymalny czas symulacji [h]");
     timeBox.add(maxTimeLabel);
-    spinnerModel = new SpinnerNumberModel(8, 1, 10, 1);
+    spinnerModel = new SpinnerNumberModel(4, 1, 10, 1);
     maxSimTimeSpinner = new JSpinner(spinnerModel);
     maxSimTimeSpinner.setMaximumSize(new Dimension(80, 20));
     timeBox.add(Box.createRigidArea(rigidInBox));
