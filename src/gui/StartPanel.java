@@ -95,7 +95,7 @@ public class StartPanel extends JPanel
     Box cashierBox = Box.createHorizontalBox();
     JLabel cashierLabel = new JLabel("Ilosc kasjerek");
     cashierBox.add(cashierLabel);
-    spinnerModel = new SpinnerNumberModel(1, 1, 5, 1);
+    spinnerModel = new SpinnerNumberModel(1, 1, 8, 1);
     cashierSpinner = new JSpinner(spinnerModel);
     cashierSpinner.setMaximumSize(spinnerSize);
     cashierBox.add(Box.createRigidArea(rigidInBox));
@@ -107,7 +107,7 @@ public class StartPanel extends JPanel
     Box cookBox = Box.createHorizontalBox();
     JLabel cookLabel = new JLabel("Ilosc kucharzy");
     cookBox.add(cookLabel);
-    spinnerModel = new SpinnerNumberModel(2, 1, 5, 1);
+    spinnerModel = new SpinnerNumberModel(2, 1, 8, 1);
     cookSpinner = new JSpinner(spinnerModel);
     cookSpinner.setMaximumSize(spinnerSize);
     cookBox.add(Box.createRigidArea(rigidInBox));
