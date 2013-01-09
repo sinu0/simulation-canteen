@@ -34,7 +34,7 @@ public class DishesStorage extends Dishes {
 			storage.put(dishs, initValue);
 		}
 		for (String dishs : drink) {
-			storage.put(dishs, initValue * 100); // z piciem nie
+			storage.put(dishs, initValue * 25); // z piciem nie
 													// powinnobyc problemu
 		}
 

@@ -214,7 +214,7 @@ public class Canteen extends Model implements Runnable
 				"privilegedClientGenerator", false);
 		
 		
-		initDishesValue = 5;
+		initDishesValue = 20;
 		dishes = new Dishes(getCanteenAveragePrice());
 		kitchen = new Kitchen(this, "Kitchen", false);
 		storage = new DishesStorage(dishes.averagePrice, initDishesValue, this);
@@ -245,7 +245,7 @@ public class Canteen extends Model implements Runnable
 		}
 		for (String dish: dishes.drink)
 		{
-			  foodStat.put(dish, initDishesValue*100);
+			  foodStat.put(dish, initDishesValue*25);
 			  foodServed.put(dish, 0);
 		}
 	}
@@ -279,13 +279,13 @@ public class Canteen extends Model implements Runnable
 			
 			
 			clientServiceTime = new ContDistUniform(this,
-					"client service time", minClientServiceTime*60, maxClientServiceTime*60, false, false);
+					"client service time", minClientServiceTime, maxClientServiceTime, false, false);
 			mealPrepareTime = new ContDistUniform(this, "meal prepare time",
 					60 * minMealPrepareTime, 60 * maxMealPrepareTime, false, false); // in kitchen
 			mealEatTime = new ContDistUniform(this, "meal eat time", minMealEatTime * 60,
 					maxMealEatTime * 60, false, false); // client:)
 			clientArrivialTime = new ContDistUniform(this,
-					"client arrivial time", minClientArrivalTime*60, maxClientArrivalTime*60, false, false);
+					"client arrivial time", minClientArrivalTime, maxClientArrivalTime, false, false);
 			clientDecisionTime = new ContDistUniform(this,
 					"client decision time", 30, 1 * 60, false, false);
 			groupArrivialProbability = new ContDistUniform(this,

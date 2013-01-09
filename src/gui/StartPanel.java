@@ -142,14 +142,14 @@ public class StartPanel extends JPanel
     
     //minimalny czas pojawiania sie nowego klienta
     Box minTimeClientBox = Box.createHorizontalBox();    
-    JLabel minTimeClientLabel = new JLabel("Min i max czas pojawiania sie nowych klientow");
+    JLabel minTimeClientLabel = new JLabel("Min i max czas pojawiania sie nowych klientow [s]");
     minTimeClientBox.add(minTimeClientLabel);
-    spinnerModel = new SpinnerNumberModel(4, 1, 5, 1);
+    spinnerModel = new SpinnerNumberModel(30, 1, 79, 1);
     minTimeClientSpinner = new JSpinner(spinnerModel);
     minTimeClientValue = (int)minTimeClientSpinner.getValue();
     minTimeClientSpinner.setMaximumSize(spinnerSize);
     
-    spinnerModel = new SpinnerNumberModel(6, 5, 30, 1);
+    spinnerModel = new SpinnerNumberModel(90, 80, 600, 1);
     maxTimeClientSpinner = new JSpinner(spinnerModel);
     maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
     maxTimeClientSpinner.setMaximumSize(spinnerSize);
@@ -162,7 +162,7 @@ public class StartPanel extends JPanel
           minTimeClientValue = (int)minTimeClientSpinner.getValue();
           maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
           minTimeClientSpinner.setModel(new SpinnerNumberModel(minTimeClientValue, 1, maxTimeClientValue, 1));
-		  maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 30, 1));
+		  maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 600, 1));
 		  	
 		}
 	  }
@@ -173,7 +173,7 @@ public class StartPanel extends JPanel
       {
     	minTimeClientValue = (int)minTimeClientSpinner.getValue();
         maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
-        maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 30, 1));
+        maxTimeClientSpinner.setModel(new SpinnerNumberModel(maxTimeClientValue, minTimeClientValue, 600, 1));
         minTimeClientSpinner.setModel(new SpinnerNumberModel(minTimeClientValue, 1, maxTimeClientValue, 1));
 		}
 	  }
@@ -191,7 +191,7 @@ public class StartPanel extends JPanel
     Box groupFreqBox = Box.createHorizontalBox();
     JLabel groupFreqLabel = new JLabel("Czestosc pojawiania sie grupy (w %)");
     groupFreqBox.add(groupFreqLabel);
-    spinnerModel = new SpinnerNumberModel(25, 1, 100, 1);
+    spinnerModel = new SpinnerNumberModel(50, 1, 100, 1);
     groupFreqSpinner = new JSpinner(spinnerModel);
     groupFreqSpinner.setMaximumSize(spinnerSize);
     groupFreqBox.add(Box.createRigidArea(rigidInBox));
@@ -203,7 +203,7 @@ public class StartPanel extends JPanel
     Box groupSizeBox = Box.createHorizontalBox();
     JLabel groupSizeLabel = new JLabel("Maksymalny rozmiar grupy");
     groupSizeBox.add(groupSizeLabel);
-    spinnerModel = new SpinnerNumberModel(4, 2, 6, 1);
+    spinnerModel = new SpinnerNumberModel(3, 2, 5, 1);
     groupSizeSpinner = new JSpinner(spinnerModel);
     groupSizeSpinner.setMaximumSize(spinnerSize);
     groupSizeBox.add(Box.createRigidArea(rigidInBox));
@@ -215,7 +215,7 @@ public class StartPanel extends JPanel
     Box priviligedFreqBox = Box.createHorizontalBox();
     JLabel priviligedFreqLabel = new JLabel("Czestosc pojawiania sie klientow uprzywilejowanych (w %)");
     priviligedFreqBox.add(priviligedFreqLabel);
-    spinnerModel = new SpinnerNumberModel(2, 1, 100, 1);
+    spinnerModel = new SpinnerNumberModel(1, 1, 100, 1);
     priviligedFreqSpinner = new JSpinner(spinnerModel);
     priviligedFreqSpinner.setMaximumSize(spinnerSize);
     priviligedFreqBox.add(Box.createRigidArea(rigidInBox));
@@ -240,7 +240,7 @@ public class StartPanel extends JPanel
     Box longQueueBox = Box.createHorizontalBox();
     JLabel longQueueLabel = new JLabel("Srednia akceptowalna dlugosc kolejki przez klienta");
     longQueueBox.add(longQueueLabel);
-    spinnerModel = new SpinnerNumberModel(7, 1, 20, 1);
+    spinnerModel = new SpinnerNumberModel(14, 1, 20, 1);
     longQueueSpinner = new JSpinner(spinnerModel);
     longQueueSpinner.setMaximumSize(spinnerSize);
     longQueueBox.add(Box.createRigidArea(rigidInBox));
@@ -250,15 +250,15 @@ public class StartPanel extends JPanel
     
     //czas obslugi klienta
     Box serviceTimeBox = Box.createHorizontalBox();
-    JLabel serviceTimeLabel = new JLabel("Min i max czas obslugi klienta");
+    JLabel serviceTimeLabel = new JLabel("Min i max czas obslugi klienta [s]");
     serviceTimeBox.add(serviceTimeLabel);
     
-    spinnerModel = new SpinnerNumberModel(1, 1, 2, 1);
+    spinnerModel = new SpinnerNumberModel(20, 1, 40, 1);
     minServiceTimeSpinner = new JSpinner(spinnerModel);
     minClientServiceTime = (int)minServiceTimeSpinner.getValue();
     minServiceTimeSpinner.setMaximumSize(spinnerSize);
     
-    spinnerModel = new SpinnerNumberModel(2, 1, 5, 1);
+    spinnerModel = new SpinnerNumberModel(50, 41, 60, 1);
     maxServiceTimeSpinner = new JSpinner(spinnerModel);
     maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
     maxServiceTimeSpinner.setMaximumSize(spinnerSize);
@@ -271,7 +271,7 @@ public class StartPanel extends JPanel
 			minClientServiceTime = (int)minServiceTimeSpinner.getValue();
 			maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
 			minServiceTimeSpinner.setModel(new SpinnerNumberModel(minClientServiceTime, 1, maxClientServiceTime, 1));
-			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 5, 1));
+			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 60, 1));
 			
 		}
 	});
@@ -282,7 +282,7 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			maxClientServiceTime = (int)maxServiceTimeSpinner.getValue();
 			minClientServiceTime = (int)minServiceTimeSpinner.getValue();
-			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 5, 1));
+			maxServiceTimeSpinner.setModel(new SpinnerNumberModel(maxClientServiceTime, minClientServiceTime, 60, 1));
 			minServiceTimeSpinner.setModel(new SpinnerNumberModel(minClientServiceTime, 1, maxClientServiceTime, 1));
 			
 			
@@ -298,15 +298,15 @@ public class StartPanel extends JPanel
     
     //czas jedzenia posilku
     Box eatTimeBox = Box.createHorizontalBox();
-    JLabel eatTimeLabel = new JLabel("Min i max czas jedzenia posilku");
+    JLabel eatTimeLabel = new JLabel("Min i max czas jedzenia posilku [min]");
     eatTimeBox.add(eatTimeLabel);
     
-    spinnerModel = new SpinnerNumberModel(6, 1, 12, 1);
+    spinnerModel = new SpinnerNumberModel(12, 10, 15, 1);
     minEatTimeSpinner = new JSpinner(spinnerModel);
     minEatTimeSpinner.setMaximumSize(spinnerSize);
     minEatTimeValue = (int)minEatTimeSpinner.getValue();
     
-    spinnerModel = new SpinnerNumberModel(12, 6, 20, 1);
+    spinnerModel = new SpinnerNumberModel(25, 16, 30, 1);
     maxEatTimeSpinner = new JSpinner(spinnerModel);
     maxEatTimeSpinner.setMaximumSize(spinnerSize);
     maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
@@ -319,8 +319,8 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			minEatTimeValue = (int)minEatTimeSpinner.getValue();
 			maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
-			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 1, maxEatTimeValue, 1));
-			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 20, 1));
+			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 10, maxEatTimeValue, 1));
+			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 30, 1));
 			
 		}
 	});
@@ -331,8 +331,8 @@ public class StartPanel extends JPanel
 			// TODO Auto-generated method stub
 			minEatTimeValue = (int)minEatTimeSpinner.getValue();
 			maxEatTimeValue = (int)maxEatTimeSpinner.getValue();
-			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 20, 1));
-			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 1, maxEatTimeValue, 1));		
+			maxEatTimeSpinner.setModel(new SpinnerNumberModel(maxEatTimeValue, minEatTimeValue, 30, 1));
+			minEatTimeSpinner.setModel(new SpinnerNumberModel(minEatTimeValue, 10, maxEatTimeValue, 1));		
 		}
 	});
     eatTimeBox.add(Box.createRigidArea(rigidInBox));
@@ -345,15 +345,15 @@ public class StartPanel extends JPanel
     
     //czas przygotowania skladnikow w kuchnii
     Box foodPrepareTimeBox = Box.createHorizontalBox();
-    JLabel foodPrepareTimeLabel = new JLabel("Min i max czas przygotowania skladnikow");
+    JLabel foodPrepareTimeLabel = new JLabel("Min i max czas przygotowania skladnikow [min]");
     foodPrepareTimeBox.add(foodPrepareTimeLabel);
-    spinnerModel = new SpinnerNumberModel(6, 1, 12, 1);
+    spinnerModel = new SpinnerNumberModel(7, 6, 8, 1);
     
     minFoodPrepareTimeSpinner = new JSpinner(spinnerModel);
     minFoodPrepareTimeSpinner.setMaximumSize(spinnerSize);
     minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
     
-    spinnerModel = new SpinnerNumberModel(12, 6, 25, 1);
+    spinnerModel = new SpinnerNumberModel(12, 9, 16, 1);
     maxFoodPrepareTimeSpinner = new JSpinner(spinnerModel);
     maxFoodPrepareTimeSpinner.setMaximumSize(spinnerSize);
     maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
@@ -363,8 +363,8 @@ public class StartPanel extends JPanel
 		public void stateChanged(ChangeEvent e) {
 			  minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
 			  maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
-			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 1, maxFoodPrepareTimeValue, 1));
-			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 25, 1));
+			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 6, maxFoodPrepareTimeValue, 1));
+			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 16, 1));
 		}
 	});
     maxFoodPrepareTimeSpinner.addChangeListener(new ChangeListener() {
@@ -373,8 +373,8 @@ public class StartPanel extends JPanel
 		public void stateChanged(ChangeEvent e) {
 			  maxFoodPrepareTimeValue = (int)maxFoodPrepareTimeSpinner.getValue();
 			  minFoodPrepareTimeValue = (int)minFoodPrepareTimeSpinner.getValue();
-			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 25, 1));
-			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 1, maxFoodPrepareTimeValue, 1));
+			  maxFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(maxFoodPrepareTimeValue, minFoodPrepareTimeValue, 16, 1));
+			  minFoodPrepareTimeSpinner.setModel(new SpinnerNumberModel(minFoodPrepareTimeValue, 6, maxFoodPrepareTimeValue, 1));
 		}
 	});
     
@@ -389,7 +389,7 @@ public class StartPanel extends JPanel
     Box minValueIngredientBox = Box.createHorizontalBox();
     JLabel minValueIngredientLabel = new JLabel("Minimalna wartosc skladnika dania");
     minValueIngredientBox.add(minValueIngredientLabel);
-    spinnerModel = new SpinnerNumberModel(3, 1, 10, 1);
+    spinnerModel = new SpinnerNumberModel(4, 1, 20, 1);
     minValueIngredientSpinner = new JSpinner(spinnerModel);
     minValueIngredientSpinner.setMaximumSize(spinnerSize);
     minValueIngredientBox.add(Box.createRigidArea(rigidInBox));
@@ -412,8 +412,8 @@ public class StartPanel extends JPanel
     
     
     
-    startButton = new JButton("START!!!!!");
-    startButton.setMaximumSize(new Dimension(200, 100));
+    startButton = new JButton("START");
+    startButton.setMaximumSize(new Dimension(200, 80));
     this.add(startButton);
     startButton.addActionListener(new ActionListener()
       {
@@ -423,9 +423,7 @@ public class StartPanel extends JPanel
           frame.add(frame.getAnimPanel());
           frame.revalidate();
           frame.repaint();
-
           
-          //frame.set
           frame.getCanteen().setSimTime((int)maxSimTimeSpinner.getValue());
           paramList.add("Czas symulacji: " + (int)maxSimTimeSpinner.getValue() + "h");
           frame.getCanteen().setCashierCount((int)cashierSpinner.getValue());
