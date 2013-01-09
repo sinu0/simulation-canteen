@@ -132,7 +132,8 @@ public class Client extends SimProcess {
 			model.getClientLeftBecOfPrice().update();
 			System.out.println("cena jest za wysoka");
 
-		}}
+		}
+			}
 
 	}
 
