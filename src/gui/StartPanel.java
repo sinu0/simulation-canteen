@@ -435,7 +435,7 @@ public class StartPanel extends JPanel
           frame.getCanteen().setTable4Count((int)table4Spinner.getValue());
           paramList.add("Ilosc stolikow 4-osobowych: " + (int)table4Spinner.getValue());
           frame.getCanteen().setClientArrivialTime(Double.parseDouble(Integer.toString((int)minTimeClientSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxTimeClientSpinner.getValue())));
-          paramList.add("Czas pojawiania sie nowych klientow: " + Integer.toString((int)minTimeClientSpinner.getValue()) + "-" + Integer.toString((int)maxTimeClientSpinner.getValue()) + "min");
+          paramList.add("Czas pojawiania sie nowych klientow: " + Integer.toString((int)minTimeClientSpinner.getValue()) + "-" + Integer.toString((int)maxTimeClientSpinner.getValue()) + "s");
           frame.getCanteen().setGroupGeneratorMultiplier(100/Double.parseDouble(Integer.toString((int)groupFreqSpinner.getValue())));
           paramList.add("Czestosc pojawiania sie grupy: " + Integer.toString((int)groupFreqSpinner.getValue()) + "%");
           frame.getCanteen().setMaxGroupSize((int)groupSizeSpinner.getValue());
@@ -447,7 +447,7 @@ public class StartPanel extends JPanel
           frame.getCanteen().setClientMaxAcceptableQueue(Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue())), Double.parseDouble(Integer.toString((int)longQueueSpinner.getValue()))+7);
           paramList.add("Srednia maksymalna akceptowalna przez klienta dlugosc kolejki: " + Integer.toString((int)longQueueSpinner.getValue()) + "osob");
           frame.getCanteen().setClientServiceTime(Double.parseDouble(Integer.toString((int)minServiceTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxServiceTimeSpinner.getValue())));
-          paramList.add("Czas obslugi klienta: " + Integer.toString((int)minServiceTimeSpinner.getValue()) + "-" + Integer.toString((int)maxServiceTimeSpinner.getValue()) + "minut");
+          paramList.add("Czas obslugi klienta: " + Integer.toString((int)minServiceTimeSpinner.getValue()) + "-" + Integer.toString((int)maxServiceTimeSpinner.getValue()) + "s");
           frame.getCanteen().setMealEatTime(Double.parseDouble(Integer.toString((int)minEatTimeSpinner.getValue())),Double.parseDouble(Integer.toString((int)maxEatTimeSpinner.getValue())));
           paramList.add("Czas jedzenia posilku: " + Integer.toString((int)minEatTimeSpinner.getValue()) + "-" + Integer.toString((int)maxEatTimeSpinner.getValue()) + "min");
           frame.getCanteen().setMealPrepareTime(Double.parseDouble(Integer.toString((int)minFoodPrepareTimeSpinner.getValue())), Double.parseDouble(Integer.toString((int)maxFoodPrepareTimeSpinner.getValue())));

@@ -137,10 +137,10 @@ public class StatPanel extends JPanel
     add(clientLeftBecOfQueue);
     statList.add(" Odeszlo przez zbyt dluga kolejke do kasy: " + model.getClientLeftBecOfQueue().getValue());
     
-    JLabel clientLeftBecOfNoFood = new JLabel("Odeszlo przez brak dan: " + model.getClientLeftBecOfNoFood().getValue());
+    JLabel clientLeftBecOfNoFood = new JLabel("Odeszlo przez brak oczekiwanych dan: " + model.getClientLeftBecOfNoFood().getValue());
     clientLeftBecOfNoFood.setBounds(40, 230, 250, 20);
     add(clientLeftBecOfNoFood);
-    statList.add(" Odeszlo przez brak dan: " + model.getClientLeftBecOfNoFood().getValue());
+    statList.add(" Odeszlo przez brak oczekiwanych dan: " + model.getClientLeftBecOfNoFood().getValue());
     
     JLabel clientLeftBecOfNoPlace = new JLabel("Odeszlo przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
     clientLeftBecOfNoPlace.setBounds(40, 250, 250, 20);
