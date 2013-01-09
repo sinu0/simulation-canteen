@@ -14,12 +14,22 @@ public class Dishes {
 		dish = new LinkedList<String>();
 		soup = new LinkedList<String>();
 		
+		/*
 		drink.add("kompot");
 		dish.add("kotlet");
 		dish.add("ziemniaki");
 		dish.add("ryz");
 		dish.add("wolownia");
 		soup.add("rosoÅ‚");
+		soup.add("pomidorowa");	
+		*/
+		
+		drink.add("kompot");
+		dish.add("kotlet");
+		dish.add("ziemniaki");
+		dish.add("ry¿");
+		dish.add("wo³owina");
+		soup.add("rosó³");
 		soup.add("pomidorowa");	
 			
 		this.averagePrice=averagePrice;
