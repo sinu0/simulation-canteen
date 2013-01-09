@@ -30,11 +30,16 @@ public class Cashier extends SimProcess {
 				if (checkClinetList(menu)) // jezeli bedzie czegos brakowac to
 											// rowniez przesle ta informacej do
 											// kuchni
-				{updateStorage(menu);
+				{
+					updateStorage(menu);
 				    double serviceTime = model.getClientServiceTime();
 					hold(new TimeSpan(serviceTime,TimeUnit.SECONDS));
 					model.getServiceTimeStat().update(serviceTime);
 					client.setHasMeal(true);
+					if(checkClinetList(menu))
+					{
+						System.out.println("dupa");
+					}
 					
 				} else {
 					if (client.getProbabilityOfQuit() < 0.90) {// klient wybiera
@@ -44,8 +49,9 @@ public class Cashier extends SimProcess {
 						hold(new TimeSpan(model.getClientDecitionTime(),TimeUnit.SECONDS));
 						if(client.selectMenuOnceAgain(model.getDishesStorage()
 								.getAvailableList())==true && checkClinetList(client.getMenu())) //jezeli brakowala czegos dla niego to wychodzi
-						{ menu = client.getMenu();
-						  updateStorage(menu);
+						{ 
+							menu = client.getMenu();
+							updateStorage(menu);
 							hold(new TimeSpan(model.getClientServiceTime(),TimeUnit.SECONDS));
 							client.setHasMeal(true);
 							
