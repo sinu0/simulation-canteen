@@ -37,10 +37,7 @@ public class Cashier extends SimProcess {
 					hold(new TimeSpan(serviceTime,TimeUnit.SECONDS));
 					model.getServiceTimeStat().update(serviceTime);
 					client.setHasMeal(true);
-					if(checkClinetList(menu))
-					{
-						System.out.println("dupa");
-					}
+				
 					
 				} else {
 					if (client.getProbabilityOfQuit() < 0.90) {// klient wybiera
