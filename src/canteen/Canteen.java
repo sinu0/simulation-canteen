@@ -168,7 +168,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja sto³ówki studenckiej ";
+		return "Symulacja stoï¿½ï¿½wki studenckiej ";
 	}
 
 	/* (non-Javadoc)
