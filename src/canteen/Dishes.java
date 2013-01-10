@@ -27,9 +27,9 @@ public class Dishes {
 		drink.add("kompot");
 		dish.add("kotlet");
 		dish.add("ziemniaki");
-		dish.add("ry�");
-		dish.add("wo�owina");
-		soup.add("ros�");
+		dish.add("ryz");
+		dish.add("wolowina");
+		soup.add("rosol");
 		soup.add("pomidorowa");	
 			
 		this.averagePrice=averagePrice;
