@@ -817,44 +817,68 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @return odchylenie standartowe 
+	 * @return odchylenie standardowe od sredniej wartosci kolejki do kasjera
 	 */
 	public Accumulate getQueueToCashier() {
 		return queueToCashier;
 	}
-
+	
+	/**
+	 * @return odchylenie standardowe od sredniej wartosci kolejki do stolika
+	 */
 	public Accumulate getQueueForPlace() {
 		return queueToPlace;
 	}
 
+	/**
+	 * @return odchylenie standardowe od sredniej wartosci kolejki czekajacych kasjerek
+	 */
 	public Accumulate getIdleCashierStat() {
 		return idleCashierStat;
 	}
 
+	/**
+	 * @return odchylenie standardowe od sredniej wartosci kolejki wolnych kucharzy
+	 */
 	public Accumulate getIdleCookStat() {
 		return idleCookStat;
 	}
 	
+	/**
+	 * @return liczba klinetow ktora odeszla z lokalu z powodu braku miejsca
+	 */
 	public Count getClientLeftBecOfNoPlace()
 	{
 	  return clientLeftBecOfNoPlace;
 	}
-	
+
+	/**
+	 * @return liczba klinetow ktora odeszla z lokalu z powodu braku jedzenia
+	 */
 	public Count getClientLeftBecOfNoFood()
 	{
 	  return clientLeftBecOfNoFood;
 	}
-	
+
+	/**
+	 * @return statystyki dla kazdego dania
+	 */
 	public HashMap<String, Integer> getFoodStat()
 	{
 	  return foodStat;
 	}
 	
+	/**
+	 * @return ilosc wydanych dan
+	 */
 	public HashMap<String, Integer> getFoodServed()
 	{
 	  return foodServed;
 	}
 
+	/**
+	 * @return kolejka czekajacych na wolne miejsce
+	 */
 	public ProcessQueue<Client> getClientNoPleceQueue() {
 		return clientNoPleceQueue;
 	}
