@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/2 Studia/Symulacja i sterowanie procesów dyskretnych/Projekty/Symulacja stołówki/Projekt/Przykład statystyk/desmoj-2.3.4-complete-bin.jar"/>
+	<classpathentry kind="lib" path="desmoj-2.3.4-demo-bin-gui.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
