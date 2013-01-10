@@ -8,6 +8,10 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeSpan;
 
+/**
+ * @author mar
+ * Klasa reprezentujaca kasjerke w symulacji
+ */
 public class Cashier extends SimProcess {
 
 	private Canteen model;
@@ -18,6 +22,9 @@ public class Cashier extends SimProcess {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
+	 */
 	@Override
 	public void lifeCycle() {
 		model.getIdleCashierStat().update(model.cashierIdleQueue.size());
@@ -64,6 +71,10 @@ public class Cashier extends SimProcess {
 		}
 	}
 
+	/**
+	 * Metida ktora aktualizuje magazyn z jedzeniem
+	 * @param menu ed klienta
+	 */
 	private void updateStorage(LinkedList<String> menu) {
 		for (String string : menu) {
 			model.getDishesStorage().subStorage(string);
@@ -72,6 +83,9 @@ public class Cashier extends SimProcess {
 		
 	}
 
+	/**
+	 * Metoda ktora umieszcza kasjerke w kolejce cashierIdleQueue
+	 */
 	private void insertMeToIdleQueue() {
 		model.change.firePropertyChange("idleCashierQueue", model
 				.getCashierIdleQueue().size(),
@@ -80,6 +94,9 @@ public class Cashier extends SimProcess {
 		model.cashierIdleQueue.insert(this);
 	}
 
+	/**
+	 * @return pierwszego klienta z kolejki
+	 */
 	private Client getFirstClient() {
 		
 		model.change.firePropertyChange("clientQueue", model.getClientQueue()
@@ -90,6 +107,12 @@ public class Cashier extends SimProcess {
 		return c;
 	}
 
+	/**
+	 * Metoda sprawdza menu klienta czy jego wybrane skladniki sa dostepne jezeli tak to zwraca true jezeli nie to false
+	 * jednoczsnie jezeli kasjerka natrafi na jakis skladnik ktory brakuje w stolowce to informuje otym kuchenie aby to wykonala
+	 * @param list menu klienta
+	 * @return true or false
+	 */
 	private boolean checkClinetList(LinkedList<String> list) {
 		HashMap<String, Integer> dishList = model.getDishesStorage()
 				.getStorage();

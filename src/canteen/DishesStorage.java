@@ -6,6 +6,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * @author mar
+ * Przechowywalnia jedzenia
+ */
 public class DishesStorage extends Dishes {
 	private HashMap<String, LinkedList<String>> aviableDishes;
 	private HashMap<String, Integer> storage;
@@ -84,7 +88,7 @@ public class DishesStorage extends Dishes {
 	
 	
 	/**
-	 * @return metoda zwraca aktualnie dostepne skladniki dostepne w solowce
+	 * @return  aktualnie dostepne skladniki dostepne w solowce
 	 */
 	
 	
@@ -112,6 +116,9 @@ public class DishesStorage extends Dishes {
 		return returnList;
 	}
 	
+	/**
+	 * @return magazyn jedzenia
+	 */
 	public HashMap<String, Integer>  getStorage(){
 		return storage;
 	}

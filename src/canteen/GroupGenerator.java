@@ -7,6 +7,10 @@ import java.util.concurrent.TimeUnit;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 
+/**
+ * @author mar
+ * Klasa odpowiedzialna za generowanie grupy klientow z odpownia przerwa czaswa 
+ */
 public class GroupGenerator extends ClientGenerator {
 	private Random rand;
 	private LinkedList<Client> groupOfClient;
@@ -21,6 +25,9 @@ public class GroupGenerator extends ClientGenerator {
 		groupMin = 2;
 	}
 
+	/* (non-Javadoc)
+	 * @see canteen.ClientGenerator#lifeCycle()
+	 */
 	@Override
 	public void lifeCycle() {
 		while (true) {
@@ -100,18 +107,32 @@ public class GroupGenerator extends ClientGenerator {
 
 	}
 
+	/**
+	 * @return maksymalna wielkosc grupy
+	 */
 	public int getGroupMax() {
 		return groupMax;
 	}
 
+	/**
+	 * @return minimalna wielkosc grupy
+	 */
 	public int getGroupMin() {
 		return groupMax;
 	}
 
+	/**
+	 * Ustawia maksymalna wielkosc grupy
+	 * @param max 
+	 */
 	public void setGroupMax(int max) {
 		this.groupMax = max;
 	}
 
+	/**
+	 * Ustawia minimalna wielkosc grupy
+	 * @param min
+	 */
 	public void setGroupMin(int min) {
 		this.groupMax = min;
 	}

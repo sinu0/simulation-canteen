@@ -2,6 +2,10 @@ package canteen;
 
 import java.util.LinkedList;
 
+/**
+ * @author mar
+ * 
+ */
 public class Dishes {
 	
 	protected LinkedList<String> soup;
@@ -18,9 +22,9 @@ public class Dishes {
 		drink.add("kompot");
 		dish.add("kotlet");
 		dish.add("ziemniaki");
-		dish.add("ry¿");
-		dish.add("wo³owina");
-		soup.add("rosó³");
+		dish.add("ryï¿½");
+		dish.add("woï¿½owina");
+		soup.add("rosï¿½");
 		soup.add("pomidorowa");	
 			
 		this.averagePrice=averagePrice;

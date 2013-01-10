@@ -17,6 +17,9 @@ public class Cook extends SimProcess {
 		model = (Canteen) arg0;
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
+	 */
 	@Override
 	public void lifeCycle() {
 		model.getIdleCookStat().update(model.cookIdleQueue.size());
@@ -47,6 +50,9 @@ public class Cook extends SimProcess {
 
 	}
 
+	/**
+	 * Metoda ktora wstawia kucharza w kolejke oczekujacych na zadanie kucharzy
+	 */
 	public void insertMeToIdleQueue() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() + 1);
@@ -54,6 +60,9 @@ public class Cook extends SimProcess {
 		model.cookIdleQueue.insert(this);
 	}
 
+	/**
+	 * @param name nazwa dania do przygotowania przez kucharza
+	 */
 	public void giveMeTask(String name) {
 		taskToDo = new String(name);
 	}

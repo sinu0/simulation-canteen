@@ -6,6 +6,10 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeSpan;
 
+/**
+ * @author mar
+ * Klasa odpowiedzialna za generowanie klienta z odpowiednim odstepem czasowym losowanym z clientArrivialTime
+ */
 public class ClientGenerator extends SimProcess{
 
 	static public int allClientGenerate=0;
@@ -20,6 +24,9 @@ public class ClientGenerator extends SimProcess{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
+	 */
 	@Override
 	public void lifeCycle() {
 		while(true){

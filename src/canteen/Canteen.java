@@ -24,6 +24,8 @@ import desmoj.core.statistic.Tally;
  * Jest to gÅ‚Ã³wna klasa odpowiadajÄ…ca za caÅ‚Ä… symulacje 
  * Uruchamiana jest w oddzielnym watku
  */
+
+
 public class Canteen extends Model implements Runnable 
 {
 	protected PropertyChangeSupport change = new PropertyChangeSupport(this);
@@ -167,7 +169,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja sto³ówki studenckiej ";
+		return "Symulacja stoï¿½ï¿½wki studenckiej ";
 	}
 
 	/* (non-Javadoc)
@@ -316,7 +318,7 @@ public class Canteen extends Model implements Runnable
 	public void run()
 	{
 		// TODO Auto-generated method stub
-		exp = new Experiment("Symulacja sto³ówki");
+		exp = new Experiment("Symulacja stoï¿½ï¿½wki");
 		connectToExperiment(exp);
 		exp.stop(new TimeInstant(3600*simTime, TimeUnit.SECONDS));
 		setDelay(10);
@@ -398,7 +400,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * @return	minimalna ilosc skladnikow ktora powinna sie znajdowac w magazynie
+	 * @return	minimalna ilosc skladnikow, ktora powinna sie znajdowac w magazynie
 	 */
 	public int getMinMealCount() {
 		return minMealCount;
@@ -434,145 +436,215 @@ public class Canteen extends Model implements Runnable
 		return clientServiceTime.sample();
 
 	}
-
+	
+	/**
+	 * Metoda ustawia zakres czasu obsÅ‚ugi klienta
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setClientServiceTime(double range1, double range2) {
 		minClientServiceTime = range1;
 		maxClientServiceTime = range2;
 	}
 
+	/**
+	 *  
+	 * @return czas przygotowania jedzenia
+	 */
 	public double getMealPrepareTime() {
 		return mealPrepareTime.sample();
 	}
 	
 
+	/**
+	 Metoda ustawia zakres czasu przygotowania jedzenia
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setMealPrepareTime(double range1, double range2) {
 		minMealPrepareTime = range1;
 		maxMealPrepareTime = range2;
 	}
 
+	/**
+	 * @return czas jedzenia z poprzednio ustawionego zakresu min max
+	 */
 	public double getMealEatTime() {
 		return mealEatTime.sample();
 	}
 
+	/**
+ 	 *Metoda ustawia zakres czasu jedzenia posilku
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setMealEatTime(double range1, double range2) {
 		minMealEatTime = range1;
 		maxMealEatTime = range2;
 	}
 
+	/**
+	 * @return czas przyjscia nastepnego klienta
+	 */
 	public double getClientArrivialTime() {
 		return clientArrivialTime.sample();
 	}
-
+	/**
+	 * Metoda ustawia zakres czasu jedzenia posilku
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setClientArrivialTime(double range1, double range2) {
 		minClientArrivalTime = range1;
 		maxClientArrivalTime = range2;
 	}
 
+	/**
+	 * @return czas pojawienie sie nastepniej grupy
+	 */
 	public double getGroupArrivialTime() {
 		return groupArrivialProbability.sample();
 	}
 
-	public void setGroupArrivialTime(double range1, double range2) {
-		this.groupArrivialProbability = new ContDistUniform(this,
-				"Group arrival time", range1, range2, false, false);
-	}
-
+	
+	/**
+	 * @return czas pojawienia sie nastepnej grupy
+	 */
 	public double getPrivilegedClientArrivialTime() {
 		return privilegedClientArrivialProbability.sample();
 	}
 
-	public void setPrivilegedClientArrivialTime(double range1, double range2) {
-		this.privilegedClientArrivialProbability = new ContDistUniform(this,
-				"Privileged Client", range1, range2, false, false);
-	}
 
+	/**
+	 * @return czas decyzji klienta nad nowym menu
+	 */
 	public double getClientDecitionTime() {
 		return clientDecisionTime.sample();
 	}
 
-	public void setClientDecisionTime(double range1, double range2) {
-		this.clientDecisionTime = new ContDistUniform(this,
-				"Client decision time", range1, range1, false, false);
-	}
 
-	public void setClientServiceTime(ContDistUniform clientServiceTime) {
-		this.clientServiceTime = clientServiceTime;
-	}
+	
 
+	/**
+	 * @return kolejke wolnych kasjerek
+	 */
 	public ProcessQueue<Cashier> getCashierIdleQueue() {
 		return cashierIdleQueue;
 	}
-
-	public void setCashierIdleQueue(ProcessQueue<Cashier> cashierIdelQueue) {
-		this.cashierIdleQueue = cashierIdelQueue;
-	}
-
+	
+	/**
+	 * @return zwaraca kolejke klientow
+	 */
 	public ProcessQueue<Client> getClientQueue() {
 		return clientQueue;
 	}
-
-	public Dishes getDishes() {
-		return dishes;
-	}
-
+	
+	
+	/**
+	 * @return przechowywalne jedzenia
+	 */
 	public DishesStorage getDishesStorage() {
 		return storage;
 	}
 
 
+	/**
+	 * @return zwraca kuchnie
+	 */
 	public Kitchen getKitchen() {
 		return kitchen;
 	}
 
+	/**
+	 * @return prawdopodobienstwo wyjscia z stoÅ‚owki kiedy brakuje
+	 *  dla niego wybranego za pierwszym razem jedzenia
+	 */
 	public double getProbabilityOfQuitOnNewMenu() {
 		return probabilityOfQuitOnNewMenu.sample();
 	}
 
+	/**
+	 * Metoda towrzy i ustawia prawdopodobienstwo wyjscia z lokalu 
+	 * @param one min
+	 * @param two max
+	 */
 	public void setProbabilityOfQuitOnNewMenu(double one, double two) {
 		this.probabilityOfQuitOnNewMenu = new ContDistUniform(this,
 				"Probability of quit on new menu", one, two, false, false);
 	}
 
+	/**
+	 * @return akceptowalna dlugosc kolejki przez klienta
+	 */
 	public double getClientMaxAcceptableQueue() {
 		return clientMaxAcceptableQueue.sample();
 	}
-
+	/**
+	 * Metoda ustawia zakres akceptowalnej dlugosci kolejki przez klienta
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setClientMaxAcceptableQueue(double one, double two) {
 		maxAcceptQueueMin = one;
 		maxAcceptQueueMax = two;
 	}
 
+	/**
+	 * @return srednia cene jedzenia
+	 */
 	public double getClientAveragePrice() {
 		return clientAveragePrice.sample();
 	}
-
+	/**
+	 * Metoda ustawia zakres z jakiego przedzialu cenowego jest srednia cena jedzenia w stolowce
+	 * @param range1 min
+	 * @param range2 max
+	 */
 	public void setClientAveragePrice(double one, double two) {
 		maxPriceMin = one;
 		maxPriceMax = two;
 	}
 
+	/**
+	 * @return liste kucharzy
+	 */
 	public LinkedList<Cook> getCooks() {
 		return cooks;
 	}
+	/**
+	 *  Metoda tworzy nowa kasjerke
+	 */
 	public void addCashier(){
 		Cashier cashier = new Cashier(this,"Cashier",false);
 		cashiers.add(cashier);
 		change.firePropertyChange("cashiers", cashiers.size()-1, cashiers.size());
 		
 	}
+	/**
+	 *  Metoda tworzy nowego kucharza
+	 */
 	public void addCook(){
 		Cook cook = new Cook(this,"Cashier",false);
 		cooks.add(cook);
 		
 	}
+	/**
+	 * @return liste kasjerow
+	 */
 	public LinkedList<Cashier> getCashiers() {
 		return cashiers;
 	}
 	
+	/**
+	 * @return liste stolikow
+	 */
 	public LinkedList<Table> getTables(){
 		return tables;
 	}
 	
+	/**
+	 * @return ilosc miejsca w sotlowce
+	 */
 	public int getSeatsCount(){
 		int count=0;
 		for (Table table : tables) {
@@ -581,6 +653,9 @@ public class Canteen extends Model implements Runnable
 		return count;
 	}
 	
+	/**
+	 * @return ilosc wolnego miejsca w stolowce
+	 */
 	public int getAvailableSeats(){
 		int count=0;
 		for (Table table : tables) {
@@ -588,33 +663,50 @@ public class Canteen extends Model implements Runnable
 		}
 		return count;
 	}
+	
+	/**
+	 *  Tworzy stolik 2-osobowy
+	 */
 	public void addTable2(){
 		tables.add(new Table2Seats(this, "table2", true));
 	}
-	
+	/**
+	 *  Tworzy stolik 4-osobowy
+	 */
 	public void addTable4(){
 		tables.add(new Table4Seats(this, "table2", true));
 	}
-	public double getClientTableDecision(){
-		return clientTableDecision.sample();
-	}
 	
+	
+	/**
+	 * @return zwraca ilosc stolikow 2-osobowych
+	 */
 	public int getTable2Count() {
 		return table2Count;
 	}
-
+	
+	/**
+	 * @param table2Count - ilosc stolikow 2-osobowych w symulacji
+	 */
 	public void setTable2Count(int table2Count) {
 		this.table2Count = table2Count;
 	}
-
+	/**
+	 * @return zwraca ilosc stolikow 4-osobowych
+	 */
 	public int getTable4Count() {
 		return table4Count;
 	}
-
+	/**
+	 * @param table2Count - ilosc stolikow 4-osobowych w symulacji
+	 */
 	public void setTable4Count(int table4Count) {
 		this.table4Count = table4Count;
 	}
 	
+	/**
+	 * @return aktualna liczbe klientow w solowce
+	 */
 	public int ClientsInCanteen(){
 		int count=0;
 		for (Table table : tables) {
@@ -622,69 +714,111 @@ public class Canteen extends Model implements Runnable
 		}
 		return clientQueue.size()+clientNoPleceQueue.size()+count;
 	}
-
+	
+	/**
+	 * @return srednia cene dan
+	 */
 	public double getCanteenAveragePrice() {
 		return canteenAveragePrice;
 	}
-
+	
+	/**
+	 * @param one ?
+	 */
 	public void setCanteenAveragePrice(double one) {
 		
 		this.canteenAveragePrice = one;
 	}
 	
+	/**
+	 * @param value 
+	 */
 	public void setGroupGeneratorMultiplier(double value)
 	{
 	  groupGeneratorMultiplier = value;
 	}
 	
+	/**
+	 * @param value
+	 */
 	public void setPriviligedClientMultiplier(double value)
 	{
 	  priviligedClientMultiplier = value;
 	}
 	
+	/**
+	 * @param size maksymalna wielkosc grupy
+	 */
 	public void setMaxGroupSize(int size)
 	{
 	  maxGroupSize = size;
 	}
 
+	/**
+	 * @return ilosc klientow w calej symulacji
+	 */
 	public Count getClientCount() {
 		return clientCount;
 	}
 
+	/**
+	 * @return ilosc klientow ktora zostala w stolowce
+	 */
 	public Count getClientStayed() {
 		return clientStayed;
 	}
 	
+	/**
+	 * @return ilos klientow pozostala w sotlowce
+	 */
 	public int getClientStayedValue()
 	{
 		return (int)(clientStayed.getValue() - clientLeftBecOfNoFood.getValue());
 	}
 	
 
+	/**
+	 * @return ilosc klientow ktora opuscila lokal z powodu zbyt wysokich cen
+	 */
 	public Count getClientLeftBecOfPrice() {
 		return clientLeftBecOfPrice;
 	}
 
+	/**
+	 * @return ilosc klientow ktora opuscila lokal z powodu zbyt dlugiej kolejki
+	 */
 	public Count getClientLeftBecOfQueue() {
 		return clientLeftBecOfQueue;
 	}
 
+	/**
+	 * @return srednia wielkosc grupy
+	 */
 	public Tally getGroups() {
 		return groupSize;
 	}
-
+	/**
+	 * @return srecni czas obslugi przez kasjerke
+	 */
 	public Tally getServiceTimeStat() {
 		return serviceTimeStat;
 	}
-
+	/**
+	 * @return sredni czas przygotowania jedzenia przez kucharza
+	 */
 	public Tally getMealPrepareTimeStat() {
 		return mealPrepareTimeStat;
 	}
-
+	/**
+	 * @return sredni czas jedzenie przez klienta
+	 */
 	public Tally getMealEatTimeStat() {
 		return mealEatTimeStat;
 	}
-
+	
+	/**
+	 * @return odchylenie standartowe 
+	 */
 	public Accumulate getQueueToCashier() {
 		return queueToCashier;
 	}

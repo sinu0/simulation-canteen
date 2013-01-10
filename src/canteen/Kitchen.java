@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 
+/**
+ * @author mar
+ * Klasa odpowiedzialna za przeplywem jedzenia od kucharzy oraz nadawaniem zadan dla kucharzy
+ */
 public class Kitchen extends SimProcess {
 	private LinkedList<String> dishToPrepare;
 	private LinkedList<String> dishIsPreparing;
@@ -19,6 +23,9 @@ public class Kitchen extends SimProcess {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
+	 */
 	@Override
 	public void lifeCycle() {
 		while (true) {
@@ -39,6 +46,10 @@ public class Kitchen extends SimProcess {
 		}
 	}
 
+	/**
+	 * @param name nazwa dania
+	 * @return true w przypadku dodania skladnika do listy do wykoania, false w przypdku kiedy skladnik jest juz przygotowywany lub jest juz dodany
+	 */
 	public boolean addDishToPrepare(String name) {
 		if (dishToPrepare.contains(name) || dishIsPreparing.contains(name)) {
 			return false;
@@ -50,14 +61,24 @@ public class Kitchen extends SimProcess {
 		}
 	}
 
+	/**
+	 * @param name nazwa dania
+	 */
 	public void addDishIsPreparing(String name) {
 		dishToPrepare.remove(name);
 		dishIsPreparing.add(name);
 	}
+	/**
+	 * Usuwa jedzenie z listy przygotowywnych dan
+	 * @param name
+	 */
 	public void dishDone(String name){
 		dishIsPreparing.remove(name);
 	}
 
+	/**
+	 * @return pierwszege kucharza z kolelki
+	 */
 	public Cook getFirstCook() {
 		model.change.firePropertyChange("cookIdleQueue",
 				model.cookIdleQueue.size(), model.cookIdleQueue.size() - 1);
