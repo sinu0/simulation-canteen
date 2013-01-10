@@ -384,7 +384,11 @@ public class StatPanel extends JPanel
     }
   }
   
-  
+  /**
+   * Zwraca napis w formacie MM:SS
+   * @param value czas do przekonwertowania
+   * @return napis w formacie MM:SS
+   */
   private String setMinSec(double value)
   {
 	int min = (int)value/60;
@@ -396,6 +400,11 @@ public class StatPanel extends JPanel
 	  return min + ":" + sec;
   }
   
+  /**
+   * Zwraca napis bedacy samymi spacjami
+   * @param value ilosc spacji do wytworzenia
+   * @return napis bedacy spacjami
+   */
   private String spaces(int value)
   {
 	String napis = "";

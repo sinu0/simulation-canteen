@@ -611,8 +611,8 @@ public class Canteen extends Model implements Runnable
 	
 	/**
 	 * Metoda ustawia zakres akceptowalnej dlugosci kolejki przez klienta
-	 * @param range1 min
-	 * @param range2 max
+	 * @param one min
+	 * @param two max
 	 */
 	public void setClientMaxAcceptableQueue(double one, double two) {
 		maxAcceptQueueMin = one;
@@ -629,8 +629,8 @@ public class Canteen extends Model implements Runnable
 	
 	/**
 	 * Metoda ustawia zakres z jakiego przedzialu cenowego jest srednia cena jedzenia w stolowce
-	 * @param range1 min
-	 * @param range2 max
+	 * @param one min
+	 * @param two max
 	 */
 	public void setClientAveragePrice(double one, double two) {
 		maxPriceMin = one;

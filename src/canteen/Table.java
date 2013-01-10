@@ -17,9 +17,9 @@ public class Table  {
 	
 	/**
 	 * Konstruktor
-	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
-	 * @param name nazwa symulacji
-	 * @param trace czy pokazywac w pliku raportu
+	 * @param arg0 przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param arg1 nazwa symulacji
+	 * @param arg2 czy pokazywac w pliku raportu
 	 */
 	public Table(Model arg0, String arg1, boolean arg2) {
 		this.model=(Canteen)arg0;

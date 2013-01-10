@@ -283,7 +283,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia czy klient jest uprzywilejowany czy nie
-	 * @param czy klient uprzywilejowany czy nie
+	 * @param set czy klient uprzywilejowany czy nie
 	 */
 	public void setPrivileged(boolean set) {
 		isPrivileged = set;
@@ -291,7 +291,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia klienta jako czlonka grupy
-	 * @param czy czlonek grupy
+	 * @param set czy czlonek grupy
 	 * @param number numer do ktorej grupy nalezy
 	 */
 	public void setMemberOfGroup(boolean set, int number) {
@@ -318,7 +318,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia czy klient zostaje w stolowce, wykorzystywana przy "naradzie" w grupie
-	 * @param czy zostac czy nie
+	 * @param set czy zostac czy nie
 	 */
 	public void setStayInCanteen(boolean set) {
 		stayInCanteen = set;
