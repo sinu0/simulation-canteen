@@ -14,11 +14,19 @@ public class Table  {
 	protected ArrayList<Client> clientsAtTheTable;
 	int hasSeats;
 	Canteen model;
+	
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public Table(Model arg0, String arg1, boolean arg2) {
 		this.model=(Canteen)arg0;
 	}
 
 	/**
+	 * Dodaje klientw do stolika
 	 * @param client ktory chce usiasc przy stoliku
 	 * @return true w przypdku kiedy kilient usiadł false w przypdku kiedy nie ma miejsca dla klienta
 	 */
@@ -31,6 +39,7 @@ public class Table  {
 	}
 
 	/**
+	 * Usuwa klienta ze stolika
 	 * @param client kroty ma zamiar odejsc z stolika
 	 */
 	public void removeClient(Client client) {
@@ -39,13 +48,15 @@ public class Table  {
 	}
 
 	/**
-	 * @return liczb siedzacych klientow przy stoliku
+	 * Zwraca licze siedzacych klientow przy stoliku
+	 * @return liczbe siedzacych klientow przy stoliku
 	 */
 	public int getClientCount() {
 		return clientsAtTheTable.size();
 	}
 
 	/**
+	 * Zwraca liczbe wolnych miejsc
 	 * @return liczbe wolnych miejsc
 	 */
 	public int getEmpySeatCount() {
@@ -53,7 +64,8 @@ public class Table  {
 	}
 
 	/**
-	 * @return liczbe dostepnych siedzen
+	 * Zwraca liczbe miejsc
+	 * @return liczbe dostepnych miejsc
 	 */
 	public int getSeatCunt() {
 		return hasSeats;

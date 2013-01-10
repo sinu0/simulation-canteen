@@ -14,6 +14,12 @@ import desmoj.core.simulator.TimeSpan;
  */	
 public class PrivilegedClientGenerator extends ClientGenerator{
 
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public PrivilegedClientGenerator(Model arg0, String arg1, boolean arg2) {
 		super(arg0, arg1, arg2);
 		// TODO Auto-generated constructor stub
@@ -23,6 +29,9 @@ public class PrivilegedClientGenerator extends ClientGenerator{
 	 * opisuje cykl zycia tego procesu. Tworzy nowych uprzewilejowanych klientow
 	 */
 	@Override
+	/**
+	 * Cykl zycia generatora klientow uprzywilejowanych
+	 */
 	public void lifeCycle() {
 		while(true){
 			Client client = new Client(model, "Client", false);

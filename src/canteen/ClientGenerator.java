@@ -17,6 +17,13 @@ public class ClientGenerator extends SimProcess{
 	static public int groupClientGenerate=0;
 	static public int privilageClientGenerate=0;
 	protected Canteen model;
+	
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public ClientGenerator(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		
@@ -28,6 +35,9 @@ public class ClientGenerator extends SimProcess{
 	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia generatora klientow
+	 */
 	public void lifeCycle() {
 		while(true){
 			Client client = new Client(model, "Client", false);

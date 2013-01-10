@@ -14,6 +14,12 @@ public class Kitchen extends SimProcess {
 	private LinkedList<String> dishIsPreparing;
 	private Canteen model;
 
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public Kitchen(Model arg0, String arg1, boolean arg2) {
 		super(arg0, arg1, arg2);
 		model = (Canteen) arg0;
@@ -27,6 +33,9 @@ public class Kitchen extends SimProcess {
 	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia kuchnii
+	 */
 	public void lifeCycle() {
 		while (true) {
 			if (dishToPrepare.isEmpty()) { 
@@ -47,6 +56,7 @@ public class Kitchen extends SimProcess {
 	}
 
 	/**
+	 * Dodaje zlecenie przygotowania dania
 	 * @param name nazwa dania
 	 * @return true w przypadku dodania skladnika do listy do wykoania, false w przypdku kiedy skladnik jest juz przygotowywany lub jest juz dodany
 	 */
@@ -62,6 +72,7 @@ public class Kitchen extends SimProcess {
 	}
 
 	/**
+	 * Przygotowywanie dania
 	 * @param name nazwa dania
 	 */
 	public void addDishIsPreparing(String name) {
@@ -77,7 +88,8 @@ public class Kitchen extends SimProcess {
 	}
 
 	/**
-	 * @return pierwszege kucharza z kolelki
+	 * Zwraca pierwszego kucharza z kolejki
+	 * @return pierwszego kucharza z kolelki
 	 */
 	public Cook getFirstCook() {
 		model.change.firePropertyChange("cookIdleQueue",

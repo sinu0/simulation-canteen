@@ -17,6 +17,12 @@ public class GroupGenerator extends ClientGenerator {
 	private int groupMax;
 	private int groupMin;
 
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public GroupGenerator(Model arg0, String arg1, boolean arg2, int max) {
 		super(arg0, arg1, arg2);
 		groupOfClient = new LinkedList<Client>();
@@ -29,6 +35,9 @@ public class GroupGenerator extends ClientGenerator {
 	 * @see canteen.ClientGenerator#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia generatora grup
+	 */
 	public void lifeCycle() {
 		while (true) {
 			groupOfClient = new LinkedList<Client>();
@@ -108,6 +117,7 @@ public class GroupGenerator extends ClientGenerator {
 	}
 
 	/**
+	 * Zwraca maksymalna wielkosc grupy
 	 * @return maksymalna wielkosc grupy
 	 */
 	public int getGroupMax() {
@@ -115,6 +125,7 @@ public class GroupGenerator extends ClientGenerator {
 	}
 
 	/**
+	 * Zwraca minimalna wielkosc grupy
 	 * @return minimalna wielkosc grupy
 	 */
 	public int getGroupMin() {

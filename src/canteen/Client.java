@@ -29,6 +29,12 @@ public class Client extends SimProcess {
 	private boolean stayInCanteen = true;
 	private Table table; // referencja na zajete miejsce w stolowce
 
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public Client(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		this.model = (Canteen) model;
@@ -43,6 +49,9 @@ public class Client extends SimProcess {
 	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia klienta
+	 */
 	public void lifeCycle() {
 		model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		if (stayInCanteen) { // jezeli jest czlonkiem grupy to proces decyzji juz przeszedl
@@ -170,8 +179,8 @@ public class Client extends SimProcess {
 	 * metoda zwraca false co znaczy ze klient nie wybral nowego menu 
 	 * oraz wychodzi z lokalu
 	 * 
-	 * @param avaliableDishes jest to lista dostepnych w danej chwili składikow 
-	 * @return true or false
+	 * @param avaliableDishes jest to lista dostepnych w danej chwili sklaadikow 
+	 * @return czy klient wybral nowe menu czy nie
 	 */
 	public boolean selectMenuOnceAgain(
 			HashMap<String, LinkedList<String>> avaliableDishes) {
@@ -194,6 +203,7 @@ public class Client extends SimProcess {
 	}
 
 	/**
+	 * Zwraca wybrane menu
 	 * @return wybrane menu
 	 */
 	public LinkedList<String> getMenu() {
@@ -201,7 +211,7 @@ public class Client extends SimProcess {
 	}
 
 	/**
-	 *  Wklada klienta do kleji do kasjerki
+	 *  Umieszcza klienta w kolejce do kasjerki
 	 */
 	public void addMeToQueue() {
 		model.change.firePropertyChange("clientQueue",
@@ -211,6 +221,7 @@ public class Client extends SimProcess {
 	}
 
 	/**
+	 * Zwraca pierwszego czekajacego na wolne miejsce klienta
 	 * @return zwraca pierwszego klienta czekajacego na wolne miejsce
 	 */
 	public Client getFirstFromWaitingQueue() {
@@ -249,6 +260,7 @@ public class Client extends SimProcess {
 	}
 
 	/**
+	 * Zwraca pierwsza wolna kasjerke
 	 * @return zwraca pierwsza wolna kasjerke
 	 */
 	public Cashier getFirstCashier() {
@@ -262,7 +274,8 @@ public class Client extends SimProcess {
 	}
 
 	/**
-	 * @return prawdopodobienstwo wyjscia wtedy gdy nie ma dla niego pierwszego wybranego menu
+	 * Zwraca prawdopodobienstwo wyjscia wtedy gdy nie ma dla klienta pierwszego wybranego menu
+	 * @return prawdopodobienstwo wyjscia wtedy gdy nie ma dla klienta pierwszego wybranego menu
 	 */
 	public double getProbabilityOfQuit() {
 		return probabilityOfQuit;
@@ -270,7 +283,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia czy klient jest uprzywilejowany czy nie
-	 * @param set true false
+	 * @param czy klient uprzywilejowany czy nie
 	 */
 	public void setPrivileged(boolean set) {
 		isPrivileged = set;
@@ -278,7 +291,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia klienta jako czlonka grupy
-	 * @param set true false
+	 * @param czy czlonek grupy
 	 * @param number numer do ktorej grupy nalezy
 	 */
 	public void setMemberOfGroup(boolean set, int number) {
@@ -287,14 +300,16 @@ public class Client extends SimProcess {
 	}
 
 	/**
-	 * @return 1 jezeli cena w solowce jest akceptowalna jezeli nie to 0
+	 * Zwraca 1 jezeli cena w stolowce jest akceptowalna jezeli nie to 0
+	 * @return 1 jezeli cena w stolowce jest akceptowalna jezeli nie to 0
 	 */
 	public int decisionPrice() {
 			int dec = (model.getDishesStorage().averagePrice < averagePrice) ? 1 : 0; // ilosc punktow symuluje decyzje w grupie, jezeli true dec:=1 else dec:=0
 			return dec;
 	}
 	/**
-	 * @return 1 jezeli dlugosc kolejki jest akceptowalna
+	 * Zwraca  1 jezeli dlugosc kolejki jest akceptowalna jezeli nie to 0
+	 * @return 1 jezeli dlugosc kolejki jest akceptowalna jezeli nie to 0
 	 */
 	public int decisionMaxQueue() {
 		int dec= (maxAceptableQueue > model.clientQueue.size()) ? 1 : 0;
@@ -303,7 +318,7 @@ public class Client extends SimProcess {
 
 	/**
 	 * Metoda ustawia czy klient zostaje w stolowce, wykorzystywana przy "naradzie" w grupie
-	 * @param set true false
+	 * @param czy zostac czy nie
 	 */
 	public void setStayInCanteen(boolean set) {
 		stayInCanteen = set;

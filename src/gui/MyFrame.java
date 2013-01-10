@@ -19,7 +19,10 @@ public class MyFrame extends JFrame
   
 
 
-  MyFrame()
+  /**
+   * Konstruktor
+   */
+  public MyFrame()
   {
 	canteen = new Canteen(null, "Stolowka", false, false);
 	

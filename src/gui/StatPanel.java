@@ -26,7 +26,12 @@ public class StatPanel extends JPanel
   
   private LinkedList<String> statList;
   
-  StatPanel(MyFrame _frame)
+  
+  /**
+   * Konstruktor
+   * @param _frame obiekt okna
+   */
+  public StatPanel(MyFrame _frame)
   {
     frame = _frame;
     model = frame.getCanteen();
@@ -90,7 +95,7 @@ public class StatPanel extends JPanel
   }
   
   /**
-   * Ustawia wartosci do wyswietlenia
+   * Ustawia wartosci do wyswietlenia i zapisu do pliku
    */
   public void setStat()
   {

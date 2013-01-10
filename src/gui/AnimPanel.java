@@ -47,7 +47,11 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   
   private Image diskImage;
 
-  AnimPanel(MyFrame _frame)
+  /**
+   * Konstruktor
+   * @param _frame obiekt okna
+   */
+  public AnimPanel(MyFrame _frame)
   {
 	frame = _frame;
 	model = frame.getCanteen();

@@ -11,7 +11,12 @@ public class Dishes {
 	protected LinkedList<String> soup;
 	protected LinkedList<String> dish;
 	protected LinkedList<String> drink;
-	protected double averagePrice; //średnia cena dan mowiaca o kosztach jedzenia w loklu
+	protected double averagePrice; //srednia cena dan mowiaca o kosztach jedzenia w lokalu
+	
+	/**
+	 * Konstruktor
+	 * @param averagePrice srednia cena dan
+	 */
 	public Dishes(double averagePrice){
 		
 		drink=new LinkedList<String>();
@@ -31,6 +36,11 @@ public class Dishes {
 		//add dishes
 	}
 
+	/**
+	 * Dodaje zupe do listy zup
+	 * @param soup nazwa zupy
+	 * @return czy sie powiodlo czy nie
+	 */
 	public boolean soupAdd(String soup){
 		if(this.soup.contains(soup))
 			return false;
@@ -39,6 +49,11 @@ public class Dishes {
 					
 	}
 	
+	/**
+	 * Dodaje drugie danie do listy drugich dan
+	 * @param dish nazwa drugiego dania
+	 * @return czy sie powiodlo czy nie
+	 */
 	public boolean dishAdd(String dish){
 		if(this.dish.contains(dish))
 			return false;
@@ -46,6 +61,12 @@ public class Dishes {
 			return this.dish.add(dish);
 					
 	}
+	
+	/**
+	 * Dodaje napoj do listy napojow
+	 * @param soup nazwa napoju
+	 * @return czy sie powiodlo czy nie
+	 */
 	public boolean drinkAdd(String soup){
 		if(this.soup.contains(soup))
 			return false;
@@ -54,14 +75,26 @@ public class Dishes {
 					
 	}
 
+	/**
+	 * Zwraca liste zup
+	 * @return lista zup
+	 */
 	public LinkedList<String> getSoup() {
 		return soup;
 	}
 
+	/**
+	 * Zwraca liste drugich dan
+	 * @return lista drugich dan
+	 */
 	public LinkedList<String> getDish() {
 		return dish;
 	}
 
+	/**
+	 * Zwraca liste napojow
+	 * @return lista napojow
+	 */
 	public LinkedList<String> getDrink() {
 		return drink;
 	}
