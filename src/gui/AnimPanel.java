@@ -46,7 +46,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   private JSlider speedSlider;
   
   private Image diskImage;
-  private ImageIcon icon;
 
   AnimPanel(MyFrame _frame)
   {
@@ -57,22 +56,21 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	setLayout(null);  
 	tables = new LinkedList<JLabel>();
 	
-	/*
+	
     File imageFile = new File("gui.png");
     try
     {
 	  diskImage = ImageIO.read(imageFile);
 	}
     catch (IOException e) {}
-    */
-	
-	//URL url = getClass().getResource("/gui/gui.png");
-	//icon = new ImageIcon(url, "OK");
+    
+	/*
 	try 
 	{
 	  diskImage = ImageIO.read(getClass().getResourceAsStream("/gui/gui.png"));
 	}
 	catch (IOException e) {}
+	*/
     
 	repaint();
   }
