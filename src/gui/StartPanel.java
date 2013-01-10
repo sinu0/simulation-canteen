@@ -152,7 +152,7 @@ public class StartPanel extends JPanel
     spinnerModel = new SpinnerNumberModel(300, 30, 1200, 1);
     maxTimeClientSpinner = new JSpinner(spinnerModel);
     maxTimeClientValue = (int)maxTimeClientSpinner.getValue();
-    maxTimeClientSpinner.setMaximumSize(spinnerSize);
+    maxTimeClientSpinner.setMaximumSize(new Dimension(70, 20));
     
     minTimeClientSpinner.addChangeListener(new ChangeListener()
       {
