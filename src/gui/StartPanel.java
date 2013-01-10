@@ -62,8 +62,11 @@ public class StartPanel extends JPanel
   private int minFoodPrepareTimeValue;
   private int maxFoodPrepareTimeValue;
   
-  
-  StartPanel(MyFrame _frame)
+  /**
+   * Konstruktor
+   * @param _frame obiekt okna
+   */
+  public StartPanel(MyFrame _frame)
   {
 	frame = _frame;
 	canteenThread = new Thread(frame.getCanteen());

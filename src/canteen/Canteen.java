@@ -127,10 +127,10 @@ public class Canteen extends Model implements Runnable
 
 	/**
 	 * Konstruktor symulacji 
-	 * @param model przujmuje null pniewaz ta klasa reprezentuje symulacje
-	 * @param name
-	 * @param showInRaport
-	 * @param showInTrace
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param showInRaport czy pokazywac w pliku raportu
+	 * @param showInTrace czy pokazywac w pliku trace
 	 */
 	public Canteen(Model model, String name, boolean showInRaport,
 			boolean showInTrace) {
@@ -150,7 +150,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * Usawia glowne okno
+	 * Ustawia glowne okno
 	 * @param frame
 	 */
 	public void setMyFrame(MyFrame frame)
@@ -159,23 +159,30 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * Dodaje 
-	 * @param listener
+	 * Dodaje listener zmian zmiennych
+	 * @param listener Listener zmian zmiennych
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		this.change.addPropertyChangeListener(listener);
 	}
 
 	@Override
+	/**
+	 * Zwraca opis symulacji
+	 * @return Opis symulacji
+	 */
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja stoï¿½ï¿½wki studenckiej ";
+		return "Symulacja sto³ówki studenckiej ";
 	}
 
 	/* (non-Javadoc)
 	 * @see desmoj.core.simulator.Model#doInitialSchedules()
 	 */
 	@Override
+	/**
+	 * Inicjalizuje dynamiczne zmienne
+	 */
 	public void doInitialSchedules() {
 		
 		for (int i=0;i<cashierCount;i++)
@@ -243,6 +250,9 @@ public class Canteen extends Model implements Runnable
 	 * @see desmoj.core.simulator.Model#init()
 	 */
 	@Override
+	/**
+	 * Inicjalizuje statyczne zmienne
+	 */
 	public void init() {
 		if (automaticMode) {
 			
@@ -294,7 +304,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * metoda ta powoduje ze symulacja za kazdym razem jest inna
+	 * Metoda ta powoduje ze symulacja za kazdym razem jest inna
 	 */
 	public void setSeed(){
 		clientServiceTime.setSeed((long)(Math.random()*100000));
@@ -315,10 +325,13 @@ public class Canteen extends Model implements Runnable
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
+	/**
+	 * Metoda, w ktorej wykonuje sie wlasciwa czesc symulacji
+	 */
 	public void run()
 	{
 		// TODO Auto-generated method stub
-		exp = new Experiment("Symulacja stoï¿½ï¿½wki");
+		exp = new Experiment("Symulacja stolowki");
 		connectToExperiment(exp);
 		exp.stop(new TimeInstant(3600*simTime, TimeUnit.SECONDS));
 		setDelay(10);
@@ -336,7 +349,7 @@ public class Canteen extends Model implements Runnable
 
 	/**
 	 * Ustawia przerwe pomiedzy zadaniami
-	 * @param milis czas w milisekundach
+	 * @param milis Czas w milisekundach
 	 */
 	public void setDelay(long milis) {
 		exp.setDelayInMillis(milis);
@@ -357,8 +370,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * 
-	 * @return kolejke kucharzy kÃ³rzy sa w daniej chwili wolni
+	 * Zwraca kolejke kucharzy ktorzy sa w daniej chwili wolni
+	 * @return kolejka kucharzy którzy sa w daniej chwili wolni
 	 */
 	public ProcessQueue<Cook> getCookIdleQueue()
 	{
@@ -366,7 +379,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * 
+	 * Zwraca ilosc kasjerek w symulacji
 	 * @return ilosc kasjerek w symulacji
 	 */
 	public int getCashierCount() {
@@ -375,7 +388,7 @@ public class Canteen extends Model implements Runnable
 
 	/**
 	 * Ustawia ilosc kasjerek w symulacji
-	 * @param cashierCount liczba kasjerek w symulacji
+	 * @param cashierCount Liczba kasjerek w symulacji
 	 */
 	public void setCashierCount(int cashierCount) {
 		change.firePropertyChange("cashierCount", this.cashierCount, cashierCount);
@@ -384,6 +397,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca liczbe kucharzy w sumulacji
 	 * @return liczbe kucharzy w sumulacji
 	 */
 	public int getCookCount() {
@@ -400,6 +414,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca minimalna ilosc skladnikow, ktora powinna sie znajdowac w magazynie
 	 * @return	minimalna ilosc skladnikow, ktora powinna sie znajdowac w magazynie
 	 */
 	public int getMinMealCount() {
@@ -415,6 +430,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Zwraca czas symulacji
 	 * @return czas symulacji
 	 */
 	public int getSimTime() {
@@ -430,7 +446,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @return losowa wartosc z zadanego przedzialu gdzie
+	 * Zwraca czas obslugi klienta
+	 * @return czas obslugi klienta
 	 */
 	public double getClientServiceTime() {
 		return clientServiceTime.sample();
@@ -438,7 +455,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * Metoda ustawia zakres czasu obsÅ‚ugi klienta
+	 * Metoda ustawia zakres czasu obs³ugi klienta
 	 * @param range1 min
 	 * @param range2 max
 	 */
@@ -448,7 +465,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 *  
+	 *  Zwraca czas przygotowania jedzenia
 	 * @return czas przygotowania jedzenia
 	 */
 	public double getMealPrepareTime() {
@@ -467,14 +484,15 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * @return czas jedzenia z poprzednio ustawionego zakresu min max
+	 * Zwraca czas spozywania posi³ku
+	 * @return czas spozywania posi³ku
 	 */
 	public double getMealEatTime() {
 		return mealEatTime.sample();
 	}
 
 	/**
- 	 *Metoda ustawia zakres czasu jedzenia posilku
+ 	 * Metoda ustawia zakres czasu jedzenia posilku
 	 * @param range1 min
 	 * @param range2 max
 	 */
@@ -484,6 +502,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca czas przyjscia nastepnego klienta
 	 * @return czas przyjscia nastepnego klienta
 	 */
 	public double getClientArrivialTime() {
@@ -500,6 +519,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca czas pojawienia sie nastepnej grupy
 	 * @return czas pojawienie sie nastepniej grupy
 	 */
 	public double getGroupArrivialTime() {
@@ -508,7 +528,8 @@ public class Canteen extends Model implements Runnable
 
 	
 	/**
-	 * @return czas pojawienia sie nastepnej grupy
+	 * Zwraca czas pojawienia sie nastepnego klienta uprzywilejowanego
+	 * @return czas pojawienia sie nastepnego klienta uprzywilejowanego
 	 */
 	public double getPrivilegedClientArrivialTime() {
 		return privilegedClientArrivialProbability.sample();
@@ -516,6 +537,7 @@ public class Canteen extends Model implements Runnable
 
 
 	/**
+	 * Zwraca czas dezyzji klienta nad nowym menu
 	 * @return czas decyzji klienta nad nowym menu
 	 */
 	public double getClientDecitionTime() {
@@ -526,6 +548,7 @@ public class Canteen extends Model implements Runnable
 	
 
 	/**
+	 * Zwraca kolejke wolnych kasjerek
 	 * @return kolejke wolnych kasjerek
 	 */
 	public ProcessQueue<Cashier> getCashierIdleQueue() {
@@ -533,6 +556,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Zwraca kolejke klientow
 	 * @return zwaraca kolejke klientow
 	 */
 	public ProcessQueue<Client> getClientQueue() {
@@ -541,6 +565,7 @@ public class Canteen extends Model implements Runnable
 	
 	
 	/**
+	 * Zwraca przechowywalne jedzenia
 	 * @return przechowywalne jedzenia
 	 */
 	public DishesStorage getDishesStorage() {
@@ -549,14 +574,17 @@ public class Canteen extends Model implements Runnable
 
 
 	/**
+	 * Zwraca kuchnie
 	 * @return zwraca kuchnie
 	 */
 	public Kitchen getKitchen() {
 		return kitchen;
 	}
 
-	/**
-	 * @return prawdopodobienstwo wyjscia z stoÅ‚owki kiedy brakuje
+	/** 
+	 * Zwracaprawdopodobienstwo wyjscia z stolowki kiedy brakuje
+	 *  dla niego wybranego za pierwszym razem jedzenia
+	 * @return prawdopodobienstwo wyjscia z stolowki kiedy brakuje
 	 *  dla niego wybranego za pierwszym razem jedzenia
 	 */
 	public double getProbabilityOfQuitOnNewMenu() {
@@ -574,15 +602,17 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca akceptowalna dlugosc kolejki przez klienta
 	 * @return akceptowalna dlugosc kolejki przez klienta
 	 */
 	public double getClientMaxAcceptableQueue() {
 		return clientMaxAcceptableQueue.sample();
 	}
+	
 	/**
 	 * Metoda ustawia zakres akceptowalnej dlugosci kolejki przez klienta
-	 * @param range1 min
-	 * @param range2 max
+	 * @param one min
+	 * @param two max
 	 */
 	public void setClientMaxAcceptableQueue(double one, double two) {
 		maxAcceptQueueMin = one;
@@ -590,15 +620,17 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca srednia cene jedzenia
 	 * @return srednia cene jedzenia
 	 */
 	public double getClientAveragePrice() {
 		return clientAveragePrice.sample();
 	}
+	
 	/**
 	 * Metoda ustawia zakres z jakiego przedzialu cenowego jest srednia cena jedzenia w stolowce
-	 * @param range1 min
-	 * @param range2 max
+	 * @param one min
+	 * @param two max
 	 */
 	public void setClientAveragePrice(double one, double two) {
 		maxPriceMin = one;
@@ -606,11 +638,13 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca liste kucharzy
 	 * @return liste kucharzy
 	 */
 	public LinkedList<Cook> getCooks() {
 		return cooks;
 	}
+	
 	/**
 	 *  Metoda tworzy nowa kasjerke
 	 */
@@ -620,6 +654,7 @@ public class Canteen extends Model implements Runnable
 		change.firePropertyChange("cashiers", cashiers.size()-1, cashiers.size());
 		
 	}
+	
 	/**
 	 *  Metoda tworzy nowego kucharza
 	 */
@@ -628,7 +663,9 @@ public class Canteen extends Model implements Runnable
 		cooks.add(cook);
 		
 	}
+	
 	/**
+	 * Zwraca liste kasjerow
 	 * @return liste kasjerow
 	 */
 	public LinkedList<Cashier> getCashiers() {
@@ -636,6 +673,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Zwraca liste stolikow
 	 * @return liste stolikow
 	 */
 	public LinkedList<Table> getTables(){
@@ -643,7 +681,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @return ilosc miejsca w sotlowce
+	 * Zwraca ilosc miejsca w stolowce
+	 * @return ilosc miejsca w stolowce
 	 */
 	public int getSeatsCount(){
 		int count=0;
@@ -654,6 +693,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Zwraca ilosc wolnego miejsca w stolowce
 	 * @return ilosc wolnego miejsca w stolowce
 	 */
 	public int getAvailableSeats(){
@@ -679,6 +719,7 @@ public class Canteen extends Model implements Runnable
 	
 	
 	/**
+	 * Zwraca ilosc stolikow 2-osobowych
 	 * @return zwraca ilosc stolikow 2-osobowych
 	 */
 	public int getTable2Count() {
@@ -686,26 +727,30 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Ustawia ilosc stolikow 2-osobowych
 	 * @param table2Count - ilosc stolikow 2-osobowych w symulacji
 	 */
 	public void setTable2Count(int table2Count) {
 		this.table2Count = table2Count;
 	}
 	/**
+	 * Zwraca ilosc stolikow 4-osobowych
 	 * @return zwraca ilosc stolikow 4-osobowych
 	 */
 	public int getTable4Count() {
 		return table4Count;
 	}
 	/**
-	 * @param table2Count - ilosc stolikow 4-osobowych w symulacji
+	 * Ustawia ilosc stolikow 4-osobowych
+	 * @param table4Count - ilosc stolikow 4-osobowych w symulacji
 	 */
 	public void setTable4Count(int table4Count) {
 		this.table4Count = table4Count;
 	}
 	
 	/**
-	 * @return aktualna liczbe klientow w solowce
+	 * Zwraca aktualna liczbe klientow w stolowce
+	 * @return aktualna liczbe klientow w stolowce
 	 */
 	public int ClientsInCanteen(){
 		int count=0;
@@ -716,6 +761,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Zwraca srednia cene dan
 	 * @return srednia cene dan
 	 */
 	public double getCanteenAveragePrice() {
@@ -723,7 +769,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @param one ?
+	 * Ustawia srednia cene dan
+	 * @param one srednia cene dan
 	 */
 	public void setCanteenAveragePrice(double one) {
 		
@@ -731,7 +778,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @param value 
+	 * Ustawia paremetr wyliczajacy czas przychodzenia grupy
+	 * @param value paremetr wyliczajacy czas przychodzenia grupy
 	 */
 	public void setGroupGeneratorMultiplier(double value)
 	{
@@ -739,7 +787,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @param value
+	 * Ustawia paremetr wyliczajacy czas przychodzenia klientow uprzywilejowanych
+	 * @param value paremetr wyliczajacy czas przychodzenia klientow uprzywilejowanych
 	 */
 	public void setPriviligedClientMultiplier(double value)
 	{
@@ -747,6 +796,7 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
+	 * Ustawia maksymalna wielkosc grupy
 	 * @param size maksymalna wielkosc grupy
 	 */
 	public void setMaxGroupSize(int size)
@@ -755,21 +805,24 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * @return ilosc klientow w calej symulacji
+	 * Zwraca obiekt statystyk wszystkich klientow
+	 * @return obiekt statystyk wszystkich klientow
 	 */
 	public Count getClientCount() {
 		return clientCount;
 	}
 
 	/**
-	 * @return ilosc klientow ktora zostala w stolowce
+	 * Zwraca obiekt statystyk klientow, ktora zostala w stolowce
+	 * @return obiekt statystyk klientow, ktora zostala w stolowce
 	 */
 	public Count getClientStayed() {
 		return clientStayed;
 	}
 	
 	/**
-	 * @return ilos klientow pozostala w sotlowce
+	 * Zwraca ilosc klientow pozostala w stolowce
+	 * @return ilosc klientow pozostala w sotlowce
 	 */
 	public int getClientStayedValue()
 	{
@@ -778,74 +831,85 @@ public class Canteen extends Model implements Runnable
 	
 
 	/**
-	 * @return ilosc klientow ktora opuscila lokal z powodu zbyt wysokich cen
+	 * Zwraca obiekt statystyk klientow ktora opuscila lokal z powodu zbyt wysokich cen
+	 * @return obiekt statystyk klientow ktora opuscila lokal z powodu zbyt wysokich cen
 	 */
 	public Count getClientLeftBecOfPrice() {
 		return clientLeftBecOfPrice;
 	}
 
 	/**
-	 * @return ilosc klientow ktora opuscila lokal z powodu zbyt dlugiej kolejki
+	 * Zwraca obiekt statystyk klientow ktora opuscila lokal z powodu zbyt dlugiej kolejki
+	 * @return obiekt statystyk klientow ktora opuscila lokal z powodu zbyt dlugiej kolejki
 	 */
 	public Count getClientLeftBecOfQueue() {
 		return clientLeftBecOfQueue;
 	}
 
 	/**
-	 * @return srednia wielkosc grupy
+	 * Zwraca obiekt statystyk wielkosci grupy
+	 * @return obiekt statystyk wielkosci grupy
 	 */
 	public Tally getGroups() {
 		return groupSize;
 	}
 	/**
-	 * @return srecni czas obslugi przez kasjerke
+	 * Zwraca obiekt statystyk czasu obslugi klienta
+	 * @return obiekt statystyk czasu obslugi klienta
 	 */
 	public Tally getServiceTimeStat() {
 		return serviceTimeStat;
 	}
 	/**
-	 * @return sredni czas przygotowania jedzenia przez kucharza
+	 * Zwraca obiekt statystyk czasu przygotowywania jedzenia przez kucharza
+	 * @return obiekt statystyk czasu przygotowania jedzenia przez kucharza
 	 */
 	public Tally getMealPrepareTimeStat() {
 		return mealPrepareTimeStat;
 	}
 	/**
-	 * @return sredni czas jedzenie przez klienta
+	 * Zwraca obiekt statystyk czasu jedzenie posilku
+	 * @return obiekt statystyk czasu jedzenie posilku
 	 */
 	public Tally getMealEatTimeStat() {
 		return mealEatTimeStat;
 	}
 	
 	/**
-	 * @return odchylenie standardowe od sredniej wartosci kolejki do kasjera
+	 * Zwraca obiekt statystyk kolejki do kasjera
+	 * @return obiekt statystyk kolejki do kasjera
 	 */
 	public Accumulate getQueueToCashier() {
 		return queueToCashier;
 	}
 	
 	/**
-	 * @return odchylenie standardowe od sredniej wartosci kolejki do stolika
+	 * Zwraca obiekt statystyk kolejki klientow oczekujacych na zwolnienie sie miejsca
+	 * @return obiekt statystyk kolejki klientow oczekujacych na zwolnienie sie miejsca
 	 */
 	public Accumulate getQueueForPlace() {
 		return queueToPlace;
 	}
 
 	/**
-	 * @return odchylenie standardowe od sredniej wartosci kolejki czekajacych kasjerek
+	 * Zwraca obiekt statystyk kolejki wolnych kasjerek
+	 * @return obiekt statystyk kolejki wolnych kasjerek
 	 */
 	public Accumulate getIdleCashierStat() {
 		return idleCashierStat;
 	}
 
 	/**
-	 * @return odchylenie standardowe od sredniej wartosci kolejki wolnych kucharzy
+	 * Zwraca obiekt statystyk kolejki wolnych kucharzy
+	 * @return obiekt statystyk kolejki wolnych kucharzy
 	 */
 	public Accumulate getIdleCookStat() {
 		return idleCookStat;
 	}
 	
 	/**
-	 * @return liczba klinetow ktora odeszla z lokalu z powodu braku miejsca
+	 * Zwraca obiekt statystyk klientow, ktora odeszla z powodu braku miejsca
+	 * @return obiekt statystyk klientow, ktora odeszla z powodu braku miejsca
 	 */
 	public Count getClientLeftBecOfNoPlace()
 	{
@@ -853,7 +917,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * @return liczba klinetow ktora odeszla z lokalu z powodu braku jedzenia
+	 * Zwraca obiekt statystyk klientow, ktora odeszla z powodu braku jedzenia
+	 * @return obiekt statystyk klientow, ktora odeszla z powodu braku jedzenia
 	 */
 	public Count getClientLeftBecOfNoFood()
 	{
@@ -861,7 +926,8 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
-	 * @return statystyki dla kazdego dania
+	 * Zwraca obiekt statystyk przygotowania dla kazdego dania
+	 * @return obiekt statystyk przygotowania dla kazdego dania
 	 */
 	public HashMap<String, Integer> getFoodStat()
 	{
@@ -869,7 +935,8 @@ public class Canteen extends Model implements Runnable
 	}
 	
 	/**
-	 * @return ilosc wydanych dan
+	 * Zwraca obiekt statystyk wydanych dan
+	 * @return obiekt statystyk wydanych dan
 	 */
 	public HashMap<String, Integer> getFoodServed()
 	{
@@ -877,6 +944,7 @@ public class Canteen extends Model implements Runnable
 	}
 
 	/**
+	 * Zwraca kolejke klientow czekajacych na miejsce
 	 * @return kolejka czekajacych na wolne miejsce
 	 */
 	public ProcessQueue<Client> getClientNoPleceQueue() {

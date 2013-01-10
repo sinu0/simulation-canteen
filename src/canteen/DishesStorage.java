@@ -44,7 +44,7 @@ public class DishesStorage extends Dishes {
 	}
 	
 	/**
-	 * 
+	 * Dodaje skladniki do "przechowywalni"
 	 * @param name nazwa skladnika	
 	 * @param howMany ilosc skladnika dodawanych do "przechowywalni"
 	 * @return true w przypdku kiedy uda sie dodac do "przechowywalni" 
@@ -64,6 +64,7 @@ public class DishesStorage extends Dishes {
 	
 	
 	/**
+	 * Odejmuje skladniki
 	 * @param name nazwa skladnika ktora ma byc pobrana
 	 * @return true or false jezeli skladnik znajdowal sie w przechowywalni to zwraca true w przeciwnym przypdku false
 	 */
@@ -81,6 +82,11 @@ public class DishesStorage extends Dishes {
 		}
 	}
 	
+	/**
+	 * Zwraca ilosc skladnikow dla danego dania
+	 * @param name nazwa dania
+	 * @return ilosc skladnikow
+	 */
 	public int getValue(String name) {
 		return storage.get(name);
 	}
@@ -88,6 +94,7 @@ public class DishesStorage extends Dishes {
 	
 	
 	/**
+	 * Zwraca aktualnie dostepne skladniki
 	 * @return  aktualnie dostepne skladniki dostepne w solowce
 	 */
 	
@@ -117,6 +124,7 @@ public class DishesStorage extends Dishes {
 	}
 	
 	/**
+	 * Zwraca magazyn jedzenia
 	 * @return magazyn jedzenia
 	 */
 	public HashMap<String, Integer>  getStorage(){

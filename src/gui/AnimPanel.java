@@ -47,7 +47,11 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
   
   private Image diskImage;
 
-  AnimPanel(MyFrame _frame)
+  /**
+   * Konstruktor
+   * @param _frame obiekt okna
+   */
+  public AnimPanel(MyFrame _frame)
   {
 	frame = _frame;
 	model = frame.getCanteen();
@@ -203,10 +207,10 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     {	
     	
     	kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
-    	wolowina.setText("Wo³owina: " + model.getDishesStorage().getValue("wo³owina"));
+    	wolowina.setText("Wo³owina: " + model.getDishesStorage().getValue("wolowina"));
     	ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
-    	ryz.setText("Ry¿: " + model.getDishesStorage().getValue("ry¿"));
-    	rosol.setText("Rosó³: " + model.getDishesStorage().getValue("rosó³"));
+    	ryz.setText("Ry¿: " + model.getDishesStorage().getValue("ryz"));
+    	rosol.setText("Rosó³: " + model.getDishesStorage().getValue("rosol"));
     	pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
     	kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
     }

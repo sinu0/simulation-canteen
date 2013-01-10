@@ -16,6 +16,12 @@ public class Cashier extends SimProcess {
 
 	private Canteen model;
 
+	/**
+	 * Konstruktor
+	 * @param model przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param name nazwa symulacji
+	 * @param trace czy pokazywac w pliku raportu
+	 */
 	public Cashier(Model model, String name, boolean trace) {
 		super(model, name, trace);
 		this.model = (Canteen) model;
@@ -26,6 +32,9 @@ public class Cashier extends SimProcess {
 	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia kasjerki
+	 */
 	public void lifeCycle() {
 		model.getIdleCashierStat().update(model.cashierIdleQueue.size());
 		while (true) {
@@ -72,8 +81,8 @@ public class Cashier extends SimProcess {
 	}
 
 	/**
-	 * Metida ktora aktualizuje magazyn z jedzeniem
-	 * @param menu ed klienta
+	 * Metoda ktora aktualizuje magazyn z jedzeniem
+	 * @param menu menu klienta
 	 */
 	private void updateStorage(LinkedList<String> menu) {
 		for (String string : menu) {

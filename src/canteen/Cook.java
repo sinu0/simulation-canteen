@@ -12,6 +12,13 @@ public class Cook extends SimProcess {
 	private int updateMeal = 10;
 	private int multiKompot = 5;
 
+	
+	/**
+	 * Konstruktor
+	 * @param arg0 przyjmuje null poniewaz ta klasa reprezentuje symulacje
+	 * @param arg1 nazwa symulacji
+	 * @param arg2 czy pokazywac w pliku raportu
+	 */
 	public Cook(Model arg0, String arg1, boolean arg2) {
 		super(arg0, arg1, arg2);
 		model = (Canteen) arg0;
@@ -21,6 +28,9 @@ public class Cook extends SimProcess {
 	 * @see desmoj.core.simulator.SimProcess#lifeCycle()
 	 */
 	@Override
+	/**
+	 * Cykl zycia kucharza
+	 */
 	public void lifeCycle() {
 		model.getIdleCookStat().update(model.cookIdleQueue.size());
 		while (true) {
@@ -61,6 +71,7 @@ public class Cook extends SimProcess {
 	}
 
 	/**
+	 * Ustawia name nazwa dania do przygotowania przez kucharza
 	 * @param name nazwa dania do przygotowania przez kucharza
 	 */
 	public void giveMeTask(String name) {

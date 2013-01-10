@@ -26,7 +26,12 @@ public class StatPanel extends JPanel
   
   private LinkedList<String> statList;
   
-  StatPanel(MyFrame _frame)
+  
+  /**
+   * Konstruktor
+   * @param _frame obiekt okna
+   */
+  public StatPanel(MyFrame _frame)
   {
     frame = _frame;
     model = frame.getCanteen();
@@ -90,7 +95,7 @@ public class StatPanel extends JPanel
   }
   
   /**
-   * Ustawia wartosci do wyswietlenia
+   * Ustawia wartosci do wyswietlenia i zapisu do pliku
    */
   public void setStat()
   {
@@ -110,54 +115,54 @@ public class StatPanel extends JPanel
     add(indClients);
     statList.add(" Pojedynczy klienci: " + ClientGenerator.clientGenerate);
     
-    JLabel prvClient = new JLabel("Iloï¿½ï¿½ klientï¿½w uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
+    JLabel prvClient = new JLabel("Iloœæ klientów uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
     prvClient.setBounds(40, 100, 280, 20);
     add(prvClient);
-    statList.add(" Iloï¿½ï¿½ klientï¿½w uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
+    statList.add(" Iloï¿½ï¿½ klientów uprzywilejowanych: " + ClientGenerator.privilageClientGenerate);
     
-    JLabel groups = new JLabel("Iloï¿½ï¿½ grup: " + ClientGenerator.groupClientGenerate);
+    JLabel groups = new JLabel("Iloœæ grup: " + ClientGenerator.groupClientGenerate);
     groups.setBounds(40, 120, 150, 20);
     add(groups);
-    statList.add(" Iloï¿½ï¿½ grup: " + ClientGenerator.groupClientGenerate);
+    statList.add(" Iloœæ½ grup: " + ClientGenerator.groupClientGenerate);
     
-    JLabel avgGroupSize = new JLabel("ï¿½redni rozmiar grupy: " + model.getGroups().getMean());
+    JLabel avgGroupSize = new JLabel("Œredni rozmiar grupy: " + model.getGroups().getMean());
     avgGroupSize.setBounds(40, 140, 230, 20);
     add(avgGroupSize);
-    statList.add(" ï¿½redni rozmiar grupy: " + model.getGroups().getMean());
+    statList.add(" Œredni rozmiar grupy: " + model.getGroups().getMean());
     
-    JLabel clientStayed = new JLabel("Zostaï¿½o w stoï¿½ï¿½wce: " + model.getClientStayedValue());
+    JLabel clientStayed = new JLabel("Zosta³o w sto³ówce: " + model.getClientStayedValue());
     clientStayed.setBounds(40, 170, 190, 20);
     add(clientStayed);
-    statList.add(" Zostaï¿½o w stoï¿½ï¿½wce: " + model.getClientStayedValue());
+    statList.add(" Zosta³o w sto³ówce: " + model.getClientStayedValue());
     
-    JLabel clientLeftBecOfPrice = new JLabel("Odeszï¿½o przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
+    JLabel clientLeftBecOfPrice = new JLabel("Odesz³o przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
     clientLeftBecOfPrice.setBounds(40, 190, 270, 20);
     add(clientLeftBecOfPrice);
-    statList.add(" Odeszï¿½o przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
+    statList.add(" Odesz³o przez zbyt wysokie ceny: " + model.getClientLeftBecOfPrice().getValue());
     
-    JLabel clientLeftBecOfQueue = new JLabel("Odeszï¿½o przez zbyt dï¿½ugï¿½ kolejkï¿½ do kasy: " + model.getClientLeftBecOfQueue().getValue());
+    JLabel clientLeftBecOfQueue = new JLabel("Odesz³o przez zbyt d³ug¹ kolejkê do kasy: " + model.getClientLeftBecOfQueue().getValue());
     clientLeftBecOfQueue.setBounds(40, 210, 320, 20);
     add(clientLeftBecOfQueue);
-    statList.add(" Odeszï¿½o przez zbyt dï¿½ugï¿½ kolejkï¿½ do kasy: " + model.getClientLeftBecOfQueue().getValue());
+    statList.add(" Odesz³o przez zbyt d³ug¹ kolejkê do kasy: " + model.getClientLeftBecOfQueue().getValue());
     
-    JLabel clientLeftBecOfNoFood = new JLabel("Odeszï¿½o przez brak oczekiwanych daï¿½: " + model.getClientLeftBecOfNoFood().getValue());
+    JLabel clientLeftBecOfNoFood = new JLabel("Odesz³o przez brak oczekiwanych dañ: " + model.getClientLeftBecOfNoFood().getValue());
     clientLeftBecOfNoFood.setBounds(40, 230, 250, 20);
     add(clientLeftBecOfNoFood);
-    statList.add(" Odeszï¿½o przez brak oczekiwanych daï¿½: " + model.getClientLeftBecOfNoFood().getValue());
+    statList.add(" Odesz³o przez brak oczekiwanych dañ: " + model.getClientLeftBecOfNoFood().getValue());
     
-    JLabel clientLeftBecOfNoPlace = new JLabel("Odeszï¿½o przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
+    JLabel clientLeftBecOfNoPlace = new JLabel("Odesz³o przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
     clientLeftBecOfNoPlace.setBounds(40, 250, 250, 20);
     add(clientLeftBecOfNoPlace);
-    statList.add(" Odeszï¿½o przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
+    statList.add(" Odesz³o przez brak miejsca: " + model.getClientLeftBecOfNoPlace().getValue());
         
     statList.add("");
     
     
     //czas obslugi klienta
-    JLabel serviceTime = new JLabel("Czas obsï¿½ugi klienta");
+    JLabel serviceTime = new JLabel("Czas obs³ugi klienta");
     serviceTime.setBounds(30, 290, 170, 20);
     add(serviceTime);
-    statList.add("Czas obsï¿½ugi klienta");
+    statList.add("Czas obs³ugi klienta");
     
     JLabel minServiceTime = new JLabel("Minimalny: " + setMinSec(model.getServiceTimeStat().getMinimum()));
     minServiceTime.setBounds(40, 310, 120, 20);
@@ -169,10 +174,10 @@ public class StatPanel extends JPanel
     add(maxServiceTime);
     statList.add(" Maksymalny: " + setMinSec(model.getServiceTimeStat().getMaximum()));
     
-    JLabel meanServiceTime = new JLabel("ï¿½redni: " + setMinSec(model.getServiceTimeStat().getMean()));
+    JLabel meanServiceTime = new JLabel("Œredni: " + setMinSec(model.getServiceTimeStat().getMean()));
     meanServiceTime.setBounds(40, 350, 120, 20);
     add(meanServiceTime);
-    statList.add(" ï¿½redni: " + setMinSec(model.getServiceTimeStat().getMean()));
+    statList.add(" Œredni: " + setMinSec(model.getServiceTimeStat().getMean()));
     
     JLabel stdServiceTime = new JLabel("Odchylenie standardowe: " + setMinSec(model.getServiceTimeStat().getStdDev()));
     stdServiceTime.setBounds(40, 370, 250, 20);
@@ -183,10 +188,10 @@ public class StatPanel extends JPanel
     
     
     //czas przygotowywania posilku
-    JLabel mealPrepare = new JLabel("Czas przygotowania posiï¿½ku");
+    JLabel mealPrepare = new JLabel("Czas przygotowania posi³ku");
     mealPrepare.setBounds(30, 410, 220, 20);
     add(mealPrepare);
-    statList.add("Czas przygotowania posiï¿½ku");
+    statList.add("Czas przygotowania posi³ku");
     
     JLabel minMealPrepate = new JLabel(" Minimalny: " + setMinSec(model.getMealPrepareTimeStat().getMinimum()));
     minMealPrepate.setBounds(40, 430, 180, 20);
@@ -198,10 +203,10 @@ public class StatPanel extends JPanel
     add(maxMealPrepare);
     statList.add(" Maksymalny: " + setMinSec(model.getMealPrepareTimeStat().getMaximum()));
     
-    JLabel meanMealPrepare = new JLabel("ï¿½redni: " + setMinSec(model.getMealPrepareTimeStat().getMean()));
+    JLabel meanMealPrepare = new JLabel("Œredni: " + setMinSec(model.getMealPrepareTimeStat().getMean()));
     meanMealPrepare.setBounds(40, 470, 180, 20);
     add(meanMealPrepare);
-    statList.add(" ï¿½redni: " + setMinSec(model.getMealPrepareTimeStat().getMean()));
+    statList.add(" Œredni: " + setMinSec(model.getMealPrepareTimeStat().getMean()));
     
     JLabel stdMealPrepare = new JLabel("Odchylenie standardowe: " + setMinSec(model.getMealPrepareTimeStat().getStdDev()));
     stdMealPrepare.setBounds(40, 490, 250, 20);
@@ -212,10 +217,10 @@ public class StatPanel extends JPanel
     
     
     //czas jedzenia posilku
-    JLabel eatTime = new JLabel("Czas jedzenia posiï¿½ku");
+    JLabel eatTime = new JLabel("Czas jedzenia pos³ku");
     eatTime.setBounds(30, 530, 180, 20);
     add(eatTime);
-    statList.add("Czas jedzenia posiï¿½ku");
+    statList.add("Czas jedzenia posi³ku");
     
     JLabel minEatTime = new JLabel("Minimalny: " + setMinSec(model.getMealEatTimeStat().getMinimum()));
     minEatTime.setBounds(40, 550, 180, 20);
@@ -227,10 +232,10 @@ public class StatPanel extends JPanel
     add(maxEatTime);
     statList.add(" Maksymalny: " + setMinSec(model.getMealEatTimeStat().getMaximum()));
     
-    JLabel meanEatTime = new JLabel("ï¿½redni: " + setMinSec(model.getMealEatTimeStat().getMean()));
+    JLabel meanEatTime = new JLabel("Œredni: " + setMinSec(model.getMealEatTimeStat().getMean()));
     meanEatTime.setBounds(40, 590, 180, 20);
     add(meanEatTime);
-    statList.add(" ï¿½redni: " + setMinSec(model.getMealEatTimeStat().getMean()));
+    statList.add(" Œredni: " + setMinSec(model.getMealEatTimeStat().getMean()));
     
     JLabel stdEatTime = new JLabel("Odchylenie standardowe: " + setMinSec(model.getMealEatTimeStat().getStdDev()));
     stdEatTime.setBounds(40, 610, 250, 20);
@@ -240,20 +245,20 @@ public class StatPanel extends JPanel
     statList.add("");
     
     //kolejka do kasy
-    JLabel queueToCashier = new JLabel("Kolejka klientï¿½w do kasy");
+    JLabel queueToCashier = new JLabel("Kolejka klientów do kasy");
     queueToCashier.setBounds(400, 40, 190, 20);
     add(queueToCashier);
-    statList.add("Kolejka klientï¿½w do kasy");
+    statList.add("Kolejka klientów do kasy");
     
     JLabel maxQueueToCashier = new JLabel("Maksymalna " + (int)model.getQueueToCashier().getMaximum());
     maxQueueToCashier.setBounds(410, 60, 150, 20);
     add(maxQueueToCashier);
     statList.add(" Maksymalna " + (int)model.getQueueToCashier().getMaximum());
     
-    JLabel meanQueueToCashier = new JLabel("ï¿½rednia " + model.getQueueToCashier().getMean());
+    JLabel meanQueueToCashier = new JLabel("Œrednia " + model.getQueueToCashier().getMean());
     meanQueueToCashier.setBounds(410, 80, 250, 20);
     add(meanQueueToCashier);
-    statList.add(" ï¿½rednia " + model.getQueueToCashier().getMean());
+    statList.add(" Œrednia " + model.getQueueToCashier().getMean());
     
     JLabel stdQueueToCashier = new JLabel("Odchylenie standardowe " + model.getQueueToCashier().getStdDev());
     stdQueueToCashier.setBounds(410, 100, 250, 20);
@@ -263,20 +268,20 @@ public class StatPanel extends JPanel
     statList.add("");
     
     //kolejka po miejsce
-    JLabel queueForPlace = new JLabel("Kolejka klientï¿½w po miejsce przy stoliku");
+    JLabel queueForPlace = new JLabel("Kolejka klientów po miejsce przy stoliku");
     queueForPlace.setBounds(400, 130, 300, 20);
     add(queueForPlace);
-    statList.add("Kolejka klientï¿½w po miejsce przy stoliku");
+    statList.add("Kolejka klientów po miejsce przy stoliku");
     
     JLabel maxQueueForPlace = new JLabel("Maksymalna: " + (int)model.getQueueForPlace().getMaximum());
     maxQueueForPlace.setBounds(410, 150, 250, 20);
     add(maxQueueForPlace);
     statList.add(" Maksymalna: " + (int)model.getQueueForPlace().getMaximum());
     
-    JLabel meanQueueForPlace = new JLabel("ï¿½rednia: " + model.getQueueForPlace().getMean());
+    JLabel meanQueueForPlace = new JLabel("Œrednia: " + model.getQueueForPlace().getMean());
     meanQueueForPlace.setBounds(410, 170, 250, 20);
     add(meanQueueForPlace);
-    statList.add(" ï¿½rednia: " + model.getQueueForPlace().getMean());
+    statList.add(" Œrednia: " + model.getQueueForPlace().getMean());
     
     JLabel stdQueueForPlace = new JLabel("Odchylenie standardowe: " + model.getQueueForPlace().getStdDev());
     stdQueueForPlace.setBounds(410, 190, 250, 20);
@@ -298,10 +303,10 @@ public class StatPanel extends JPanel
       mean = 0;
       std=0;
     }
-    JLabel meanIdleCashier = new JLabel(" ï¿½rednio: " + mean);
+    JLabel meanIdleCashier = new JLabel(" Œrednio: " + mean);
     meanIdleCashier.setBounds(410, 240, 250, 20);
     add(meanIdleCashier);
-    statList.add(" ï¿½rednio: " + mean);
+    statList.add(" Œrednio: " + mean);
     
     JLabel stdIdleCashier = new JLabel(" Odchylenie standardowe: " + std);
     stdIdleCashier.setBounds(410, 260, 250, 20);
@@ -317,10 +322,10 @@ public class StatPanel extends JPanel
     add(idleCook);
     statList.add("Wolni kucharze");
     
-    JLabel meanIdleCook = new JLabel(" ï¿½rednio: " + model.getIdleCookStat().getMean());
+    JLabel meanIdleCook = new JLabel(" Œrednio: " + model.getIdleCookStat().getMean());
     meanIdleCook.setBounds(410, 310, 250, 20);
     add(meanIdleCook);
-    statList.add(" ï¿½rednio: " + model.getIdleCookStat().getMean());
+    statList.add(" Œrednio: " + model.getIdleCookStat().getMean());
     
     JLabel stdIdleCook = new JLabel(" Odchylenie standardowe: " + model.getIdleCookStat().getStdDev());
     stdIdleCook.setBounds(410, 330, 250, 20);
@@ -379,7 +384,11 @@ public class StatPanel extends JPanel
     }
   }
   
-  
+  /**
+   * Zwraca napis w formacie MM:SS
+   * @param value czas do przekonwertowania
+   * @return napis w formacie MM:SS
+   */
   private String setMinSec(double value)
   {
 	int min = (int)value/60;
@@ -391,6 +400,11 @@ public class StatPanel extends JPanel
 	  return min + ":" + sec;
   }
   
+  /**
+   * Zwraca napis bedacy samymi spacjami
+   * @param value ilosc spacji do wytworzenia
+   * @return napis bedacy spacjami
+   */
   private String spaces(int value)
   {
 	String napis = "";
