@@ -42,18 +42,35 @@ public class MyFrame extends JFrame
     revalidate();
   }
 
+  
+  /**
+   * Zwraca panel z parametrami pocz¹tkowymi
+   * @return Panel z parametrami pocz¹tkowymi
+   */
   public StartPanel getStartPanel() {
 	return startPanel;
   }
 
+  /**
+   * Zwraca panel z animacj¹ symulacji
+   * @return Panel z animacj¹ symulacji
+   */
   public AnimPanel getAnimPanel() {
 	return animPanel;
   }
 
+  /**
+   * Zwraca panel z statystykami symulacji
+   * @return Panel z statystykami symulacji
+   */
   public StatPanel getStatPanel() {
 	return statPanel;
   }
 
+  /**
+   * Zwraca model
+   * @return Model
+   */
   public Canteen getCanteen() {
 	return canteen;
   }

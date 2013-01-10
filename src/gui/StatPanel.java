@@ -89,6 +89,9 @@ public class StatPanel extends JPanel
     );
   }
   
+  /**
+   * Ustawia wartosci do wyswietlenia
+   */
   public void setStat()
   {
 	//klienci

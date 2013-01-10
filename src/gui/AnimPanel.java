@@ -75,6 +75,10 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	repaint();
   }
   
+  /**
+   * Rysuje odpowiednia ilosc sto³ów
+   * @param g Kontekst graficzny
+   */
   public void paintComponent(Graphics g)
   {
     g.drawImage(diskImage, 0, 0, this);
@@ -93,6 +97,9 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     }
   }
   
+  /**
+   * Dodaje teksty
+   */
   public void drawPanel()
   {
 	speedLabel = new JLabel();
@@ -179,6 +186,9 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	
   }
 
+  /**
+   * Zmienia wyswietlana wartosc, gdy jakas zmienna modelu sie zmieni
+   */
   @Override
   public void propertyChange(PropertyChangeEvent event)
   {

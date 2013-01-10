@@ -474,6 +474,10 @@ public class StartPanel extends JPanel
     
   }
   
+  /**
+   * Zwraca listê tekstow¹ z parametrami symulacji
+   * @return Listê tekstow¹ z parametrami symulacji
+   */
   public LinkedList<String> getParamList()
   {
     return paramList;
