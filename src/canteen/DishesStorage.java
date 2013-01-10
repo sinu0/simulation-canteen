@@ -28,7 +28,6 @@ public class DishesStorage extends Dishes {
 		for (String dishs : soup) {
 
 			storage.put(dishs, initValue);
-			//model.getFoodStat().put(dishs, initValue);
 		}
 		for (String dishs : dish) {
 			storage.put(dishs, initValue);
@@ -51,7 +50,6 @@ public class DishesStorage extends Dishes {
 	public boolean addStorage(String name,int howMany) {
 		int oldvalue=storage.get(name);
 		if (storage.put(name, oldvalue+howMany) == oldvalue) {
-			//model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue+howMany);
 			model.change.firePropertyChange("storage",(int)storage.get(name)-howMany,storage.get(name)-1);
 			return true;
 		} else
@@ -70,10 +68,7 @@ public class DishesStorage extends Dishes {
 	public boolean subStorage(String name) {
 		
 		int oldvalue=storage.get(name);
-		//System.out.println("Odejmij");
 		if (storage.put(name, oldvalue-1) != null) {
-			//model.change.firePropertyChange("Storage "+name,oldvalue,oldvalue-1);
-			//System.out.println("W warunku");
 			model.change.firePropertyChange("storage",(int)storage.get(name),storage.get(name)-1);
 			return true;
 		} else

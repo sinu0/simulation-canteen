@@ -253,7 +253,7 @@ public class StartPanel extends JPanel
     JLabel serviceTimeLabel = new JLabel("Min i max czas obs³ugi klienta [s]");
     serviceTimeBox.add(serviceTimeLabel);
     
-    spinnerModel = new SpinnerNumberModel(20, 1, 50, 1);
+    spinnerModel = new SpinnerNumberModel(35, 1, 50, 1);
     minServiceTimeSpinner = new JSpinner(spinnerModel);
     minClientServiceTime = (int)minServiceTimeSpinner.getValue();
     minServiceTimeSpinner.setMaximumSize(spinnerSize);
@@ -464,7 +464,6 @@ public class StartPanel extends JPanel
           for (int i=0;i<(int)table4Spinner.getValue();i++)
               frame.getCanteen().addTable4();
           
-          System.out.println("Watek wystartowany");
           frame.getCanteen().setMyFrame(frame);
           canteenThread.start();
           frame.getAnimPanel().drawPanel();
@@ -472,13 +471,6 @@ public class StartPanel extends JPanel
 	  }
     );
     	
-        
-    
-    
-    
-    
-    
-    
     
   }
   

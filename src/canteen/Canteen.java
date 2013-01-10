@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
-import desmoj.core.dist.ContDistNormal;
 import desmoj.core.dist.ContDistUniform;
 import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
@@ -92,7 +91,7 @@ public class Canteen extends Model implements Runnable
 	private GroupGenerator groupGenerator;
 	private PrivilegedClientGenerator privilegedClientGenerator;
 	private Dishes dishes;	// zmienna odpowiedzalna z trzymanie menu
-	private DishesStorage storage; // tu znajduja sie skÅ‚adiki
+	private DishesStorage storage; // tu znajduja sie skladiki
 	
 	private LinkedList<Cook> cooks = new LinkedList<Cook>(); //lista kucharzy
 	private LinkedList<Cashier> cashiers=new LinkedList<Cashier>(); //lista kasjerek
@@ -168,7 +167,7 @@ public class Canteen extends Model implements Runnable
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "Symulacja stoï¿½ï¿½wki studenckiej ";
+		return "Symulacja sto³ówki studenckiej ";
 	}
 
 	/* (non-Javadoc)
@@ -176,29 +175,17 @@ public class Canteen extends Model implements Runnable
 	 */
 	@Override
 	public void doInitialSchedules() {
-		System.out.println("InitialSchedules");
-		//te zmienne pasowaloby tworzyc w gui
-		System.out.println("Kasjerek - " + cashierCount);
 		
 		for (int i=0;i<cashierCount;i++)
 		{
 		  this.addCashier();
 		}
-		System.out.println("Cook count - " + cookCount);
+		
 		for (int i=0;i<cookCount;i++)
 		{
 		  this.addCook();
 		}
 		
-		/*
-	    this.addTable2();
-		this.addTable2();
-		this.addTable2();
-		this.addTable2();
-		this.addTable4();
-		this.addTable4();
-		this.addTable4();
-		*/
 		cookIdleQueue = new ProcessQueue<Cook>(this,
 				"Kolejka nudzacych sie kucharzy", false, false);
 		clientQueue = new ProcessQueue<Client>(this, "Kolejka klientow", false,
@@ -255,8 +242,6 @@ public class Canteen extends Model implements Runnable
 	 */
 	@Override
 	public void init() {
-		System.out.println("INIT");
-		System.out.println("Ilosc kucharzy " + cookCount);
 		if (automaticMode) {
 			
 			clientCount = new Count(this, "Client count", false, false);
@@ -266,7 +251,8 @@ public class Canteen extends Model implements Runnable
 			clientLeftBecOfNoPlace = new Count(this, "Clients, who left the canteen because of lack of place", false, false);
 			clientLeftBecOfNoFood = new Count(this, "Clients, who left the canteen because of lack of food", false, false);
 			groupSize = new Tally(this, "Groups statistics", false, false);
-			//jedzenie...
+
+			
 			serviceTimeStat = new Tally(this, "Service time", false, false);
 			mealPrepareTimeStat = new Tally(this, "Meal prepare time", false, false);
 			mealEatTimeStat = new Tally(this,  "Meal eat time", false, false);
@@ -300,7 +286,7 @@ public class Canteen extends Model implements Runnable
 			clientMaxAcceptableQueue = new ContDistUniform(this,
 					"Maksymalna akceptowalna kojelka", maxAcceptQueueMin, maxAcceptQueueMax, false, false);
 			setProbabilityOfQuitOnNewMenu(0, 1);
-			clientTableDecision = new ContDistUniform(this,"Preferowany stalik przez klienta",0,2,false,false);
+			clientTableDecision = new ContDistUniform(this,"Preferowany stolik przez klienta",0,2,false,false);
 			setSeed();
 		}
 	}
@@ -309,7 +295,6 @@ public class Canteen extends Model implements Runnable
 	 * metoda ta powoduje ze symulacja za kazdym razem jest inna
 	 */
 	public void setSeed(){
-		System.out.println((long)(Math.random()*100000));
 		clientServiceTime.setSeed((long)(Math.random()*100000));
 		mealPrepareTime.setSeed((long)(Math.random()*100000));
 		clientTableDecision.setSeed((long)(Math.random()*100000));
@@ -331,7 +316,7 @@ public class Canteen extends Model implements Runnable
 	public void run()
 	{
 		// TODO Auto-generated method stub
-		exp = new Experiment("Symulacja stolowki");
+		exp = new Experiment("Symulacja sto³ówki");
 		connectToExperiment(exp);
 		exp.stop(new TimeInstant(3600*simTime, TimeUnit.SECONDS));
 		setDelay(10);
@@ -339,24 +324,6 @@ public class Canteen extends Model implements Runnable
 		exp.start();
 
 		exp.finish();
-		
-		System.out.println("All clients count - " + clientCount.getValue());
-		System.out.println("Klienci indywidualni - " + clientGenerator.clientGenerate);
-		System.out.println("Groups count - " + clientGenerator.groupClientGenerate);
-		System.out.println("Priviliged clients count - " + clientGenerator.privilageClientGenerate);
-		/*
-		System.out.println("All clients count - " + clientCount.getValue());
-		System.out.println("Zostali - " + clientStayed.getValue());
-		System.out.println("Zwiali przez brak jedzenia - " + clientLeftBecOfNoFood.getValue());
-		System.out.println("Zwiali przez dluga kolejke - " + clientLeftBecOfQueue.getValue());
-		System.out.println("Zwiali przez brak miejsca - " + clientLeftBecOfNoPlace.getValue());
-		System.out.println("Zwiali przez wysokie ceny - " + clientLeftBecOfPrice.getValue());
-		*/
-		System.out.println("Ilosc grup - " + clientGenerator.groupClientGenerate);
-		System.out.println("Sredni rozmiar grupy - " + groupSize.getMean());
-		System.out.println("Sredni czas obslugi klienta - " + serviceTimeStat.getMean()/60);
-		System.out.println("Sredni czas przygotowania dania - " + mealPrepareTimeStat.getMean()/60);
-		System.out.println("Sredni czas jedzenia dania - " + mealEatTimeStat.getMean()/60);
 		
 		myFrame.getContentPane().removeAll();
 		myFrame.getStatPanel().setStat();
@@ -589,14 +556,12 @@ public class Canteen extends Model implements Runnable
 	}
 	public void addCashier(){
 		Cashier cashier = new Cashier(this,"Cashier",false);
-		//cashierCount++;
 		cashiers.add(cashier);
 		change.firePropertyChange("cashiers", cashiers.size()-1, cashiers.size());
 		
 	}
 	public void addCook(){
 		Cook cook = new Cook(this,"Cashier",false);
-		//cookCount++;
 		cooks.add(cook);
 		
 	}

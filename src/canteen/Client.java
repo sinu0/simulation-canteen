@@ -60,7 +60,6 @@ public class Client extends SimProcess {
 						model.getClientStayed().update();
 						if (isPrivileged)
 						{
-						    System.out.println("Jestem uprzywilejowany");
 							addMeFirst();// jeżeli klient jest uprzywilejowany
 											// zostaje dodany na poczatek
 											// kolejki
@@ -76,10 +75,8 @@ public class Client extends SimProcess {
 									// kasjerka
 									// sama wyciaga go z kolejki
 						if (hasMeal) {// czy dosotal jedzenie
-							//model.getClientStayed().update();
 							if (model.getAvailableSeats() <= 0) { //jezeli jest brak siedzen klient oczekuje w kolejce na wolne siedzenie
 								addWaitingForTableQueue();
-								System.out.println("gdfg");
 								
 								passivate(); // czeaka az zwolnia sie miejsca w
 												// stolowce
@@ -117,20 +114,22 @@ public class Client extends SimProcess {
 						} else{
 							Canteen.clientLeftOnInitCount++;
 							model.getClientLeftBecOfNoFood().update();
-							System.out.println("Nie ma dla mnie jedzenia");
+							// Nie ma dla mnie jedzenia
 						}
 					} else{
 						Canteen.clientLeftOnInitCount++;
 						model.getClientLeftBecOfNoPlace().update();
-					System.out.println("Brak miejsca");}
+					// Brak miejsca
+					}
 				} else{
 					Canteen.clientLeftOnInitCount++;
 					model.getClientLeftBecOfQueue().update();
-				System.out.println("Za dluga kolejka ");}
+				// Za dluga kolejka
+				}
 			} else{
 				Canteen.clientLeftOnInitCount++;
 			model.getClientLeftBecOfPrice().update();
-			System.out.println("cena jest za wysoka");
+			// cena jest za wysoka
 
 		}
 			}
@@ -204,7 +203,6 @@ public class Client extends SimProcess {
 	}
 
 	public Client getFirstFromWaitingQueue() {
-		//model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() - 1);
@@ -215,7 +213,6 @@ public class Client extends SimProcess {
 	}
 
 	public void addWaitingForTableQueue() {
-		//model.getQueueForPlace().update(model.clientNoPleceQueue.size());
 		model.change.firePropertyChange("clientNoPlaceQueue",
 				model.clientNoPleceQueue.size(),
 				model.clientNoPleceQueue.size() + 1);

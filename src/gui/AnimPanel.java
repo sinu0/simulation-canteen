@@ -69,15 +69,12 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     for (int i=0;i<model.getTable2Count();i++)
     {
       int k=j/5;
-      //if (i>4) j=1;
         g.drawRect(100+(j-5*k)*130, 270+k*100, 80, 80);
       j++;
     }
     for (int i=0;i<model.getTable4Count();i++)
     {
-      //int j=0;
     	int k=j/5;
-      //if (i>4) j=1;
         g.drawRect(100+(j-5*k)*130, 270+k*100, 80, 80);
       j++;
     }
@@ -97,7 +94,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 		@Override
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
-			//System.out.println("ZMIENILEM WARTOSC");
 			speedLabel.setText("Prêdkoœæ - " + speedSlider.getValue());
 			model.setDelay(max - speedSlider.getValue());
 		}
@@ -158,7 +154,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	clientPlaceQueue.setBounds(100, 200, 300, 20);
 	add(clientPlaceQueue);
 	    
-	System.out.println("Model tables " + (model.getTable4Count()+model.getTable4Count()));
 	
 	
 	for (int i=0;i<model.getTables().size();i++)
@@ -169,22 +164,6 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
 	  add(label);
 	}
 	
-	/*
-	for (int i=0;i<model.getTable2Count();i++)
-	{
-	  JLabel label = new JLabel("0/2");
-	  tables.add(label);
-	  label.setBounds(100+i*30, 400, 100, 25);
-	  add(label);
-	}
-	for (int i=0;i<model.getTable4Count();i++)
-	{
-	  JLabel label = new JLabel("0/4");
-	  tables.add(label);
-	  label.setBounds(100+i*30, 400, 100, 25);
-	  add(label);
-	}
-	*/
   }
 
   @Override
@@ -201,12 +180,9 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     {	
     	
     	kotlet.setText("Kotlety: " + model.getDishesStorage().getValue("kotlet"));
-    	//wolowina.setText("Wolowina: " + model.getDishesStorage().getValue("wolownia"));
     	wolowina.setText("Wo³owina: " + model.getDishesStorage().getValue("wo³owina"));
     	ziemniaki.setText("Ziemniaki: " + model.getDishesStorage().getValue("ziemniaki"));
-    	//ryz.setText("Ryz: " + model.getDishesStorage().getValue("ryz"));
     	ryz.setText("Ry¿: " + model.getDishesStorage().getValue("ry¿"));
-    	//rosol.setText("Rosol: " + model.getDishesStorage().getValue("rosoÅ‚"));
     	rosol.setText("Rosó³: " + model.getDishesStorage().getValue("rosó³"));
     	pomidorowa.setText("Pomidorowa: " + model.getDishesStorage().getValue("pomidorowa"));
     	kompot.setText("Kompot: " + model.getDishesStorage().getValue("kompot"));
@@ -215,12 +191,7 @@ public class AnimPanel extends JPanel implements PropertyChangeListener
     if (event.getPropertyName().equals("cashiers"))
       cashier.setText("Kasjerzy: " + model.getCashiers().size());
     
-    if (event.getPropertyName().equals("cookCount"))
-      System.out.println("COOK COUNT" + event.getNewValue());
-    /*
-    if (event.getPropertyName().equals("Storage kompot"))
-        System.out.println("KUMPOT" + event.getNewValue());
-        */
+    
     if (event.getPropertyName().equals("table"))
     {
       for (int i=0;i<tables.size();i++)
